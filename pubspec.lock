@@ -137,15 +137,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.24.1"
-  sil_themes:
-    dependency: "direct main"
-    description:
-      path: sil_themes
-      ref: "0.0.162"
-      resolved-ref: "3f6377b04ce70f7dbb43ec99b098cb5d4176a2e5"
-      url: "https://sil_dart_utils:xiFnpjLHssG76bpWxUb9@gitlab.slade360emr.com/optimalhealth/sil_dart_utils.git"
-    source: git
-    version: "0.0.1"
   sky_engine:
     dependency: transitive
     description: flutter
