@@ -15,7 +15,7 @@ import '../lib/sil_loading.dart';
 import '../lib/utils/widget_keys.dart';
 
 void main() {
-  group('SILMisc', () {
+  group('SILPhoneNumberField', () {
     testWidgets('should render SILPhoneNumberField',
         (WidgetTester tester) async {
       const Key silPhoneInputKey = Key('sil_phone_input_key');
