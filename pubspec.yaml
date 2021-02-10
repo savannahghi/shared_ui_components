@@ -1,0 +1,34 @@
+name: sil_dumb_widgets
+description: A new Flutter package project.
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  country_pickers: ^1.3.0
+  pin_code_text_field: ^1.7.1
+  flutter_spinkit: ^3.1.0
+  intl: ^0.16.0
+  rxdart: ^0.24.0
+  http: ^0.12.0+4
+  sil_themes:
+   git:
+     url: https://sil_dart_utils:xiFnpjLHssG76bpWxUb9@gitlab.slade360emr.com/optimalhealth/sil_dart_utils.git
+     ref: 0.0.162
+     path: sil_themes
+     
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
