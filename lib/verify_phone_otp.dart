@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:sil_dumb_widgets/sil_snackbar.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
 
@@ -16,7 +17,6 @@ class VerifyPhoneOtp extends StatefulWidget {
   final Function setValues;
   final Function successCallBack;
   final Widget loader;
-  final ShowAlertSnackBarFunc showAlertSnackBar;
   final GenerateRetryOtpFunc generateOtpFunc;
   final dynamic client;
   final dynamic appWrapperContext;
@@ -31,7 +31,6 @@ class VerifyPhoneOtp extends StatefulWidget {
     @required this.otp,
     @required this.successCallBack,
     @required this.loader,
-    @required this.showAlertSnackBar,
     @required this.generateOtpFunc,
     @required this.client,
     @required this.retrySendOtpEndpoint,
@@ -124,7 +123,7 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
               return;
             }
             await HapticFeedback.vibrate();
-            widget.showAlertSnackBar(context, 'Invalid code');
+            showAlertSnackBar(context: context, message: 'Invalid code');
             textEditingController.clear();
           },
         ),
@@ -146,7 +145,6 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
                 String res = await showResendBottomSheet(
                   context: context,
                   phoneNo: widget.phoneNo,
-                  showAlertSnackBar: widget.showAlertSnackBar,
                   loader: widget.loader,
                   resetTimer: restartTimer,
                   generateOtpFunc: widget.generateOtpFunc,
