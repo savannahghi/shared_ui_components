@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:sil_dumb_widgets/sil_snackbar.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
 
@@ -25,7 +26,6 @@ class ResendPhoneCode extends StatefulWidget {
   final Function resetTimer;
   final ResendVia resendVia;
   final Widget loader;
-  final ShowAlertSnackBarFunc showAlertSnackBar;
   final dynamic client;
   final dynamic appWrapperContext;
 
@@ -40,7 +40,6 @@ class ResendPhoneCode extends StatefulWidget {
       @required this.phoneNumber,
       @required this.resetTimer,
       @required this.loader,
-      @required this.showAlertSnackBar,
       @required this.client,
       @required this.generateOtpFunc,
       @required this.retrySendOtpEndpoint,
@@ -87,7 +86,7 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
     } catch (e) {
       toggleResend();
       showErr(true);
-      widget.showAlertSnackBar(context);
+      showAlertSnackBar(context: context);
       throw SILException(cause: 'network_error', message: e.message);
     }
   }
@@ -113,7 +112,7 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
     } catch (e) {
       toggleResend();
       showErr(true);
-      widget.showAlertSnackBar(context);
+      showAlertSnackBar(context: context);
     }
   }
 
@@ -183,7 +182,6 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
 Future<String> showResendBottomSheet({
   @required BuildContext context,
   @required String phoneNo,
-  @required ShowAlertSnackBarFunc showAlertSnackBar,
   @required Widget loader,
   @required Function resetTimer,
   @required GenerateRetryOtpFunc generateOtpFunc,
@@ -241,7 +239,6 @@ Future<String> showResendBottomSheet({
               phoneNumber: phoneNo,
               resetTimer: resetTimer ?? () {},
               loader: loader,
-              showAlertSnackBar: showAlertSnackBar,
               appWrapperContext: appWrapperContext,
               client: client,
               retrySendOtpEndpoint: retrySendOtpEndpoint,
@@ -253,9 +250,14 @@ Future<String> showResendBottomSheet({
   );
   if (res.runtimeType == String) {
     showAlertSnackBar(
-        context, '${PhoneNoConstants.codeSent} $phoneNo', Colors.black);
+        context: context,
+        message: '${PhoneNoConstants.codeSent} $phoneNo',
+        type: SnackBarType.success);
     return res;
   }
-  showAlertSnackBar(context, PhoneNoConstants.resendCancel, Colors.black);
+  showAlertSnackBar(
+      context: context,
+      message: PhoneNoConstants.resendCancel,
+      type: SnackBarType.info);
   return 'err';
 }

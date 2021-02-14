@@ -34,10 +34,6 @@ class PhoneNoConstants {
       'That phone number does not exist, please enter the number you registered with';
 }
 
-/// [ShowAlertSnackBarFunc] a function that will be called to show a show for success or fail
-typedef ShowAlertSnackBarFunc = Function(BuildContext ctx,
-    [String msg, Color color]);
-
 ///GenerateRetryOtpFunc is the method that will called to generate and send an otp
 /// The signature should the one defined in sil_graphql_utils
 typedef GenerateRetryOtpFunc = Future<String> Function({
