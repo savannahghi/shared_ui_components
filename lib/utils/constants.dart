@@ -34,6 +34,19 @@ class PhoneNoConstants {
       'That phone number does not exist, please enter the number you registered with';
 }
 
+class TryNewFeatutesStrings {
+  static final String pageTitle = 'Try New Features settings';
+
+  static final String title = 'Want to be on the edge side';
+
+  static final String description =
+      'Be the first to see whats next for Be.Well. Join the community and give us your feedback to help make Be.Well even better, together. The new features will be unstable and might introduce unwanted breakage.';
+
+  static final String notice = 'You can always switch back anytime you want to';
+
+  static final String tryFeaturesImgUrl = 'assets/images/try_features.jpg';
+}
+
 ///GenerateRetryOtpFunc is the method that will called to generate and send an otp
 /// The signature should the one defined in sil_graphql_utils
 typedef GenerateRetryOtpFunc = Future<String> Function({
