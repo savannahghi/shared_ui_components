@@ -512,7 +512,7 @@ GestureDetector SILDatePickerField({
       );
     }
     String _convertDateToString(DateTime datePicked) {
-      return DateFormat('yyyy-MM-dd').format(datePicked);
+      return DateFormat('dd-MM-yyyy').format(datePicked);
     }
 
     if (selectedDate == null) return;
