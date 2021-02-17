@@ -59,3 +59,6 @@ final Map<String, String> requestHeaders = <String, String>{
   'Accept': 'application/json',
   'Content-Type': 'application/json',
 };
+
+final String bewellLogoNetworkUrl =
+    'https://assets.healthcloud.co.ke/bewell_logo.png';
