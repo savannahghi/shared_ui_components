@@ -94,6 +94,7 @@ class _CommunicationSettingItemState extends State<CommunicationSettingItem> {
           bool response = await widget.onTapHandler(
             channel: widget.type,
             isAllowed: !widget.isActive,
+            context: context,
           );
           if (!response) {
             throw 'Error';
