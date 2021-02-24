@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sil_dumb_widgets/sil_snackbar.dart';
+import 'package:sil_dumb_widgets/types/type_defs.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
 
@@ -51,7 +52,7 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
   Animation<double> animation;
   AnimationController _controller;
   String otp;
-  bool canresend = false;
+  bool canResend = false;
 
   @override
   void initState() {
@@ -84,7 +85,7 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
   void didChangeDependencies() {
     canResendOtp.listen((bool value) {
       setState(() {
-        canresend = value;
+        canResend = value;
       });
     });
     super.didChangeDependencies();
@@ -107,9 +108,9 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
     return Column(
       children: <Widget>[
         smallVerticalSizedBox,
-        SILPincodeTextField(
+        SILPinCodeTextField(
           controller: textEditingController,
-          autofocus: true,
+          autoFocus: true,
           maxLength: 6,
           pinBoxWidth: 40,
           pinBoxHeight: 48,
@@ -133,12 +134,12 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
           widget.loader,
         ],
         if (!loading) ...<Widget>[
-          if (!canresend)
+          if (!canResend)
             AnimatedCount(
               count: resendTimeout,
               duration: Duration(seconds: 0),
             ),
-          if (canresend)
+          if (canResend)
             SILSecondaryButton(
               textColor: Theme.of(context).primaryColor,
               onPressed: () async {

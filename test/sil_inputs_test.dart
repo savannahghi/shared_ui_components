@@ -35,7 +35,7 @@ void main() {
                     context: context,
                     controller: silPhoneInputController,
                     labelText: 'x',
-                    oncountrypicked: (dynamic value) {
+                    onCountryPicked: (dynamic value) {
                       selectedPhoneNumberFormat = value.phoneCode;
                     }),
               ),
@@ -177,19 +177,19 @@ void main() {
     });
 
     testWidgets('should render SILPhoneInput ', (WidgetTester tester) async {
-      Queue<int> phoneNumberInputCountroller = Queue<int>();
+      Queue<int> phoneNumberInputController = Queue<int>();
       await tester.pumpWidget(MaterialApp(
         home: Builder(builder: (BuildContext context) {
           return Scaffold(
               body: Container(
             child: SILPhoneInput(
-              inputController: phoneNumberInputCountroller,
+              inputController: phoneNumberInputController,
               labelText: 'x',
               labelStyle: TextThemes.boldSize16Text(),
               hintText: 'y',
               context: context,
               onChanged: (dynamic value) {
-                phoneNumberInputCountroller.add(1);
+                phoneNumberInputController.add(1);
               },
             ),
           ));
@@ -281,7 +281,7 @@ void main() {
                   controller: null,
                   initialValue: 'KE',
                   // ignore: non_constant_identifier_names
-                  oncountrypicked: (dynamic Country) {}));
+                  onCountryPicked: (dynamic Country) {}));
         }),
       ));
 
@@ -444,12 +444,12 @@ void main() {
     });
   });
 
-  group('SILPincodeTextField', () {
+  group('SILPinCodeTextField', () {
     testWidgets('should render correctly', (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: Builder(builder: (BuildContext context) {
           return Material(
-              child: SILPincodeTextField(
+              child: SILPinCodeTextField(
             maxLength: null,
             onDone: null,
           ));
@@ -458,8 +458,8 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      Finder pinCodeTextfield = find.byType(PinCodeTextField);
-      expect(pinCodeTextfield, findsOneWidget);
+      Finder pinCodeTextField = find.byType(PinCodeTextField);
+      expect(pinCodeTextField, findsOneWidget);
     });
   });
 

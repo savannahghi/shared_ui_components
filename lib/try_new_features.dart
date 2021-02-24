@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sil_dumb_widgets/sil_loading.dart';
+import 'package:sil_dumb_widgets/types/type_defs.dart';
 import 'package:sil_themes/colors.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
 import 'package:sil_dumb_widgets/utils/constants.dart';
-
-typedef SettingsFunc = Future<void> Function(
-    {@required bool value, @required BuildContext context});
 
 class TryNewFeatures extends StatefulWidget {
   final SettingsFunc settingsFunc;
@@ -20,7 +18,7 @@ class TryNewFeatures extends StatefulWidget {
 }
 
 class _TryNewFeaturesState extends State<TryNewFeatures> {
-  bool isProcesing = false;
+  bool isProcessing = false;
   Widget tryNewFeaturesBuilder() {
     return Column(
       children: <Widget>[
@@ -47,20 +45,20 @@ class _TryNewFeaturesState extends State<TryNewFeatures> {
               child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Image(
-                    image: AssetImage(TryNewFeatutesStrings.tryFeaturesImgUrl),
+                    image: AssetImage(TryNewFeatureStrings.tryFeaturesImgUrl),
                   )),
             ),
             mediumVerticalSizedBox,
             Column(
               children: <Widget>[
                 Text(
-                  TryNewFeatutesStrings.title,
+                  TryNewFeatureStrings.title,
                   textAlign: TextAlign.center,
                   style: TextThemes.heavySize20Text(),
                 ),
                 smallVerticalSizedBox,
                 Text(
-                  TryNewFeatutesStrings.description,
+                  TryNewFeatureStrings.description,
                   textAlign: TextAlign.center,
                   style:
                       TextThemes.normalSize13Text(grey).copyWith(height: 1.6),
@@ -69,24 +67,24 @@ class _TryNewFeaturesState extends State<TryNewFeatures> {
                 smallVerticalSizedBox,
               ],
             ),
-            if (isProcesing)
+            if (isProcessing)
               SILLoading(color: grey, type: SILLoadingType.Ripple),
-            if (!isProcesing)
+            if (!isProcessing)
               Switch.adaptive(
                   onChanged: (bool value) async {
                     setState(() {
-                      isProcesing = true;
+                      isProcessing = true;
                     });
 
                     await widget.settingsFunc(value: value, context: context);
 
                     setState(() {
-                      isProcesing = false;
+                      isProcessing = false;
                     });
                   },
                   value: widget.canExperiment),
             smallVerticalSizedBox,
-            Text(TryNewFeatutesStrings.notice),
+            Text(TryNewFeatureStrings.notice),
           ],
         ),
       ],

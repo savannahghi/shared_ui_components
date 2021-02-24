@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:sil_dumb_widgets/sil_snackbar.dart';
+import 'package:sil_dumb_widgets/types/type_defs.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
 
@@ -153,7 +154,7 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
               ListTile(
                 leading: Icon(Icons.chat),
                 title: Text(
-                  PhoneNoConstants.viaWhatsapp,
+                  PhoneNoConstants.viaWhatsApp,
                   style: TextThemes.normalSize16Text(),
                 ),
                 onTap: () {
@@ -163,7 +164,7 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
               ),
             ],
             if (hasErr) ...<Widget>[
-              Text('An error occured'),
+              Text('An error occurred'),
               size15VerticalSizedBox,
               SILSecondaryButton(
                 onPressed: () {

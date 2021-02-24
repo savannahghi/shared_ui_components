@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 final DateTime now = DateTime.now();
 final int currentYear = now.year;
 final int currentMonth = now.month;
@@ -29,12 +27,12 @@ class PhoneNoConstants {
   static final String codeSent = 'Code was resent successfully to';
   static final String resendCancel = 'Resend cancelled';
   static final String viaText = 'via Text Message';
-  static final String viaWhatsapp = 'via WhatsApp';
+  static final String viaWhatsApp = 'via WhatsApp';
   static final String noAccount =
       'That phone number does not exist, please enter the number you registered with';
 }
 
-class TryNewFeatutesStrings {
+class TryNewFeatureStrings {
   static final String pageTitle = 'Try New Features settings';
 
   static final String title = 'Want to be on the edge side';
@@ -46,14 +44,6 @@ class TryNewFeatutesStrings {
 
   static final String tryFeaturesImgUrl = 'assets/images/try_features.jpg';
 }
-
-///GenerateRetryOtpFunc is the method that will called to generate and send an otp
-/// The signature should the one defined in sil_graphql_utils
-typedef GenerateRetryOtpFunc = Future<String> Function({
-  @required String phoneNumber,
-  @required int step,
-  @required dynamic client,
-});
 
 final Map<String, String> requestHeaders = <String, String>{
   'Accept': 'application/json',

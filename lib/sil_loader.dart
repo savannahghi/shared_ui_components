@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sil_dumb_widgets/utils/widget_keys.dart';
 import 'package:sil_themes/colors.dart';
 
 class SILLoader extends StatelessWidget {
@@ -15,7 +16,7 @@ class SILLoader extends StatelessWidget {
     return Center(
       child: _platform == TargetPlatform.iOS
           ? CupertinoTheme(
-              key: Key('InboxCupertinoThemeKey'),
+              key: iosLoaderThemeKey,
               data: CupertinoTheme.of(context).copyWith(brightness: brightness),
               child: CupertinoActivityIndicator(radius: 16),
             )

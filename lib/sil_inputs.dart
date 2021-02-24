@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
+import 'package:sil_dumb_widgets/types/type_defs.dart';
 import 'package:sil_themes/colors.dart';
 import 'package:sil_themes/text_themes.dart';
 import 'package:intl/intl.dart';
@@ -29,7 +30,7 @@ import 'utils/widget_keys.dart';
 ///
 /// ```dart
 /// SILPhoneInput(
-///   inputController: phoneNumberInputCountroller,
+///   inputController: phoneNumberInputController,
 ///   enableController: null,
 ///   smallHorizontalSizedBox: smallVerticalSizedBox,
 ///   labelStyle: TextThemes.boldSize16Text(),
@@ -37,7 +38,7 @@ import 'utils/widget_keys.dart';
 ///   hintText: 'Enter your phone number',
 ///   context: context,
 ///   onChanged: (dynamic val) {
-///     this.phoneNumberInputCountroller.add(1); // how the inputController is updated
+///     this.phoneNumberInputController.add(1); // how the inputController is updated
 ///     phoneNumber = val;
 ///   },
 /// ),
@@ -68,11 +69,11 @@ class SILPhoneInput extends FormField<String> {
     bool enabled,
     String hintText,
     String initialValue = '',
-    bool autovalidate = true,
+    bool autoValidate = true,
     Map<String, String> data,
   }) : super(
             enabled: enabled ?? true,
-            autovalidateMode: autovalidate
+            autovalidateMode: autoValidate
                 ? AutovalidateMode.always
                 : AutovalidateMode.disabled,
             validator: (dynamic value) {
@@ -154,11 +155,11 @@ class SILPhoneInput extends FormField<String> {
                           onValuePicked: (Country country) {
                             data['countryCode'] = country.phoneCode;
 
-                            String formatedPhoneNumber = formatPhoneNumber(
+                            String formattedPhoneNumber = formatPhoneNumber(
                                 countryCode: data['countryCode'],
                                 phoneNumber: data['phoneNumber']);
-                            state.didChange(formatedPhoneNumber);
-                            onChanged(formatedPhoneNumber);
+                            state.didChange(formattedPhoneNumber);
+                            onChanged(formattedPhoneNumber);
                           },
                         ),
                         decoration: BoxDecoration(
@@ -214,9 +215,6 @@ class SILPhoneInput extends FormField<String> {
             });
 }
 
-/// callback that is passed to a form fields [onChanged] of [onValue]
-typedef FormFieldCallback = dynamic Function(dynamic value);
-
 class DateFormatter {
   final String dateValue;
 
@@ -261,7 +259,7 @@ class DateFormatter {
 ///       to fit the needs of `patient identification search`
 ///   2. [isSearchFieldSmall] is used to make the input field smaller than normal
 ///       so it can look like a nice search box
-///   3. [autofocus] - if this value is set to true, the input is automatically
+///   3. [autoFocus] - if this value is set to true, the input is automatically
 ///       focused the moment the UI containing that widget is rendered
 ///   4. [context] is used when applying the active and focused colors depending
 ///       on the provided context. For example getting colors from [Theme.of(context)]
@@ -291,7 +289,7 @@ TextFormField SILFormTextField({
   Key key,
   bool autoValidate = false,
   bool isSearchFieldSmall,
-  bool autofocus,
+  bool autoFocus,
   List<TextInputFormatter> inputFormatters,
   Widget prefixIcon,
   TextInputAction textInputAction,
@@ -358,7 +356,7 @@ TextFormField SILFormTextField({
       focusColor: healthcloudAccentColor,
     ),
     cursorColor: healthcloudAccentColor,
-    autofocus: autofocus ?? false,
+    autofocus: autoFocus ?? false,
     enabled: enabled ?? true,
     style: textStyle ??
         Theme.of(context)
@@ -394,7 +392,7 @@ TextFormField SILFormTextField({
 ///   labelText: 'Diagnosis date',
 ///   hintText: 'Select Diagnosis date',
 ///   controller: diagnosisDateController,
-///   keyboardType: TextInputType.datetime,
+///   keyboardType: TextInputType.dateTime,
 ///   onChanged: (dynamic value) {
 ///     <do-something-awesome-here>
 ///   },
@@ -419,9 +417,9 @@ TextFormField SILFormTextField({
 /// with a few tweaks and customizations namely:
 ///   1. [allowCurrentYear] allows the date picker widget to alow dates to include
 ///       the current year that can be gotten from [DateTime().now.year]
-///   2. [allowFutureYears] allows the datepicker to accept date selection of
+///   2. [allowFutureYears] allows the date picker to accept date selection of
 ///       future dates
-///   3. [allowEligibleDate] - allows selection of dates upto the eligible year
+///   3. [allowEligibleDate] - allows selection of dates up to the eligible year
 ///      which is defined in [lib/shared/constants/date_time/date_time_constants.dart]
 ///
 // ignore: non_constant_identifier_names
@@ -471,8 +469,8 @@ GestureDetector SILDatePickerField({
                 initialDateTime: allowCurrentYear
                     ? DateTime(currentYear, currentMonth, currentDay)
                     : eligibleYear,
-                onDateTimeChanged: (DateTime newdate) {
-                  selectedDate = newdate;
+                onDateTimeChanged: (DateTime newDate) {
+                  selectedDate = newDate;
                 },
                 minimumDate: allowCurrentYear
                     ? DateTime(currentYear, currentMonth, currentDay)
@@ -603,10 +601,8 @@ GestureDetector SILTimePicker({
                 minuteInterval: 1,
                 initialDateTime: minimumDateTime,
                 minimumDate: minimumDateTime,
-                onDateTimeChanged: (DateTime changedtimer) {
-                  picked = TimeOfDay.fromDateTime(
-                    changedtimer,
-                  );
+                onDateTimeChanged: (DateTime changedTimer) {
+                  picked = TimeOfDay.fromDateTime(changedTimer);
                 },
               ),
             );
@@ -758,7 +754,7 @@ InputDecorator SILSelectOptionField({
 ///   controller: phoneNumberInputController,
 /// ),
 /// ```
-/// The [oncountrypicked] callback is called when the country is
+/// The [onCountryPicked] callback is called when the country is
 /// changed by the user
 // ignore: non_constant_identifier_names
 Row SILPhoneNumberField({
@@ -771,7 +767,7 @@ Row SILPhoneNumberField({
   bool enabled,
   dynamic initialValue,
   FocusNode focusNode,
-  @required FormFieldCallback oncountrypicked,
+  @required FormFieldCallback onCountryPicked,
   @required TextEditingController controller,
 }) {
   RegExp phoneValidator = RegExp(r'^[()\d -]{1,15}$');
@@ -797,7 +793,7 @@ Row SILPhoneNumberField({
                   .map((dynamic c) => CountryPickerUtils.getCountryByIsoCode(c))
                   .toList(),
               itemFilter: (dynamic c) => _priorityCountries.contains(c.isoCode),
-              onValuePicked: (Country country) => oncountrypicked(country),
+              onValuePicked: (Country country) => onCountryPicked(country),
             ),
       Flexible(
         child: SILFormTextField(
@@ -938,24 +934,24 @@ PinBoxDecoration customRoundedPinBoxDecoration = (
       borderRadius: BorderRadius.all(Radius.circular(8)));
 };
 
-class SILPincodeTextField extends StatelessWidget {
+class SILPinCodeTextField extends StatelessWidget {
   final int maxLength;
   final Function onTextChanged;
   final Function onDone;
   final double pinBoxWidth;
   final double pinBoxHeight;
-  final bool autofocus;
+  final bool autoFocus;
   final WrapAlignment wrapAlignment;
   final TextEditingController controller;
   final TextInputType keyboardType;
   final FocusNode focusNode;
 
-  const SILPincodeTextField({
+  const SILPinCodeTextField({
     Key key,
     @required this.maxLength,
     this.onTextChanged,
     @required this.onDone,
-    this.autofocus = false,
+    this.autoFocus = false,
     this.wrapAlignment = WrapAlignment.spaceBetween,
     this.pinBoxHeight = 50.0,
     this.pinBoxWidth = 50.0,
@@ -968,7 +964,7 @@ class SILPincodeTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return PinCodeTextField(
       controller: controller,
-      autofocus: autofocus,
+      autofocus: autoFocus,
       hideCharacter: true,
       highlight: true,
       focusNode: focusNode,
