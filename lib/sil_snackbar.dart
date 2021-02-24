@@ -26,7 +26,7 @@ showAlertSnackBar({
         textAlign: TextAlign.start,
         style: TextThemes.normalSize12Text().copyWith(height: 1.3),
       ),
-      duration: Duration(seconds: kShortsnackBarDuration),
+      duration: Duration(seconds: kShortSnackBarDuration),
     ));
   return;
 }
