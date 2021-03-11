@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sil_dumb_widgets/utils/widget_keys.dart';
+import 'package:sil_ui_components/utils/widget_keys.dart';
 import 'package:sil_themes/colors.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
@@ -10,7 +10,7 @@ class SILBadge extends StatelessWidget {
   final String text;
   final BadgeType type;
 
-  SILBadge({@required this.text, this.type = BadgeType.info});
+  const SILBadge({required this.text, this.type = BadgeType.info});
 
   @override
   Widget build(BuildContext context) {
@@ -18,22 +18,22 @@ class SILBadge extends StatelessWidget {
         //error badge
         ? Container(
             key: dangerBadgeContainerKey,
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            child: Text(text, style: TextThemes.heavySize10Text(red)),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
               color: red.withOpacity(0.2),
               borderRadius: BorderRadius.circular(25),
             ),
+            child: Text(text, style: TextThemes.heavySize10Text(red)),
           )
         //info badge
         : Container(
             key: infoBadgeContainerKey,
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            child: Text(text, style: TextThemes.heavySize10Text(white)),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
               gradient: getAppGradient(context),
               borderRadius: BorderRadius.circular(25),
             ),
+            child: Text(text, style: TextThemes.heavySize10Text(white)),
           );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import '../lib/sil_buttons.dart';
+import 'package:sil_ui_components/sil_buttons.dart';
 
 void main() {
   group('SILPrimaryButton', () {
@@ -62,7 +61,7 @@ void main() {
         ),
       ));
 
-      expect(find.byType(OutlineButton), findsOneWidget);
+      expect(find.byType(OutlinedButton), findsOneWidget);
       expect(
           tester.widget(find.byType(SILSecondaryButton)),
           isA<SILSecondaryButton>().having(
@@ -105,7 +104,7 @@ void main() {
         ),
       ));
 
-      expect(find.byType(FlatButton), findsOneWidget);
+      expect(find.byType(TextButton), findsOneWidget);
 
       await tester.tap(find.byKey(buttonKey));
       await tester.pumpAndSettle();

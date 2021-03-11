@@ -1,3 +1,3 @@
-# sil_dumb_widgets
+# sil_ui_components
 
 TODO: add documentation

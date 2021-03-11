@@ -7,10 +7,10 @@ enum SILLoadingType { CubeGrid, FoldingCube, ChasingDots, Ripple }
 
 class SILLoading extends StatelessWidget {
   final SILLoadingType type;
-  final Color color;
+  final Color? color;
   final double size;
 
-  SILLoading(
+  const SILLoading(
       {@required this.color,
       this.type = SILLoadingType.CubeGrid,
       this.size = 50});
@@ -24,7 +24,6 @@ class SILLoading extends StatelessWidget {
           color: this.color,
           size: this.size,
         );
-        break;
       case SILLoadingType.FoldingCube:
         return SpinKitFadingCube(
           key: foldingCubeKey,

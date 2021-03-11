@@ -2,8 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:sil_dumb_widgets/sil_snackbar.dart';
-import 'package:sil_dumb_widgets/types/type_defs.dart';
+import 'package:sil_ui_components/types/type_defs.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
 
@@ -37,16 +36,14 @@ class ResendPhoneCode extends StatefulWidget {
   final Function retrySendOtpEndpoint;
 
   const ResendPhoneCode(
-      {Key key,
-      @required this.phoneNumber,
-      @required this.resetTimer,
-      @required this.loader,
-      @required this.client,
-      @required this.generateOtpFunc,
-      @required this.retrySendOtpEndpoint,
-      @required this.appWrapperContext,
-      this.resendVia = ResendVia.endpoint})
-      : super(key: key);
+      {required this.phoneNumber,
+      required this.resetTimer,
+      required this.loader,
+      required this.client,
+      required this.generateOtpFunc,
+      required this.retrySendOtpEndpoint,
+      required this.appWrapperContext,
+      this.resendVia = ResendVia.endpoint});
   @override
   _ResendPhoneCodeState createState() => _ResendPhoneCodeState();
 }
@@ -56,7 +53,7 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
   bool resending = false;
   bool hasErr = false;
   int step = 1;
-  Function resendCode;
+  late Function resendCode;
 
   @override
   void initState() {
@@ -67,10 +64,10 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
 
   Future<void> endpointResend(BuildContext context) async {
     toggleResend();
-    showErr(false);
+    showErr(val: false);
     try {
-      http.Response response = await http.Client().post(
-        widget.retrySendOtpEndpoint(widget.appWrapperContext),
+      final http.Response response = await http.Client().post(
+        widget.retrySendOtpEndpoint(widget.appWrapperContext) as Uri,
         body: json.encode(<String, dynamic>{
           'phoneNumber': widget.phoneNumber,
           'retryStep': step,
@@ -86,18 +83,17 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
       toggleResend();
     } catch (e) {
       toggleResend();
-      showErr(true);
-      showAlertSnackBar(context: context);
-      throw SILException(cause: 'network_error', message: e.message);
+      showErr(val: true);
+      throw SILException(cause: 'network_error', message: e.toString());
     }
   }
 
   Future<void> graphResend(BuildContext context) async {
     toggleResend();
-    showErr(false);
+    showErr(val: false);
     try {
       // do the resend here
-      dynamic otp = await widget.generateOtpFunc(
+      final dynamic otp = await widget.generateOtpFunc(
           client: widget.client, phoneNumber: widget.phoneNumber, step: step);
 
       if (otp == 'Error') {
@@ -112,8 +108,7 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
       }
     } catch (e) {
       toggleResend();
-      showErr(true);
-      showAlertSnackBar(context: context);
+      showErr(val: true);
     }
   }
 
@@ -123,9 +118,9 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
     });
   }
 
-  void showErr(bool val) {
+  void showErr({bool? val}) {
     setState(() {
-      hasErr = val;
+      hasErr = val!;
     });
   }
 
@@ -133,15 +128,15 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
   Widget build(BuildContext context) {
     return AnimatedSize(
       vsync: this,
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
       child: Container(
-        constraints: BoxConstraints(maxWidth: 500),
+        constraints: const BoxConstraints(maxWidth: 500),
         child: Column(
           children: <Widget>[
             if (resending) widget.loader,
             if (!resending) ...<Widget>[
               ListTile(
-                leading: Icon(Icons.message_outlined),
+                leading: const Icon(Icons.message_outlined),
                 title: Text(
                   PhoneNoConstants.viaText,
                   style: TextThemes.normalSize16Text(),
@@ -152,7 +147,7 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
                 },
               ),
               ListTile(
-                leading: Icon(Icons.chat),
+                leading: const Icon(Icons.chat),
                 title: Text(
                   PhoneNoConstants.viaWhatsApp,
                   style: TextThemes.normalSize16Text(),
@@ -164,7 +159,7 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
               ),
             ],
             if (hasErr) ...<Widget>[
-              Text('An error occurred'),
+              const Text('An error occurred'),
               size15VerticalSizedBox,
               SILSecondaryButton(
                 onPressed: () {
@@ -181,16 +176,16 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
 }
 
 Future<String> showResendBottomSheet({
-  @required BuildContext context,
-  @required String phoneNo,
-  @required Widget loader,
-  @required Function resetTimer,
-  @required GenerateRetryOtpFunc generateOtpFunc,
-  @required dynamic appWrapperContext,
-  @required dynamic client,
-  @required Function retrySendOtpEndpoint,
+  required BuildContext context,
+  required String phoneNo,
+  required Widget loader,
+  required Function? resetTimer,
+  required GenerateRetryOtpFunc generateOtpFunc,
+  required dynamic appWrapperContext,
+  required dynamic client,
+  required Function retrySendOtpEndpoint,
 }) async {
-  dynamic res = await showModalBottomSheet<dynamic>(
+  final dynamic res = await showModalBottomSheet<dynamic>(
     context: context,
     builder: (BuildContext context) {
       return Column(
@@ -199,6 +194,10 @@ Future<String> showResendBottomSheet({
         children: <Widget>[
           Container(
             height: 50,
+            decoration: BoxDecoration(
+                border: Border(
+              bottom: BorderSide(color: Colors.grey.withOpacity(0.3)),
+            )),
             child: Stack(
               children: <Widget>[
                 Padding(
@@ -229,10 +228,6 @@ Future<String> showResendBottomSheet({
                 ),
               ],
             ),
-            decoration: BoxDecoration(
-                border: Border(
-              bottom: BorderSide(color: Colors.grey.withOpacity(0.3)),
-            )),
           ),
           // ---
           size15VerticalSizedBox,
@@ -250,15 +245,17 @@ Future<String> showResendBottomSheet({
     },
   );
   if (res.runtimeType == String) {
-    showAlertSnackBar(
-        context: context,
-        message: '${PhoneNoConstants.codeSent} $phoneNo',
-        type: SnackBarType.success);
-    return res;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('${PhoneNoConstants.codeSent} $phoneNo'),
+      ),
+    );
+    return res as Future<String>;
   }
-  showAlertSnackBar(
-      context: context,
-      message: PhoneNoConstants.resendCancel,
-      type: SnackBarType.info);
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      content: Text(PhoneNoConstants.resendCancel),
+    ),
+  );
   return 'err';
 }

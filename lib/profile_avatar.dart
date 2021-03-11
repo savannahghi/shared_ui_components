@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sil_dumb_widgets/utils/constants.dart';
+import 'package:sil_ui_components/utils/constants.dart';
 
 class ProfileAvatar extends StatelessWidget {
-  final String photoUrl;
+  final String? photoUrl;
 
-  const ProfileAvatar({Key key, @required this.photoUrl}) : super(key: key);
+  const ProfileAvatar({required this.photoUrl});
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 100,
       width: 100,
       child: CircleAvatar(

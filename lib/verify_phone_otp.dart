@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:sil_dumb_widgets/sil_snackbar.dart';
-import 'package:sil_dumb_widgets/types/type_defs.dart';
+import 'package:sil_ui_components/types/type_defs.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
 
@@ -13,21 +12,21 @@ import 'sil_inputs.dart';
 import 'utils/constants.dart';
 
 class VerifyPhoneOtp extends StatefulWidget {
-  final String phoneNo;
-  final String otp;
-  final Function setValues;
-  final Function successCallBack;
-  final Widget loader;
-  final GenerateRetryOtpFunc generateOtpFunc;
-  final dynamic client;
-  final dynamic appWrapperContext;
-  final BuildContext context;
+  final String? phoneNo;
+  final String? otp;
+  final Function? setValues;
+  final Function? successCallBack;
+  final Widget? loader;
+  final GenerateRetryOtpFunc? generateOtpFunc;
+  final dynamic? client;
+  final dynamic? appWrapperContext;
+  final BuildContext? context;
 
   /// endpoint
-  final Function retrySendOtpEndpoint;
+  final Function? retrySendOtpEndpoint;
 
   const VerifyPhoneOtp({
-    Key key,
+    Key? key,
     @required this.phoneNo,
     @required this.otp,
     @required this.successCallBack,
@@ -49,9 +48,9 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
   bool loading = false;
   BehaviorSubject<bool> canResendOtp = BehaviorSubject<bool>.seeded(false);
   int resendTimeout = 30;
-  Animation<double> animation;
-  AnimationController _controller;
-  String otp;
+  Animation<double>? animation;
+  late AnimationController? _controller;
+  String? otp;
   bool canResend = false;
 
   @override
@@ -61,23 +60,23 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
     _controller =
         AnimationController(duration: const Duration(seconds: 30), vsync: this);
     animation = Tween<double>(begin: resendTimeout.toDouble(), end: 0)
-        .animate(_controller)
+        .animate(_controller!)
           ..addListener(() {
             if (resendTimeout == 0) {
               canResendOtp.add(true);
             }
             setState(() {
-              resendTimeout = int.parse(animation.value.toStringAsFixed(0));
+              resendTimeout = int.parse(animation!.value.toStringAsFixed(0));
             });
           });
-    _controller.forward();
+    _controller!.forward();
     super.initState();
   }
 
   void restartTimer() {
     resendTimeout = 30;
-    _controller.value = 0;
-    _controller.forward();
+    _controller!.value = 0;
+    _controller!.forward();
     canResendOtp.add(false);
   }
 
@@ -99,7 +98,7 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -119,38 +118,42 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
           onDone: (String v) async {
             if (v == otp) {
               toggleLoading();
-              widget.successCallBack(otp: otp, toggleLoading: toggleLoading);
+              widget.successCallBack!(otp: otp, toggleLoading: toggleLoading);
               toggleLoading();
               return;
             }
             await HapticFeedback.vibrate();
-            showAlertSnackBar(context: context, message: 'Invalid code');
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Invalid Code'),
+              ),
+            );
             textEditingController.clear();
           },
         ),
         largeVerticalSizedBox,
         if (loading) ...<Widget>[
           mediumVerticalSizedBox,
-          widget.loader,
+          widget.loader!,
         ],
         if (!loading) ...<Widget>[
           if (!canResend)
             AnimatedCount(
               count: resendTimeout,
-              duration: Duration(seconds: 0),
+              duration: const Duration(),
             ),
           if (canResend)
             SILSecondaryButton(
               textColor: Theme.of(context).primaryColor,
               onPressed: () async {
-                String res = await showResendBottomSheet(
+                final String res = await showResendBottomSheet(
                   context: context,
-                  phoneNo: widget.phoneNo,
-                  loader: widget.loader,
+                  phoneNo: widget.phoneNo!,
+                  loader: widget.loader!,
                   resetTimer: restartTimer,
-                  generateOtpFunc: widget.generateOtpFunc,
+                  generateOtpFunc: widget.generateOtpFunc!,
                   client: widget.client,
-                  retrySendOtpEndpoint: widget.retrySendOtpEndpoint,
+                  retrySendOtpEndpoint: widget.retrySendOtpEndpoint!,
                   appWrapperContext: widget.appWrapperContext,
                 );
                 if (res != 'err') {
@@ -161,7 +164,7 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
             ),
           size15VerticalSizedBox,
           if (widget.setValues != null)
-            FlatButton(
+            TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },

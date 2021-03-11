@@ -4,12 +4,11 @@ import 'package:sil_themes/text_themes.dart';
 class AnimatedCount extends ImplicitlyAnimatedWidget {
   final int count;
 
-  AnimatedCount(
-      {Key key,
-      @required this.count,
-      @required Duration duration,
+  const AnimatedCount(
+      {required this.count,
+      required Duration duration,
       Curve curve = Curves.linear})
-      : super(duration: duration, curve: curve, key: key);
+      : super(duration: duration, curve: curve);
 
   @override
   ImplicitlyAnimatedWidgetState<ImplicitlyAnimatedWidget> createState() =>
@@ -17,16 +16,16 @@ class AnimatedCount extends ImplicitlyAnimatedWidget {
 }
 
 class _AnimatedCountState extends AnimatedWidgetBaseState<AnimatedCount> {
-  IntTween _count;
+  IntTween? _count;
 
   @override
   Widget build(BuildContext context) {
     return Text.rich(
       TextSpan(
         children: <TextSpan>[
-          TextSpan(text: 'Resend in '),
+          const TextSpan(text: 'Resend in '),
           TextSpan(
-              text: _count.evaluate(animation).toString(),
+              text: _count!.evaluate(animation).toString(),
               style: TextThemes.heavySize14Text(Colors.black)),
         ],
       ),
@@ -34,8 +33,8 @@ class _AnimatedCountState extends AnimatedWidgetBaseState<AnimatedCount> {
   }
 
   @override
-  void forEachTween(TweenVisitor visitor) {
-    _count = visitor(
-        _count, widget.count, (dynamic value) => IntTween(begin: value));
+  void forEachTween(TweenVisitor<dynamic> visitor) {
+    _count = visitor(_count, widget.count,
+        (dynamic value) => IntTween(begin: value as int))! as IntTween;
   }
 }

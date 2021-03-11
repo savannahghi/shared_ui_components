@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sil_themes/text_themes.dart';
 
+typedef OnPressed = Function(String val);
+
 class SILPrimaryButton extends StatelessWidget {
   const SILPrimaryButton(
       {this.buttonKey,
+      // ignore: tighten_type_of_initializing_formals
       @required this.onPressed,
       this.onLongPress,
       this.text,
@@ -16,17 +19,17 @@ class SILPrimaryButton extends StatelessWidget {
       this.customElevation})
       : assert(onPressed != null, text != null || customChild != null);
 
-  final Color borderColor;
-  final Color buttonColor;
-  final Key buttonKey;
-  final Widget customChild;
-  final double customElevation;
-  final EdgeInsets customPadding;
-  final double customRadius;
-  final Function onLongPress;
-  final Function onPressed;
-  final String text;
-  final Color textColor;
+  final Color? borderColor;
+  final Color? buttonColor;
+  final Key? buttonKey;
+  final Widget? customChild;
+  final double? customElevation;
+  final EdgeInsets? customPadding;
+  final double? customRadius;
+  final Function? onLongPress;
+  final Function? onPressed;
+  final String? text;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +38,13 @@ class SILPrimaryButton extends StatelessWidget {
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       elevation: customElevation ?? 0,
-      onPressed: onPressed,
-      onLongPress: onLongPress ?? () {},
-      padding: customPadding ?? EdgeInsets.all(10),
-      child: customChild ??
-          Text(text ?? '',
-              style: TextThemes.veryBoldSize15Text(textColor ?? Colors.white)),
+      onPressed: () {
+        onPressed!();
+      },
+      onLongPress: () {
+        onLongPress!();
+      },
+      padding: customPadding ?? const EdgeInsets.all(10),
       fillColor: buttonColor ?? Theme.of(context).accentColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(customRadius ?? 25.0),
@@ -48,6 +52,9 @@ class SILPrimaryButton extends StatelessWidget {
             color: borderColor ?? Theme.of(context).accentColor,
             width: borderColor != null ? 1 : 0),
       ),
+      child: customChild ??
+          Text(text ?? '',
+              style: TextThemes.veryBoldSize15Text(textColor ?? Colors.white)),
     );
   }
 }
@@ -68,41 +75,32 @@ class SILSecondaryButton extends StatelessWidget {
     this.customElevation,
   }) : assert(onPressed != null, text != null || customChild != null);
 
-  final bool addBorder;
-  final Color borderColor;
-  final Color buttonColor;
-  final Key buttonKey;
-  final Widget customChild;
-  final double customElevation;
-  final EdgeInsets customPadding;
-  final double customRadius;
-  final Function onPressed;
-  final String text;
-  final Color textColor;
-  final Function onLongPress;
+  final bool? addBorder;
+  final Color? borderColor;
+  final Color? buttonColor;
+  final Key? buttonKey;
+  final Widget? customChild;
+  final double? customElevation;
+  final EdgeInsets? customPadding;
+  final double? customRadius;
+  final Function? onPressed;
+  final String? text;
+  final Color? textColor;
+  final Function? onLongPress;
 
   @override
   Widget build(BuildContext context) {
-    return OutlineButton(
+    return OutlinedButton(
       key: buttonKey,
-      onPressed: onPressed,
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      padding:
-          customPadding ?? EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      onPressed: () {
+        onPressed!();
+      },
       child: customChild ??
           Text(
             text ?? '',
             style: TextThemes.veryBoldSize15Text(
                 textColor ?? Theme.of(context).primaryColor),
           ),
-      color: buttonColor ?? Theme.of(context).accentColor,
-      borderSide: addBorder == true
-          ? BorderSide(
-              color: borderColor ?? Theme.of(context).accentColor, width: 1)
-          : null,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(customRadius ?? 25.0)),
     );
   }
 }
@@ -117,53 +115,55 @@ class SILNoBorderButton extends StatelessWidget {
       this.customChild})
       : assert(onPressed != null && text != null);
 
-  final Key buttonKey;
-  final Widget customChild;
-  final Function onLongPress;
-  final Function onPressed;
-  final String text;
-  final Color textColor;
+  final Key? buttonKey;
+  final Widget? customChild;
+  final Function? onLongPress;
+  final Function? onPressed;
+  final String? text;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return TextButton(
       key: buttonKey,
-      onPressed: onPressed,
-      onLongPress: onLongPress ?? () {},
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      onPressed: () {
+        onPressed!();
+      },
+      onLongPress: () {
+        onLongPress!();
+      },
       child: customChild ??
           Text(
             text ?? '',
             style: TextThemes.veryBoldSize15Text(
                 textColor ?? Theme.of(context).primaryColor),
           ),
-      textColor: textColor ?? Theme.of(context).primaryColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
     );
   }
 }
 
 class SILIconButton extends StatelessWidget {
-  const SILIconButton({Key key, @required this.icon, this.callback})
+  const SILIconButton({Key? key, @required this.icon, this.callback})
       : super(key: key);
 
-  final Function callback;
-  final int elevation = 0;
-  final IconData icon;
+  final Function? callback;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      constraints: BoxConstraints(minWidth: 50, minHeight: 50),
-      onPressed: callback,
-      child: Container(
+      constraints: const BoxConstraints(minWidth: 50, minHeight: 50),
+      onPressed: () {
+        callback!();
+      },
+      shape: const CircleBorder(),
+      elevation: 0,
+      fillColor: Theme.of(context).accentColor,
+      child: SizedBox(
         height: 25,
         width: 25,
         child: Icon(icon, color: Colors.white, size: 25),
       ),
-      shape: CircleBorder(),
-      elevation: 0,
-      fillColor: Theme.of(context).accentColor,
     );
   }
 }

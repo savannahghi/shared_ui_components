@@ -1,14 +1,13 @@
 import 'dart:collection';
 import 'dart:io';
 
-import 'package:country_pickers/country.dart';
-import 'package:country_pickers/country_picker_dropdown.dart';
-import 'package:country_pickers/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
-import 'package:sil_dumb_widgets/types/type_defs.dart';
+import 'package:sil_ui_components/sil_country_picker.dart';
+import 'package:sil_ui_components/types/type_defs.dart';
+import 'package:sil_ui_components/utils/helpers.dart';
 import 'package:sil_themes/colors.dart';
 import 'package:sil_themes/text_themes.dart';
 import 'package:intl/intl.dart';
@@ -45,53 +44,37 @@ import 'utils/widget_keys.dart';
 /// ```
 ///
 ///
-String formatPhoneNumber(
-    {@required String countryCode, @required String phoneNumber}) {
-  if (!countryCode.startsWith('+')) {
-    countryCode = '+$countryCode';
-  }
-  if (countryCode == '+1') {
-    return '$countryCode$phoneNumber';
-  }
-  if (phoneNumber.startsWith('0')) {
-    phoneNumber = phoneNumber.substring(1);
-  }
-  return '$countryCode$phoneNumber';
-}
 
 class SILPhoneInput extends FormField<String> {
   SILPhoneInput({
-    @required Queue<int> inputController,
-    @required FormFieldSetter<String> onChanged,
-    @required BuildContext context,
-    @required String labelText,
-    @required TextStyle labelStyle,
-    bool enabled,
-    String hintText,
-    String initialValue = '',
-    bool autoValidate = true,
-    Map<String, String> data,
+    @required Queue<int>? inputController,
+    @required FormFieldSetter<String>? onChanged,
+    @required String? labelText,
+    @required TextStyle? labelStyle,
+    bool? enabled,
+    String? initialValue = '',
+    bool? autoValidate = true,
+    Map<String, String>? data,
   }) : super(
             enabled: enabled ?? true,
-            autovalidateMode: autoValidate
+            autovalidateMode: autoValidate!
                 ? AutovalidateMode.always
                 : AutovalidateMode.disabled,
             validator: (dynamic value) {
-              RegExp kenyanRegExp = RegExp(r'^[0-9]{9}$');
-              RegExp usRegExp = RegExp(r'^[0-9]{10}$');
+              final RegExp kenyanRegExp = RegExp(r'^[0-9]{9}$');
+              final RegExp usRegExp = RegExp(r'^[0-9]{10}$');
               // check if the user has interacted with the input field
-              if (inputController.isEmpty) {
+              if (inputController!.isEmpty) {
                 return null;
               }
-              if (inputController.isEmpty && value.isEmpty) {
+              if (inputController.isEmpty && value.isEmpty as bool) {
                 return ' Phone number is required';
               }
-              String entry = value as String;
+              final String entry = value as String;
 
               final List<int> validLengths = <int>[9, 10];
 
-              if (inputController.isNotEmpty &&
-                  !validLengths.contains(entry.length)) {
+              if (!validLengths.contains(entry.length)) {
                 return 'Please enter a valid phone number';
               }
 
@@ -103,9 +86,7 @@ class SILPhoneInput extends FormField<String> {
                 phone = entry;
               }
 
-              if (inputController.isNotEmpty &&
-                  !kenyanRegExp.hasMatch(phone) &&
-                  !usRegExp.hasMatch(phone)) {
+              if (!kenyanRegExp.hasMatch(phone) && !usRegExp.hasMatch(phone)) {
                 return ' Please enter a valid phone number';
               }
               return null;
@@ -121,60 +102,25 @@ class SILPhoneInput extends FormField<String> {
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey[350]),
+                      border: Border.all(color: Colors.grey[350]!),
                     ),
                     child:
                         Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
                       Container(
                         height: 54,
-                        padding: EdgeInsets.fromLTRB(15, 5, 5, 5),
-                        child: CountryPickerDropdown(
-                          initialValue: 'KE',
-                          itemBuilder: (Country country) => Container(
-                            child: Row(
-                              children: <Widget>[
-                                CountryPickerUtils.getDefaultFlagImage(country),
-                                SizedBox(width: 10),
-                                Text('+${country.phoneCode}'),
-                              ],
-                            ),
-                          ),
-                          itemFilter: (dynamic c) => <String>[
-                            'KE',
-                            'UG',
-                            'TZ',
-                            'US'
-                          ].contains(c.isoCode),
-                          priorityList: <Country>[
-                            CountryPickerUtils.getCountryByIsoCode('KE'),
-                            CountryPickerUtils.getCountryByIsoCode('UG'),
-                            CountryPickerUtils.getCountryByIsoCode('TZ'),
-                          ],
-                          sortComparator: (Country a, Country b) =>
-                              a.isoCode.compareTo(b.isoCode),
-                          onValuePicked: (Country country) {
-                            data['countryCode'] = country.phoneCode;
-
-                            String formattedPhoneNumber = formatPhoneNumber(
-                                countryCode: data['countryCode'],
-                                phoneNumber: data['phoneNumber']);
-                            state.didChange(formattedPhoneNumber);
-                            onChanged(formattedPhoneNumber);
-                          },
-                        ),
+                        padding: const EdgeInsets.fromLTRB(15, 5, 5, 5),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border(
-                              right: BorderSide(color: Colors.grey[350])),
+                              right: BorderSide(color: Colors.grey[350]!)),
                         ),
+                        child: SilCountryPicker(),
                       ),
                       Flexible(
-                        flex: 1,
-                        child: Container(
+                        child: SizedBox(
                           height: 54,
                           child: TextFormField(
                             key: textFormFieldKey,
-                            maxLines: 1,
                             decoration: InputDecoration(
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.never,
@@ -185,53 +131,35 @@ class SILPhoneInput extends FormField<String> {
                               isDense: true,
                               filled: true,
                               contentPadding:
-                                  EdgeInsets.fromLTRB(15, 0, 15, 20),
+                                  const EdgeInsets.fromLTRB(15, 0, 15, 20),
                             ),
                             keyboardType: TextInputType.number,
                             onChanged: (dynamic value) {
-                              data['phoneNumber'] = value;
-                              state.didChange(value);
-                              String phoneNumber = formatPhoneNumber(
-                                  countryCode: data['countryCode'],
-                                  phoneNumber: value);
-                              onChanged(phoneNumber);
+                              data!['phoneNumber'] = value.toString();
+                              state.didChange(value.toString());
+                              final String phoneNumber = formatPhoneNumber(
+                                  countryCode: data!['countryCode'],
+                                  phoneNumber: value.toString());
+                              onChanged!(phoneNumber);
                             },
                           ),
                         ),
                       )
                     ]),
                   ),
-                  state.hasError
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 5, left: 10),
-                          child: Text(
-                            state.errorText,
-                            style: TextStyle(color: Colors.red),
-                          ),
-                        )
-                      : Container()
+                  if (state.hasError)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5, left: 10),
+                      child: Text(
+                        state.errorText.toString(),
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    )
+                  else
+                    Container()
                 ],
               );
             });
-}
-
-class DateFormatter {
-  final String dateValue;
-
-  DateFormatter({this.dateValue});
-
-  String parseDateValue(dynamic dateValue) {
-    final DateTime parsedDate = DateTime.parse(dateValue);
-    final String formattedDate = DateFormat('d MMM, yyyy').format(parsedDate);
-    return formattedDate;
-  }
-
-  String parseDateTimeValue(dynamic dateValue) {
-    final DateTime parsedDate = DateTime.parse(dateValue);
-    final String formattedDateTime =
-        DateFormat.jm().add_yMMMd().format(parsedDate);
-    return formattedDateTime;
-  }
 }
 
 /// [SILFormTextField] customized [TextFormField]
@@ -265,39 +193,39 @@ class DateFormatter {
 ///       on the provided context. For example getting colors from [Theme.of(context)]
 // ignore: non_constant_identifier_names
 TextFormField SILFormTextField({
-  @required BuildContext context,
-  Queue<int> inputController,
-  FormFieldCallback onSaved,
-  Function onTap,
-  String labelText,
-  String hintText,
-  String initialValue,
-  FormFieldCallback validator,
-  FormFieldCallback onChanged,
-  FormFieldCallback onFieldSubmit,
-  TextEditingController controller,
-  FocusNode focusNode,
-  TextInputType keyboardType,
-  List<TextInputFormatter> formatters,
-  int maxLines,
-  int maxLength,
-  TextStyle textStyle,
-  bool enabled,
-  Widget suffixIcon,
-  bool isSearchField,
-  bool obscureText,
-  Key key,
-  bool autoValidate = false,
-  bool isSearchFieldSmall,
-  bool autoFocus,
-  List<TextInputFormatter> inputFormatters,
-  Widget prefixIcon,
-  TextInputAction textInputAction,
-  Color customFillColor,
-  Color hintColor,
-  Color hintTextColor,
-  Color borderColor,
-  Color textFieldBackgroundColor,
+  @required BuildContext? context,
+  Queue<int>? inputController,
+  FormFieldCallback? onSaved,
+  Function? onTap,
+  String? labelText,
+  String? hintText,
+  String? initialValue,
+  FormFieldCallback? validator,
+  FormFieldCallback? onChanged,
+  FormFieldCallback? onFieldSubmit,
+  TextEditingController? controller,
+  FocusNode? focusNode,
+  TextInputType? keyboardType,
+  List<TextInputFormatter>? formatters,
+  int? maxLines,
+  int? maxLength,
+  TextStyle? textStyle,
+  bool? enabled,
+  Widget? suffixIcon,
+  bool? isSearchField,
+  bool? obscureText,
+  Key? key,
+  bool? autoValidate = false,
+  bool? isSearchFieldSmall,
+  bool? autoFocus,
+  List<TextInputFormatter>? inputFormatters,
+  Widget? prefixIcon,
+  TextInputAction? textInputAction,
+  Color? customFillColor,
+  Color? hintColor,
+  Color? hintTextColor,
+  Color? borderColor,
+  Color? textFieldBackgroundColor,
 }) {
   return TextFormField(
     key: key,
@@ -310,22 +238,22 @@ TextFormField SILFormTextField({
     decoration: InputDecoration(
       filled: true,
       fillColor: customFillColor ?? white,
-      alignLabelWithHint: maxLines != null && maxLines > 1,
+      alignLabelWithHint: alignLabelWithHint(maxLines),
       contentPadding: isSearchField == true
-          ? EdgeInsets.all(20)
+          ? const EdgeInsets.all(20)
           : EdgeInsets.symmetric(
               vertical: isSearchFieldSmall == true ? 10 : 15, horizontal: 15),
       labelText: labelText,
       hintText: hintText,
       suffix: suffixIcon,
       prefixIcon: prefixIcon,
-      labelStyle: Theme.of(context)
+      labelStyle: Theme.of(context!)
           .textTheme
-          .headline6
+          .headline6!
           .copyWith(color: grey, fontSize: 16),
       hintStyle: Theme.of(context)
           .textTheme
-          .headline4
+          .headline4!
           .copyWith(color: hintColor ?? grey, fontSize: 16),
       enabledBorder: OutlineInputBorder(
         borderSide:
@@ -334,22 +262,22 @@ TextFormField SILFormTextField({
             BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
       ),
       disabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: grey),
+        borderSide: const BorderSide(color: grey),
         borderRadius:
             BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: healthcloudAccentColor),
+        borderSide: const BorderSide(color: healthcloudAccentColor),
         borderRadius:
             BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
       ),
       errorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: red),
+        borderSide: const BorderSide(color: red),
         borderRadius:
             BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: red),
+        borderSide: const BorderSide(color: red),
         borderRadius:
             BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
       ),
@@ -361,20 +289,15 @@ TextFormField SILFormTextField({
     style: textStyle ??
         Theme.of(context)
             .textTheme
-            .headline6
+            .headline6!
             .copyWith(color: black, fontSize: 16),
     textInputAction: textInputAction ?? TextInputAction.done,
     textAlignVertical: TextAlignVertical.center,
-    validator: validator != null ? (dynamic value) => validator(value) : null,
+    validator: validator != null
+        ? (dynamic value) => validator(value).toString()
+        : null,
     onChanged: onChanged != null ? (dynamic value) => onChanged(value) : null,
     onTap: onTap != null ? () => onTap() : null,
-    onSaved: onSaved != null
-        ? (dynamic value) {
-            onSaved(value);
-          }
-        : null,
-    onFieldSubmitted:
-        onFieldSubmit != null ? (dynamic v) => onFieldSubmit(v) : null,
     controller: initialValue == null ? controller : null,
     focusNode: focusNode,
     obscureText: obscureText ?? false,
@@ -424,32 +347,32 @@ TextFormField SILFormTextField({
 ///
 // ignore: non_constant_identifier_names
 GestureDetector SILDatePickerField({
-  @required BuildContext context,
-  @required TextEditingController controller,
-  Key gestureDateKey,
-  Key textFieldDateKey,
-  FormFieldCallback onSaved,
-  String labelText,
-  String hintText,
-  String initialValue,
-  FocusNode focusNode,
-  TextInputType keyboardType,
-  FormFieldCallback validator,
-  FormFieldCallback onChanged,
-  bool allowCurrentYear = false,
-  bool allowFutureYears = false,
-  bool allowEligibleDate = false,
-  Icon suffixIcon,
-  bool enabled,
+  @required BuildContext? context,
+  @required TextEditingController? controller,
+  Key? gestureDateKey,
+  Key? textFieldDateKey,
+  FormFieldCallback? onSaved,
+  String? labelText,
+  String? hintText,
+  String? initialValue,
+  FocusNode? focusNode,
+  TextInputType? keyboardType,
+  FormFieldCallback? validator,
+  FormFieldCallback? onChanged,
+  bool? allowCurrentYear = false,
+  bool? allowFutureYears = false,
+  bool? allowEligibleDate = false,
+  Icon? suffixIcon,
+  bool? enabled,
 }) {
   DateTime getLastDate() {
-    if (allowCurrentYear && !allowFutureYears) {
+    if (allowCurrentYear! && !allowFutureYears!) {
       return DateTime(currentYear, currentMonth, currentDay);
     }
-    if (allowFutureYears) {
+    if (allowFutureYears!) {
       return DateTime(eligibleFutureYear);
     }
-    if (allowEligibleDate) {
+    if (allowEligibleDate!) {
       return eligibleYear;
     }
     return DateTime(eligibleFutureYear);
@@ -463,10 +386,10 @@ GestureDetector SILDatePickerField({
       await showModalBottomSheet(
           context: context,
           builder: (BuildContext builder) {
-            return Container(
+            return SizedBox(
               height: MediaQuery.of(context).copyWith().size.height / 3,
               child: CupertinoDatePicker(
-                initialDateTime: allowCurrentYear
+                initialDateTime: allowCurrentYear!
                     ? DateTime(currentYear, currentMonth, currentDay)
                     : eligibleYear,
                 onDateTimeChanged: (DateTime newDate) {
@@ -485,21 +408,21 @@ GestureDetector SILDatePickerField({
     } else {
       selectedDate = await showDatePicker(
         context: context,
-        initialDate: allowCurrentYear
+        initialDate: allowCurrentYear!
             ? DateTime(currentYear, currentMonth, currentDay)
             : eligibleYear,
         firstDate: allowCurrentYear
             ? DateTime(currentYear, currentMonth, currentDay)
             : DateTime(oldestYear),
         lastDate: getLastDate(),
-        builder: (BuildContext context, Widget child) {
+        builder: (BuildContext? context, Widget? child) {
           return Theme(
-            data: Theme.of(context).copyWith(
+            data: Theme.of(context!).copyWith(
               primaryColor: healthcloudAccentColor,
             ),
             child: Padding(
               padding: const EdgeInsets.only(top: 50.0),
-              child: Container(
+              child: SizedBox(
                 height: 700,
                 width: 400,
                 child: child,
@@ -515,13 +438,13 @@ GestureDetector SILDatePickerField({
 
     if (selectedDate == null) return;
 
-    controller.text = _convertDateToString(selectedDate);
+    controller!.text = _convertDateToString(selectedDate as DateTime);
   }
 
   return GestureDetector(
     key: gestureDateKey,
     onTap: () async {
-      await _selectDate(context);
+      await _selectDate(context!);
     },
     child: AbsorbPointer(
       child: SILFormTextField(
@@ -573,32 +496,31 @@ GestureDetector SILDatePickerField({
 ///   is formatted to become [8:22 PM]
 // ignore: non_constant_identifier_names
 GestureDetector SILTimePicker({
-  @required BuildContext context,
-  @required TextEditingController controller,
-  @required FormFieldCallback onChanged,
-  @required FormFieldCallback onSaved,
-  String labelText,
-  String hintText,
-  String initialValue,
-  FocusNode focusNode,
-  TextInputType keyboardType,
-  FormFieldCallback validator,
-  Icon suffixIcon,
+  @required BuildContext? context,
+  @required TextEditingController? controller,
+  @required FormFieldCallback? onChanged,
+  @required FormFieldCallback? onSaved,
+  String? labelText,
+  String? hintText,
+  String? initialValue,
+  FocusNode? focusNode,
+  TextInputType? keyboardType,
+  FormFieldCallback? validator,
+  Icon? suffixIcon,
 }) {
   TimeOfDay selectedTime = TimeOfDay.now();
   Future<void> _selectTime(BuildContext context) async {
     dynamic picked;
     if (Platform.isIOS) {
-      DateTime minimumDateTime = DateTime(currentYear, currentMonth, currentDay,
-          TimeOfDay.now().hour, TimeOfDay.now().minute);
+      final DateTime minimumDateTime = DateTime(currentYear, currentMonth,
+          currentDay, TimeOfDay.now().hour, TimeOfDay.now().minute);
       await showModalBottomSheet(
           context: context,
           builder: (BuildContext builder) {
-            return Container(
+            return SizedBox(
               height: MediaQuery.of(context).copyWith().size.height / 3,
               child: CupertinoDatePicker(
                 mode: CupertinoDatePickerMode.time,
-                minuteInterval: 1,
                 initialDateTime: minimumDateTime,
                 minimumDate: minimumDateTime,
                 onDateTimeChanged: (DateTime changedTimer) {
@@ -611,21 +533,21 @@ GestureDetector SILTimePicker({
       picked = await showTimePicker(
           context: context,
           initialTime: TimeOfDay.now(),
-          builder: (BuildContext context, Widget child) {
+          builder: (BuildContext? context, Widget? child) {
             return MediaQuery(
-              data:
-                  MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+              data: MediaQuery.of(context!)
+                  .copyWith(alwaysUse24HourFormat: false),
               child: Theme(
                 data: Theme.of(context).copyWith(
                   primaryColor: healthcloudAccentColor,
                 ),
-                child: child,
+                child: child!,
               ),
             );
           });
     }
     if (picked != null && picked != selectedTime) {
-      selectedTime = picked;
+      selectedTime = picked as TimeOfDay;
     }
 
     String _convertTimeToString(TimeOfDay time) {
@@ -636,14 +558,12 @@ GestureDetector SILTimePicker({
       return DateFormat.jm().format(formattedDateTime);
     }
 
-    if (selectedTime == null) return;
-
-    controller.text = _convertTimeToString(selectedTime);
+    controller!.text = _convertTimeToString(selectedTime);
   }
 
   return GestureDetector(
     onTap: () async {
-      await _selectTime(context);
+      await _selectTime(context!);
     },
     child: AbsorbPointer(
       child: SILFormTextField(
@@ -686,26 +606,26 @@ GestureDetector SILTimePicker({
 /// ```
 // ignore: non_constant_identifier_names
 InputDecorator SILSelectOptionField({
-  Key dropDownInputKey,
-  @required BuildContext context,
-  @required FormFieldCallback onSaved,
-  @required List<String> options,
-  @required String value,
-  String hintText,
-  FocusNode focusNode,
-  FormFieldCallback validator,
-  FormFieldCallback onChanged,
-  bool disabled,
-  Color color,
+  Key? dropDownInputKey,
+  @required BuildContext? context,
+  @required FormFieldCallback? onSaved,
+  @required List<String>? options,
+  @required String? value,
+  String? hintText,
+  FocusNode? focusNode,
+  FormFieldCallback? validator,
+  FormFieldCallback? onChanged,
+  bool? disabled,
+  Color? color,
 }) {
   return InputDecorator(
     decoration: InputDecoration(
-      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: color ?? grey),
-        borderRadius: BorderRadius.all(Radius.circular(5)),
+        borderRadius: const BorderRadius.all(Radius.circular(5)),
       ),
-      focusedBorder: OutlineInputBorder(
+      focusedBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: healthcloudAccentColor),
         borderRadius: BorderRadius.all(Radius.circular(5)),
       ),
@@ -717,21 +637,24 @@ InputDecorator SILSelectOptionField({
         key: dropDownInputKey,
         dropdownColor: white,
         hint: Text(
-          hintText,
-          style: Theme.of(context)
+          hintText!,
+          style: Theme.of(context!)
               .textTheme
-              .headline6
+              .headline6!
               .copyWith(color: Colors.grey, fontSize: 16),
         ),
         value: value,
-        items: options.map((String value) {
+        items: options!.map((String value) {
           return DropdownMenuItem<dynamic>(
             value: value,
             child: Text(value),
           );
         }).toList(),
-        onChanged:
-            disabled != true ? (dynamic value) => onChanged(value) : null,
+        onChanged: disabled != true
+            ? (dynamic value) {
+                onChanged!(value);
+              }
+            : (dynamic val) {},
         isDense: true,
       ),
     ),
@@ -740,95 +663,6 @@ InputDecorator SILSelectOptionField({
 
 //DISCLAIMER : this may not be so unique to SILPhoneInput. However it is placed here while doing clean-up and to avoid breakage. A further refinement
 // should be added to consolidate SILPhoneInput with SILPhoneNumberField
-
-/// [SILPhoneNumberField] customized for phone number input
-/// Example
-/// ```dart
-/// SILPhoneNumberField(
-///   context: context,
-///   labelText: 'Phone number',
-///   hintText: 'Enter the kin\'s phone number',
-///   oncountrypicked: (dynamic value) {
-///     <do-something-awesome-here>
-///   },
-///   controller: phoneNumberInputController,
-/// ),
-/// ```
-/// The [onCountryPicked] callback is called when the country is
-/// changed by the user
-// ignore: non_constant_identifier_names
-Row SILPhoneNumberField({
-  @required BuildContext context,
-  Key phoneInputKey,
-  Key countryInputKey,
-  String labelText,
-  String hintText,
-  Icon suffixIcon,
-  bool enabled,
-  dynamic initialValue,
-  FocusNode focusNode,
-  @required FormFieldCallback onCountryPicked,
-  @required TextEditingController controller,
-}) {
-  RegExp phoneValidator = RegExp(r'^[()\d -]{1,15}$');
-  final List<String> _priorityCountries = <String>['KE', 'UG', 'TZ', 'US'];
-  return Row(
-    children: <Widget>[
-      (initialValue != null)
-          ? Container()
-          : CountryPickerDropdown(
-              initialValue: 'KE',
-              itemBuilder: (Country country) {
-                return Row(
-                  children: <Widget>[
-                    CountryPickerUtils.getDefaultFlagImage(country),
-                    Text(
-                      '+${country.phoneCode}',
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
-                  ],
-                );
-              },
-              priorityList: _priorityCountries
-                  .map((dynamic c) => CountryPickerUtils.getCountryByIsoCode(c))
-                  .toList(),
-              itemFilter: (dynamic c) => _priorityCountries.contains(c.isoCode),
-              onValuePicked: (Country country) => onCountryPicked(country),
-            ),
-      Flexible(
-        child: SILFormTextField(
-          key: phoneInputKey,
-          context: context,
-          enabled: enabled ?? true,
-          initialValue: initialValue,
-          focusNode: focusNode,
-          keyboardType: TextInputType.phone,
-          formatters: <FilteringTextInputFormatter>[
-            FilteringTextInputFormatter(phoneValidator, allow: true)
-          ],
-          labelText: labelText,
-          hintText: hintText,
-          suffixIcon: suffixIcon,
-          isSearchFieldSmall: true,
-          validator: (dynamic value) {
-            if (value.isEmpty) {
-              return 'Phone number is required';
-            }
-            if (value.length >= 15) {
-              return 'Phone number must not exceed 16 characters';
-            }
-            if (!phoneValidator.hasMatch(value)) {
-              return 'Please enter a valid phone number';
-            }
-            return null;
-          },
-          onSaved: (dynamic value) {},
-          controller: controller,
-        ),
-      ),
-    ],
-  );
-}
 
 /// [SILCheckbox] customized for checkboxes
 /// Example
@@ -844,27 +678,24 @@ Row SILPhoneNumberField({
 ///   ```
 // ignore: non_constant_identifier_names
 Row SILCheckbox({
-  @required BuildContext context,
+  Key? key,
+  @required BuildContext? context,
   @required dynamic value,
-  @required String text,
-  @required FormFieldCallback onChanged,
-  Key key,
+  @required String? text,
+  @required FormFieldCallback? onChanged,
 }) {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.start,
     children: <Widget>[
       Checkbox(
-        key: key,
         activeColor: healthcloudAccentColor,
         materialTapTargetSize: MaterialTapTargetSize.padded,
-        value: value,
+        value: value as bool,
         onChanged: onChanged,
-        tristate: false,
       ),
       Expanded(
         child: Text(
-          text,
-          style: Theme.of(context).textTheme.bodyText1,
+          text!,
+          style: Theme.of(context!).textTheme.bodyText1,
         ),
       )
     ],
@@ -886,12 +717,12 @@ Row SILCheckbox({
 /// ```
 // ignore: non_constant_identifier_names
 Row SILRadio({
-  @required BuildContext context,
-  @required dynamic value,
-  @required String text,
-  @required FormFieldCallback onChanged,
+  @required BuildContext? context,
+  @required dynamic? value,
+  @required String? text,
+  @required FormFieldCallback? onChanged,
   @required dynamic groupValue,
-  Key radioKey,
+  Key? radioKey,
   bool rightAligned = false,
 }) {
   MainAxisAlignment alignment = MainAxisAlignment.start;
@@ -899,7 +730,7 @@ Row SILRadio({
     alignment = MainAxisAlignment.spaceBetween;
   }
   final Widget textWidget = Text(
-    text,
+    text!,
     style: TextThemes.boldSize14Text(Colors.black54),
   );
   return Row(
@@ -909,7 +740,7 @@ Row SILRadio({
       Radio<dynamic>(
         key: radioKey,
         groupValue: groupValue,
-        activeColor: Theme.of(context).primaryColor,
+        activeColor: Theme.of(context!).primaryColor,
         materialTapTargetSize: MaterialTapTargetSize.padded,
         value: value,
         onChanged: onChanged,
@@ -919,11 +750,12 @@ Row SILRadio({
   );
 }
 
+// ignore: prefer_function_declarations_over_variables
 PinBoxDecoration customRoundedPinBoxDecoration = (
   Color borderColor,
   Color pinBoxColor, {
   double borderWidth = 1.0,
-  double radius,
+  double? radius,
 }) {
   return BoxDecoration(
       border: Border.all(
@@ -931,23 +763,23 @@ PinBoxDecoration customRoundedPinBoxDecoration = (
         width: borderWidth,
       ),
       color: pinBoxColor,
-      borderRadius: BorderRadius.all(Radius.circular(8)));
+      borderRadius: const BorderRadius.all(Radius.circular(8)));
 };
 
 class SILPinCodeTextField extends StatelessWidget {
-  final int maxLength;
-  final Function onTextChanged;
-  final Function onDone;
-  final double pinBoxWidth;
-  final double pinBoxHeight;
-  final bool autoFocus;
-  final WrapAlignment wrapAlignment;
-  final TextEditingController controller;
-  final TextInputType keyboardType;
-  final FocusNode focusNode;
+  final int? maxLength;
+  final Function? onTextChanged;
+  final Function? onDone;
+  final double? pinBoxWidth;
+  final double? pinBoxHeight;
+  final bool? autoFocus;
+  final WrapAlignment? wrapAlignment;
+  final TextEditingController? controller;
+  final TextInputType? keyboardType;
+  final FocusNode? focusNode;
 
   const SILPinCodeTextField({
-    Key key,
+    Key? key,
     @required this.maxLength,
     this.onTextChanged,
     @required this.onDone,
@@ -964,7 +796,7 @@ class SILPinCodeTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return PinCodeTextField(
       controller: controller,
-      autofocus: autoFocus,
+      autofocus: autoFocus!,
       hideCharacter: true,
       highlight: true,
       focusNode: focusNode,
@@ -973,21 +805,25 @@ class SILPinCodeTextField extends StatelessWidget {
       hasTextBorderColor: Theme.of(context).accentColor,
       maxLength: maxLength ?? 4,
       maskCharacter: '⚫',
-      pinBoxWidth: pinBoxWidth,
-      pinBoxHeight: pinBoxHeight,
-      wrapAlignment: wrapAlignment,
+      pinBoxWidth: pinBoxWidth!,
+      pinBoxHeight: pinBoxHeight!,
+      wrapAlignment: wrapAlignment!,
       pinBoxDecoration: customRoundedPinBoxDecoration,
-      pinTextStyle: TextStyle(fontSize: 10.0),
+      pinTextStyle: const TextStyle(fontSize: 10.0),
       pinTextAnimatedSwitcherTransition:
           ProvidedPinBoxTextAnimation.scalingTransition,
       pinBoxColor: Theme.of(context).backgroundColor,
-      pinTextAnimatedSwitcherDuration: Duration(milliseconds: 300),
+      pinTextAnimatedSwitcherDuration: const Duration(milliseconds: 300),
       //highlightAnimation: true,
       highlightAnimationBeginColor: Colors.black,
       highlightAnimationEndColor: Colors.white12,
-      keyboardType: keyboardType,
-      onTextChanged: onTextChanged ?? (String val) {},
-      onDone: onDone ?? (String val) {},
+      keyboardType: keyboardType!,
+      onTextChanged: (String val) {
+        onTextChanged!(val);
+      },
+      onDone: (String val) {
+        onDone!(val);
+      },
     );
   }
 }

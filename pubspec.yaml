@@ -1,33 +1,36 @@
-name: sil_dumb_widgets
+name: sil_ui_components
 description: A new Flutter package project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 0.0.1
 author:
 homepage:
 
-environment:
-  sdk: '>=2.7.0 <3.0.0'
-  flutter: '>=1.17.0'
+
+environment:  
+  sdk: '>=2.12.0 <3.0.0'
+  flutter: ">=2.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  country_pickers: ^1.3.0
-  pin_code_text_field: ^1.7.1
-  flutter_spinkit: ^3.1.0
-  intl: ^0.16.0
-  rxdart: ^0.24.0
-  http: ^0.12.0+4
-  material_design_icons_flutter: 4.0.5045
+  pin_code_text_field: ^1.8.0
+  flutter_spinkit: ^5.0.0
+  intl: ^0.17.0
+  rxdart: ^0.26.0
+  http: ^0.13.0
+  material_design_icons_flutter: ^5.0.5955-rc.1
 
   # SIL third party packages
   sil_themes:
     git:
       url: https://sil_dart_utils:xiFnpjLHssG76bpWxUb9@gitlab.slade360emr.com/optimalhealth/dart_utils/sil_themes.git
-      ref: 0.0.2
+      ref: 0.0.3    
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  lint: ^1.0.0
 
 # The following section is specific to Flutter.
 flutter:

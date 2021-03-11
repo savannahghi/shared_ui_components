@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sil_dumb_widgets/profile_avatar.dart';
-import 'package:sil_dumb_widgets/sil_buttons.dart';
+import 'package:sil_ui_components/profile_avatar.dart';
+import 'package:sil_ui_components/sil_buttons.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
-import 'package:sil_dumb_widgets/utils/constants.dart';
+import 'package:sil_ui_components/utils/constants.dart';
 
 class ProfileBanner extends StatelessWidget {
   final bool editable;
@@ -15,15 +15,14 @@ class ProfileBanner extends StatelessWidget {
   final String primaryPhone;
 
   const ProfileBanner({
-    Key key,
-    @required this.backgroundImagePath,
-    @required this.userPhotoUrl,
-    @required this.profileRoute,
-    @required this.userName,
-    @required this.primaryPhone,
+    required this.backgroundImagePath,
+    required this.userPhotoUrl,
+    required this.profileRoute,
+    required this.userName,
+    required this.primaryPhone,
     this.editable = false,
     this.height = 200.00,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,17 +33,22 @@ class ProfileBanner extends StatelessWidget {
           fit: BoxFit.cover,
           image: AssetImage(backgroundImagePath),
         ),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(6),
           bottomRight: Radius.circular(6),
         ),
       ),
       child: Stack(
-        overflow: Overflow.visible,
         children: <Widget>[
           Container(
             width: double.infinity,
             height: 200,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(colors: <Color>[
+                Theme.of(context).primaryColor.withOpacity(0.8),
+                Theme.of(context).primaryColor.withOpacity(0.4),
+              ], begin: Alignment.bottomLeft, end: Alignment.topRight),
+            ),
             child: editable
                 ? Align(
                     alignment: Alignment.bottomCenter,
@@ -65,12 +69,6 @@ class ProfileBanner extends StatelessWidget {
                     ),
                   )
                 : null,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(colors: <Color>[
-                Theme.of(context).primaryColor.withOpacity(0.8),
-                Theme.of(context).primaryColor.withOpacity(0.4),
-              ], begin: Alignment.bottomLeft, end: Alignment.topRight),
-            ),
           ),
           Positioned(
             bottom: -60,
@@ -78,10 +76,6 @@ class ProfileBanner extends StatelessWidget {
             child: Container(
               width: 90,
               height: 90,
-              child: ProfileAvatar(
-                  photoUrl: (userPhotoUrl == 'UNKNOWN' || userPhotoUrl == null)
-                      ? bewellLogoNetworkUrl
-                      : userPhotoUrl),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
@@ -89,6 +83,10 @@ class ProfileBanner extends StatelessWidget {
                   color: Theme.of(context).primaryColor.withOpacity(0.6),
                 ),
               ),
+              child: ProfileAvatar(
+                  photoUrl: (userPhotoUrl == 'UNKNOWN')
+                      ? bewellLogoNetworkUrl
+                      : userPhotoUrl),
             ),
           ),
           Positioned(
@@ -113,7 +111,7 @@ class ProfileBanner extends StatelessWidget {
             top: 50,
             left: 15,
             child: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 color: Colors.white,
               ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:sil_dumb_widgets/sil_loading.dart';
-import 'package:sil_dumb_widgets/sil_snackbar.dart';
+import 'package:sil_ui_components/sil_loading.dart';
 import 'package:sil_themes/colors.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
@@ -16,13 +15,12 @@ extension CommunicationTypeExtension on CommunicationType {
 
 class CommunicationSettingItem extends StatefulWidget {
   const CommunicationSettingItem({
-    Key key,
-    @required this.isActive,
-    @required this.onTapHandler,
-    @required this.title,
-    @required this.subtitle,
-    @required this.type,
-  }) : super(key: key);
+    required this.isActive,
+    required this.onTapHandler,
+    required this.title,
+    required this.subtitle,
+    required this.type,
+  });
 
   final bool isActive;
   final Function onTapHandler;
@@ -47,7 +45,28 @@ class _CommunicationSettingItemState extends State<CommunicationSettingItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Container(
+      onTap: () async {
+        toggleProcessing();
+        try {
+          final bool response = await widget.onTapHandler(
+            channel: widget.type,
+            isAllowed: !widget.isActive,
+            context: context,
+          ) as bool;
+          if (!response) {
+            throw 'Error';
+          }
+          toggleProcessing();
+        } catch (e) {
+          toggleProcessing();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Failed to change setting'),
+            ),
+          );
+        }
+      },
+      child: SizedBox(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -66,11 +85,10 @@ class _CommunicationSettingItemState extends State<CommunicationSettingItem> {
               ),
             ),
             Flexible(
-              flex: 1,
               child: isProcessing
-                  ? SILLoading(color: grey, type: SILLoadingType.Ripple)
+                  ? const SILLoading(color: grey, type: SILLoadingType.Ripple)
                   : Container(
-                      padding: EdgeInsets.all(1),
+                      padding: const EdgeInsets.all(1),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: widget.isActive ? Colors.green : Colors.white,
@@ -88,24 +106,6 @@ class _CommunicationSettingItemState extends State<CommunicationSettingItem> {
           ],
         ),
       ),
-      onTap: () async {
-        toggleProcessing();
-        try {
-          bool response = await widget.onTapHandler(
-            channel: widget.type,
-            isAllowed: !widget.isActive,
-            context: context,
-          );
-          if (!response) {
-            throw 'Error';
-          }
-          toggleProcessing();
-        } catch (e) {
-          toggleProcessing();
-          showAlertSnackBar(
-              context: context, message: 'Failed to change setting');
-        }
-      },
     );
   }
 }
