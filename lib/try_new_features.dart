@@ -39,7 +39,7 @@ class _TryNewFeaturesState extends State<TryNewFeatures> {
             smallVerticalSizedBox,
             Container(
               padding: const EdgeInsets.all(30),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: greyCardBackground, shape: BoxShape.circle),
               child: const Padding(
                   padding: EdgeInsets.all(20.0),

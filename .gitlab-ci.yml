@@ -4,7 +4,7 @@ image:
 stages:
   - test
 
-SILDumbWidgetsTests:
+sil_ui_components_tests:
   stage: test
   timeout: 10 minutes
   tags:

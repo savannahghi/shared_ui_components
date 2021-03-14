@@ -148,8 +148,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "0.0.3"
-      resolved-ref: ba5666131e13b8483a5c7fe2febc2405509198b0
+      ref: "0.0.3-nullsafety"
+      resolved-ref: db5c8f9aeda1fe6bb3833af6a64cf385fc29f846
       url: "https://sil_dart_utils:xiFnpjLHssG76bpWxUb9@gitlab.slade360emr.com/optimalhealth/dart_utils/sil_themes.git"
     source: git
     version: "0.0.1"
