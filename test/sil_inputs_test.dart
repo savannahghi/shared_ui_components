@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
+import 'package:sil_ui_components/sil_fancy_loading.dart';
 import 'package:sil_ui_components/sil_inputs.dart';
-import 'package:sil_ui_components/sil_loading.dart';
-import 'package:sil_ui_components/utils/widget_keys.dart';
 import 'package:sil_themes/text_themes.dart';
+import 'package:sil_ui_components/src/widget_keys.dart';
 
 void main() {
   group('SILPhoneNumberField', () {
@@ -238,12 +238,12 @@ void main() {
     });
   });
 
-  group('SILLoading', () {
+  group('SILFancyLoading', () {
     testWidgets('should show default loading indicator',
         (WidgetTester tester) async {
       await tester.pumpWidget(const MaterialApp(
         home: Center(
-          child: SILLoading(
+          child: SILFancyLoading(
             color: Colors.greenAccent,
             size: 100,
           ),
@@ -257,9 +257,9 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(const MaterialApp(
         home: Center(
-          child: SILLoading(
+          child: SILFancyLoading(
             color: Colors.greenAccent,
-            type: SILLoadingType.FoldingCube,
+            type: SILFancyLoadingType.foldingCube,
             size: 100,
           ),
         ),
@@ -272,9 +272,9 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(const MaterialApp(
         home: Center(
-          child: SILLoading(
+          child: SILFancyLoading(
             color: Colors.greenAccent,
-            type: SILLoadingType.ChasingDots,
+            type: SILFancyLoadingType.chasingDots,
             size: 100,
           ),
         ),
@@ -287,9 +287,9 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(const MaterialApp(
         home: Center(
-          child: SILLoading(
+          child: SILFancyLoading(
             color: Colors.greenAccent,
-            type: SILLoadingType.Ripple,
+            type: SILFancyLoadingType.ripple,
             size: 100,
           ),
         ),
@@ -302,7 +302,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(const MaterialApp(
         home: Center(
-          child: SILLoading(
+          child: SILFancyLoading(
             color: Colors.greenAccent,
             size: 100,
           ),

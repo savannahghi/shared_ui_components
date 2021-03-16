@@ -1,42 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import 'utils/widget_keys.dart';
+import 'widget_keys.dart';
 
-enum SILLoadingType { CubeGrid, FoldingCube, ChasingDots, Ripple }
+enum SILFancyLoadingType { cubeGrid, foldingCube, chasingDots, ripple }
 
-class SILLoading extends StatelessWidget {
-  final SILLoadingType type;
+class SILFancyLoading extends StatelessWidget {
+  final SILFancyLoadingType type;
   final Color? color;
   final double size;
 
-  const SILLoading(
+  const SILFancyLoading(
       {@required this.color,
-      this.type = SILLoadingType.CubeGrid,
+      this.type = SILFancyLoadingType.cubeGrid,
       this.size = 50});
 
   @override
   Widget build(BuildContext context) {
     switch (this.type) {
-      case SILLoadingType.CubeGrid:
+      case SILFancyLoadingType.cubeGrid:
         return SpinKitCubeGrid(
           key: cubeGridKey,
           color: this.color,
           size: this.size,
         );
-      case SILLoadingType.FoldingCube:
+      case SILFancyLoadingType.foldingCube:
         return SpinKitFadingCube(
           key: foldingCubeKey,
           color: this.color,
           size: this.size,
         );
-      case SILLoadingType.ChasingDots:
+      case SILFancyLoadingType.chasingDots:
         return SpinKitChasingDots(
           key: chasingDotsKey,
           color: this.color,
           size: this.size,
         );
-      case SILLoadingType.Ripple:
+      case SILFancyLoadingType.ripple:
         return SpinKitRipple(
           key: rippleKey,
           color: this.color,

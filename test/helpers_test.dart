@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sil_ui_components/sil_country_picker.dart';
-import 'package:sil_ui_components/utils/constants.dart';
-import 'package:sil_ui_components/utils/helpers.dart';
+import 'package:sil_ui_components/src/constants.dart';
+import 'package:sil_ui_components/src/helpers.dart';
 
 void main() {
   test('should return correct time respectively', () {
@@ -15,19 +14,8 @@ void main() {
 
   test('should test PhoneNoConstants verifyDesc', () {
     const String phoneNo = '+2547xx xxx xx';
-    expect(PhoneNoConstants.verifyDesc(phoneNo),
+    expect(verifyDesc(phoneNo),
         'We have sent a 6 digit code to $phoneNo. Enter the code below to proceed');
-  });
-
-  test('should test formatPhoneNumber', () {
-    expect(formatPhoneNumber(countryCode: '+254', phoneNumber: '728101710'),
-        '+254728101710');
-    expect(formatPhoneNumber(countryCode: '254', phoneNumber: '728101710'),
-        '+254728101710');
-    expect(formatPhoneNumber(countryCode: '+1', phoneNumber: '928793687'),
-        '+1928793687');
-    expect(formatPhoneNumber(countryCode: '+254', phoneNumber: '0728101710'),
-        '+254728101710');
   });
 
   test('should test alignLabelWithHint', () {
@@ -45,8 +33,6 @@ void main() {
 
   test('should test getCountry', () {
     expect(getCountry(Country.kenya), supportedCountries['kenya']);
-    expect(getCountry(Country.uganda), supportedCountries['uganda']);
-    expect(getCountry(Country.tanzania), supportedCountries['tanzania']);
     expect(getCountry(Country.us), supportedCountries['usa']);
   });
 }

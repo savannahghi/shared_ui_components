@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:sil_ui_components/types/type_defs.dart';
+
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
-
-import 'animated_count.dart';
-import 'resend_phone_code.dart';
-import 'sil_buttons.dart';
-import 'sil_inputs.dart';
-import 'utils/constants.dart';
+import 'package:sil_ui_components/sil_buttons.dart';
+import 'package:sil_ui_components/sil_inputs.dart';
+import 'package:sil_ui_components/src/animated_count.dart';
+import 'package:sil_ui_components/src/constants.dart';
+import 'package:sil_ui_components/src/helpers.dart';
+import 'package:sil_ui_components/src/type_defs.dart';
 
 class VerifyPhoneOtp extends StatefulWidget {
   final String? phoneNo;
@@ -160,7 +160,7 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
                   otp = res;
                 }
               },
-              text: PhoneNoConstants.sendCodeAgain,
+              text: sendCodeAgain,
             ),
           size15VerticalSizedBox,
           if (widget.setValues != null)
@@ -169,7 +169,7 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
                 Navigator.pop(context);
               },
               child: Text(
-                PhoneNoConstants.changeNo,
+                changeNo,
                 style: TextThemes.normalSize16Text(Colors.blue),
               ),
             ),

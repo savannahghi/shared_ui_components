@@ -45,9 +45,9 @@ linter:
     prefer_adjacent_string_concatenation: true
     package_api_docs: true
     no_duplicate_case_values: true
-    sort_pub_dependencies: false
-    avoid_escaping_inner_quotes: false
-    avoid_classes_with_only_static_members: false
-    prefer_constructors_over_static_methods: false
+    sort_pub_dependencies: true
+    avoid_escaping_inner_quotes: true
+    avoid_classes_with_only_static_members: true
+    prefer_constructors_over_static_methods: true
     file_names: false
-    constant_identifier_names: false
+    constant_identifier_names: true

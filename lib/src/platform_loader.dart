@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sil_ui_components/utils/widget_keys.dart';
-import 'package:sil_themes/colors.dart';
 
-class SILLoader extends StatelessWidget {
+import 'package:sil_themes/colors.dart';
+import 'package:sil_ui_components/src/widget_keys.dart';
+
+class SILPlatformLoader extends StatelessWidget {
   final Color color;
-  const SILLoader({this.color = grey});
+  const SILPlatformLoader({this.color = grey});
   @override
   Widget build(BuildContext context) {
     final TargetPlatform _platform = Theme.of(context).platform;

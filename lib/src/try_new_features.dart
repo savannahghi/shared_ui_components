@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:sil_ui_components/sil_loading.dart';
-import 'package:sil_ui_components/types/type_defs.dart';
+
 import 'package:sil_themes/colors.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
-import 'package:sil_ui_components/utils/constants.dart';
+import 'package:sil_ui_components/sil_fancy_loading.dart';
+import 'package:sil_ui_components/src/constants.dart';
+import 'package:sil_ui_components/src/type_defs.dart';
 
-class TryNewFeatures extends StatefulWidget {
+class SILTryNewFeaturesWidget extends StatefulWidget {
   final SettingsFunc? settingsFunc;
   final bool? canExperiment;
 
-  const TryNewFeatures(
+  const SILTryNewFeaturesWidget(
       {Key? key, @required this.settingsFunc, @required this.canExperiment})
       : super(key: key);
   @override
-  _TryNewFeaturesState createState() => _TryNewFeaturesState();
+  _SILTryNewFeaturesWidgetState createState() =>
+      _SILTryNewFeaturesWidgetState();
 }
 
-class _TryNewFeaturesState extends State<TryNewFeatures> {
+class _SILTryNewFeaturesWidgetState extends State<SILTryNewFeaturesWidget> {
   bool isProcessing = false;
   Widget tryNewFeaturesBuilder() {
     return Column(
@@ -44,20 +46,20 @@ class _TryNewFeaturesState extends State<TryNewFeatures> {
               child: const Padding(
                   padding: EdgeInsets.all(20.0),
                   child: Image(
-                    image: AssetImage(TryNewFeatureStrings.tryFeaturesImgUrl),
+                    image: AssetImage(tryFeaturesImgUrl),
                   )),
             ),
             mediumVerticalSizedBox,
             Column(
               children: <Widget>[
                 Text(
-                  TryNewFeatureStrings.title,
+                  tryFeaturesTitle,
                   textAlign: TextAlign.center,
                   style: TextThemes.heavySize20Text(),
                 ),
                 smallVerticalSizedBox,
                 Text(
-                  TryNewFeatureStrings.description,
+                  tryFeaturesDescription,
                   textAlign: TextAlign.center,
                   style:
                       TextThemes.normalSize13Text(grey).copyWith(height: 1.6),
@@ -67,7 +69,8 @@ class _TryNewFeaturesState extends State<TryNewFeatures> {
               ],
             ),
             if (isProcessing)
-              const SILLoading(color: grey, type: SILLoadingType.Ripple),
+              const SILFancyLoading(
+                  color: grey, type: SILFancyLoadingType.ripple),
             if (!isProcessing)
               Switch.adaptive(
                   onChanged: (bool value) async {
@@ -83,7 +86,7 @@ class _TryNewFeaturesState extends State<TryNewFeatures> {
                   },
                   value: widget.canExperiment!),
             smallVerticalSizedBox,
-            const Text(TryNewFeatureStrings.notice),
+            const Text(tryFeaturesNotice),
           ],
         ),
       ],

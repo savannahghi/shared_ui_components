@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sil_ui_components/profile_avatar.dart';
 import 'package:sil_ui_components/sil_buttons.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
-import 'package:sil_ui_components/utils/constants.dart';
+import 'package:sil_ui_components/sil_profile_avator.dart';
+import 'package:sil_ui_components/src/constants.dart';
 
-class ProfileBanner extends StatelessWidget {
+class SILProfileBanner extends StatelessWidget {
   final bool editable;
   final double height;
   final String backgroundImagePath;
@@ -14,7 +14,7 @@ class ProfileBanner extends StatelessWidget {
   final String userName;
   final String primaryPhone;
 
-  const ProfileBanner({
+  const SILProfileBanner({
     required this.backgroundImagePath,
     required this.userPhotoUrl,
     required this.profileRoute,
@@ -83,7 +83,7 @@ class ProfileBanner extends StatelessWidget {
                   color: Theme.of(context).primaryColor.withOpacity(0.6),
                 ),
               ),
-              child: ProfileAvatar(
+              child: SILProfileAvatar(
                   photoUrl: (userPhotoUrl == 'UNKNOWN')
                       ? bewellLogoNetworkUrl
                       : userPhotoUrl),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:sil_ui_components/sil_loading.dart';
 import 'package:sil_themes/colors.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
+import 'package:sil_ui_components/sil_fancy_loading.dart';
 
 enum CommunicationType { allowEmail, allowTextSMS, allowWhatsApp, allowPush }
 
@@ -86,7 +86,8 @@ class _CommunicationSettingItemState extends State<CommunicationSettingItem> {
             ),
             Flexible(
               child: isProcessing
-                  ? const SILLoading(color: grey, type: SILLoadingType.Ripple)
+                  ? const SILFancyLoading(
+                      color: grey, type: SILFancyLoadingType.ripple)
                   : Container(
                       padding: const EdgeInsets.all(1),
                       decoration: BoxDecoration(

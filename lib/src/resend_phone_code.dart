@@ -2,26 +2,19 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:sil_ui_components/types/type_defs.dart';
+import 'package:sil_misc/sil_exception.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
+import 'package:sil_ui_components/src/type_defs.dart';
 
-import 'sil_buttons.dart';
-import 'utils/constants.dart';
-
-class SILException implements Exception {
-  final dynamic message;
-  final dynamic cause;
-
-  SILException({@required this.cause, @required this.message});
-}
+import 'buttons.dart';
+import 'constants.dart';
 
 /// this is a phone otp resend widget
 /// tell it to resend via authenticated(graph) or unauthenticated endpoint
-
 enum ResendVia { graph, endpoint }
 
-class ResendPhoneCode extends StatefulWidget {
+class SILResendPhoneCode extends StatefulWidget {
   final String phoneNumber;
   final Function resetTimer;
   final ResendVia resendVia;
@@ -35,7 +28,7 @@ class ResendPhoneCode extends StatefulWidget {
   /// endpoint
   final Function retrySendOtpEndpoint;
 
-  const ResendPhoneCode(
+  const SILResendPhoneCode(
       {required this.phoneNumber,
       required this.resetTimer,
       required this.loader,
@@ -45,10 +38,10 @@ class ResendPhoneCode extends StatefulWidget {
       required this.appWrapperContext,
       this.resendVia = ResendVia.endpoint});
   @override
-  _ResendPhoneCodeState createState() => _ResendPhoneCodeState();
+  _SILResendPhoneCodeState createState() => _SILResendPhoneCodeState();
 }
 
-class _ResendPhoneCodeState extends State<ResendPhoneCode>
+class _SILResendPhoneCodeState extends State<SILResendPhoneCode>
     with SingleTickerProviderStateMixin {
   bool resending = false;
   bool hasErr = false;
@@ -138,7 +131,7 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
               ListTile(
                 leading: const Icon(Icons.message_outlined),
                 title: Text(
-                  PhoneNoConstants.viaText,
+                  viaText,
                   style: TextThemes.normalSize16Text(),
                 ),
                 onTap: () {
@@ -149,7 +142,7 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
               ListTile(
                 leading: const Icon(Icons.chat),
                 title: Text(
-                  PhoneNoConstants.viaWhatsApp,
+                  viaWhatsApp,
                   style: TextThemes.normalSize16Text(),
                 ),
                 onTap: () {
@@ -173,89 +166,4 @@ class _ResendPhoneCodeState extends State<ResendPhoneCode>
       ),
     );
   }
-}
-
-Future<String> showResendBottomSheet({
-  required BuildContext context,
-  required String phoneNo,
-  required Widget loader,
-  required Function? resetTimer,
-  required GenerateRetryOtpFunc generateOtpFunc,
-  required dynamic appWrapperContext,
-  required dynamic client,
-  required Function retrySendOtpEndpoint,
-}) async {
-  final dynamic res = await showModalBottomSheet<dynamic>(
-    context: context,
-    builder: (BuildContext context) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            height: 50,
-            decoration: BoxDecoration(
-                border: Border(
-              bottom: BorderSide(color: Colors.grey.withOpacity(0.3)),
-            )),
-            child: Stack(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Resend code',
-                      style: TextThemes.boldSize20Text(
-                          Theme.of(context).primaryColor),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20.0),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        'Cancel',
-                        style: TextThemes.boldSize14Text(),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // ---
-          size15VerticalSizedBox,
-          ResendPhoneCode(
-              phoneNumber: phoneNo,
-              resetTimer: resetTimer ?? () {},
-              loader: loader,
-              appWrapperContext: appWrapperContext,
-              client: client,
-              retrySendOtpEndpoint: retrySendOtpEndpoint,
-              generateOtpFunc: generateOtpFunc),
-          size15VerticalSizedBox
-        ],
-      );
-    },
-  );
-  if (res.runtimeType == String) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('${PhoneNoConstants.codeSent} $phoneNo'),
-      ),
-    );
-    return res as Future<String>;
-  }
-  ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(
-      content: Text(PhoneNoConstants.resendCancel),
-    ),
-  );
-  return 'err';
 }

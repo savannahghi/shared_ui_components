@@ -11,13 +11,13 @@ void main() {
         home: Builder(builder: (BuildContext context) {
           return Scaffold(
             body: SizedBox(
-              child: SilCountryPicker(),
+              child: SILCountryPicker(),
             ),
           );
         }),
       );
       await tester.pumpWidget(testWidget);
-      final Finder countryPicker = find.byType(SilCountryPicker);
+      final Finder countryPicker = find.byType(SILCountryPicker);
       final Finder detector = find.byType(GestureDetector);
       expect(countryPicker, findsOneWidget);
       expect(detector, findsOneWidget);
