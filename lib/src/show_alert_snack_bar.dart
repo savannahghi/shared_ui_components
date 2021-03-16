@@ -13,14 +13,14 @@ void showAlertSnackBar({
   required BuildContext context,
   required String title,
   String? message,
-  required SILSnackBarAction action,
-  required SnackBarType type,
+  SILSnackBarAction? action,
+  SnackBarType? type,
 }) {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
     ..showSnackBar(
       SILSnackBar(
-        type: type,
+        type: type ?? SnackBarType.info,
         onAction: action,
         title: title,
         content: Text(
