@@ -644,7 +644,7 @@ InputDecorator SILSelectOptionField({
           style: Theme.of(context!)
               .textTheme
               .headline6!
-              .copyWith(color: Colors.grey, fontSize: 16),
+              .copyWith(color: Colors.grey, fontSize: 12),
         ),
         value: value,
         items: options!.map((String value) {
