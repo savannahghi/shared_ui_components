@@ -436,7 +436,7 @@ GestureDetector SILDatePickerField({
       );
     }
     String _convertDateToString(DateTime datePicked) {
-      return DateFormat('dd-MM-yyyy').format(datePicked);
+      return DateFormat('yyyy-MM-dd').format(datePicked);
     }
 
     if (selectedDate == null) return;
