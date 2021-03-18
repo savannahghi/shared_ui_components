@@ -28,6 +28,7 @@ class _SILCountryPickerState extends State<SILCountryPicker> {
         }
       },
       child: SizedBox(
+        key: const Key('selectCountryKey'),
         height: 30,
         width: 76,
         child: Row(

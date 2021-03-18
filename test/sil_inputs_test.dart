@@ -168,6 +168,9 @@ void main() {
 
       final Finder textFormField = find.byType(TextFormField);
       expect(textFormField, findsOneWidget);
+      await tester.showKeyboard(find.byType(TextFormField));
+      await tester.enterText(find.byType(TextFormField), 'text');
+      await tester.pumpAndSettle();
     });
 
     testWidgets('should test SILFormTextField', (WidgetTester tester) async {
@@ -181,6 +184,7 @@ void main() {
                 Form(
                   key: key,
                   child: SILFormTextField(
+                      onChanged: (String _) {},
                       context: context,
                       validator: (dynamic val) {
                         if (val == '') {
@@ -345,6 +349,7 @@ void main() {
       );
 
       expect(find.byKey(formKey), findsOneWidget);
+
       expect(find.byKey(silSelectOptionField), findsOneWidget);
       expect(find.byType(DropdownButtonHideUnderline), findsOneWidget);
       expect(find.byType(typeOf<DropdownButton<String>>()), findsOneWidget);
@@ -386,14 +391,20 @@ void main() {
     testWidgets('should render correctly', (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: Builder(builder: (BuildContext context) {
-          return const Material(
+          return Material(
               child: SILPinCodeTextField(
             maxLength: null,
-            onDone: null,
+            onDone: (String val) {},
+            onTextChanged: (String val) {},
           ));
         }),
       ));
 
+      await tester.pumpAndSettle();
+      expect(find.byType(SILPinCodeTextField), findsOneWidget);
+
+      await tester.showKeyboard(find.byType(SILPinCodeTextField));
+      await tester.enterText(find.byType(SILPinCodeTextField), '1234');
       await tester.pumpAndSettle();
 
       final Finder pinCodeTextField = find.byType(PinCodeTextField);
@@ -423,8 +434,10 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(Container), findsWidgets);
       expect(find.byType(CupertinoDatePicker), findsWidgets);
-      debugDefaultTargetPlatformOverride = null;
       await tester.tap(find.text('January'));
+      await tester.pumpAndSettle();
+
+      debugDefaultTargetPlatformOverride = null;
     });
 
     testWidgets('should render ios date picker with allowed current year',
@@ -491,6 +504,7 @@ void main() {
       await tester.tap(find.byKey(datePickerKey));
       await tester.pumpAndSettle();
       await tester.tap(find.text('15'));
+      await tester.pumpAndSettle();
     });
   });
 }

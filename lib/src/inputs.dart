@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -476,123 +475,6 @@ GestureDetector SILDatePickerField({
   );
 }
 
-/// [SILTimePicker] customized for selection time
-/// Example
-/// ```dart
-/// SILTimePicker(
-/// context: context,
-/// labelText: 'At',
-/// controller: startTimeController,
-/// onSaved: (dynamic value) {
-///     <do-something-awesome-here>
-///   },
-/// validator: (dynamic v) {
-///   if (v.toString().isEmpty) {
-///     return 'Start time is required';
-///   }
-///  return null;
-///  },
-/// onChanged: (dynamic v) {
-///   <do-something-awesome-here>
-/// },
-/// ),
-/// ```
-///
-///
-/// The widget adds a formatted date of the form [HH:MM AM/PM]
-/// to the [TextEditingController]. An example of the date is
-/// `12:30 AM` or `5:30 PM`.
-///
-/// - The selected date is an instance of TimeOfDay. For example [TimeOfDay(20:22]
-///   is formatted to become [8:22 PM]
-// ignore: non_constant_identifier_names
-GestureDetector SILTimePicker({
-  required BuildContext? context,
-  required TextEditingController? controller,
-  required FormFieldSetter<String>? onChanged,
-  required FormFieldSetter<String>? onSaved,
-  String? labelText,
-  String? hintText,
-  String? initialValue,
-  FocusNode? focusNode,
-  TextInputType? keyboardType,
-  FormFieldValidator<String>? validator,
-  Icon? suffixIcon,
-}) {
-  TimeOfDay selectedTime = TimeOfDay.now();
-  Future<void> _selectTime(BuildContext context) async {
-    dynamic picked;
-    if (Platform.isIOS) {
-      final DateTime minimumDateTime = DateTime(currentYear, currentMonth,
-          currentDay, TimeOfDay.now().hour, TimeOfDay.now().minute);
-      await showModalBottomSheet(
-          context: context,
-          builder: (BuildContext builder) {
-            return SizedBox(
-              height: MediaQuery.of(context).copyWith().size.height / 3,
-              child: CupertinoDatePicker(
-                mode: CupertinoDatePickerMode.time,
-                initialDateTime: minimumDateTime,
-                minimumDate: minimumDateTime,
-                onDateTimeChanged: (DateTime changedTimer) {
-                  picked = TimeOfDay.fromDateTime(changedTimer);
-                },
-              ),
-            );
-          });
-    } else {
-      picked = await showTimePicker(
-          context: context,
-          initialTime: TimeOfDay.now(),
-          builder: (BuildContext? context, Widget? child) {
-            return MediaQuery(
-              data: MediaQuery.of(context!)
-                  .copyWith(alwaysUse24HourFormat: false),
-              child: Theme(
-                data: Theme.of(context).copyWith(
-                  primaryColor: healthcloudAccentColor,
-                ),
-                child: child!,
-              ),
-            );
-          });
-    }
-    if (picked != null && picked != selectedTime) {
-      selectedTime = picked as TimeOfDay;
-    }
-
-    String _convertTimeToString(TimeOfDay time) {
-      //format time to format as "6.05 PM"
-      final DateTime now = DateTime.now();
-      final DateTime formattedDateTime =
-          DateTime(now.year, now.month, now.day, time.hour, time.minute);
-      return DateFormat.jm().format(formattedDateTime);
-    }
-
-    controller!.text = _convertTimeToString(selectedTime);
-  }
-
-  return GestureDetector(
-    onTap: () async {
-      await _selectTime(context!);
-    },
-    child: AbsorbPointer(
-      child: SILFormTextField(
-        suffixIcon: suffixIcon,
-        context: context,
-        labelText: labelText,
-        hintText: hintText,
-        focusNode: focusNode,
-        controller: controller,
-        keyboardType: keyboardType,
-        validator: validator,
-        onChanged: onChanged,
-        onSaved: onSaved,
-      ),
-    ),
-  );
-}
-
 /// [SILSelectOptionField] customized for selection options.
 ///
 /// This widget can be used in dropdown buttons and select option fields
@@ -793,20 +675,20 @@ PinBoxDecoration customRoundedPinBoxDecoration = (
 
 class SILPinCodeTextField extends StatelessWidget {
   final int? maxLength;
-  final Function? onTextChanged;
-  final Function? onDone;
+  final Function onTextChanged;
+  final Function onDone;
   final double? pinBoxWidth;
   final double? pinBoxHeight;
   final bool? autoFocus;
   final WrapAlignment? wrapAlignment;
   final TextEditingController? controller;
-  final TextInputType? keyboardType;
+  final TextInputType keyboardType;
   final FocusNode? focusNode;
 
   const SILPinCodeTextField({
     Key? key,
     required this.maxLength,
-    this.onTextChanged,
+    required this.onTextChanged,
     required this.onDone,
     this.autoFocus = false,
     this.wrapAlignment = WrapAlignment.spaceBetween,
@@ -842,12 +724,12 @@ class SILPinCodeTextField extends StatelessWidget {
       //highlightAnimation: true,
       highlightAnimationBeginColor: Colors.black,
       highlightAnimationEndColor: Colors.white12,
-      keyboardType: keyboardType!,
+      keyboardType: keyboardType,
       onTextChanged: (String val) {
-        onTextChanged!(val);
+        onTextChanged(val);
       },
       onDone: (String val) {
-        onDone!(val);
+        onDone(val);
       },
     );
   }

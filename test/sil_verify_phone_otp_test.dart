@@ -19,7 +19,6 @@ void main() {
               body: SILVerifyPhoneOtp(
                 appWrapperContext: 'appcontext',
                 client: FakeClient,
-                context: context,
                 generateOtpFunc: () => true,
                 loader: const CircularProgressIndicator(),
                 otp: '1223',

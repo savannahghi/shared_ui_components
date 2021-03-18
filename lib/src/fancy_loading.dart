@@ -42,13 +42,6 @@ class SILFancyLoading extends StatelessWidget {
           color: this.color,
           size: this.size,
         );
-
-      default:
-        return SpinKitCubeGrid(
-          key: cubeGridKey,
-          color: this.color,
-          size: this.size,
-        );
     }
   }
 }

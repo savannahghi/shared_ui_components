@@ -19,7 +19,6 @@ class SILVerifyPhoneOtp extends StatefulWidget {
   final Function generateOtpFunc;
   final dynamic client;
   final dynamic appWrapperContext;
-  final BuildContext context;
 
   /// endpoint
   final Function retrySendOtpEndpoint;
@@ -34,7 +33,6 @@ class SILVerifyPhoneOtp extends StatefulWidget {
     required this.client,
     required this.retrySendOtpEndpoint,
     required this.appWrapperContext,
-    required this.context,
     this.setValues,
   }) : super(key: key);
   @override
@@ -143,6 +141,7 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
             ),
           if (canResend)
             SILSecondaryButton(
+              buttonKey: const Key('resendOtpCode'),
               textColor: Theme.of(context).primaryColor,
               onPressed: () async {
                 final String res = await showResendBottomSheet(

@@ -13,11 +13,11 @@ void main() {
           body: Center(
             child: Builder(builder: (BuildContext context) {
               return SILPrimaryButton(
-                buttonKey: buttonKey,
-                onPressed: () {
-                  isActionTapped = true;
-                },
-              );
+                  buttonKey: buttonKey,
+                  onPressed: () {
+                    isActionTapped = true;
+                  },
+                  onLongPress: () {});
             }),
           ),
         ),

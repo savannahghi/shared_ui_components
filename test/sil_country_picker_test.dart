@@ -23,9 +23,18 @@ void main() {
       final Finder detector = find.byType(GestureDetector);
       expect(countryPicker, findsOneWidget);
       expect(detector, findsOneWidget);
+      expect(
+          find.byKey(
+            const Key('selectCountryKey'),
+          ),
+          findsOneWidget);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('selectCountryKey')));
 
       await tester.pumpAndSettle();
-      await tester.tapAt(const Offset(10.0, 10.0));
+
+      expect(find.byType(ListTile), findsNWidgets(4));
+      await tester.tap(find.byType(ListTile).first);
       await tester.pumpAndSettle();
     });
   });
