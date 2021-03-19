@@ -315,6 +315,10 @@ void main() {
 
   group('SILSelectOptionField', () {
     testWidgets('SILSelectOptionField', (WidgetTester tester) async {
+      Type typeOf<T>() {
+        return T;
+      }
+
       const String _selectedGender = 'Male';
       const Key formKey = Key('select_option_field');
       final List<String> options = <String>[
@@ -331,16 +335,9 @@ void main() {
                   key: formKey,
                   child: SILSelectOptionField(
                       dropDownInputKey: silSelectOptionField,
-                      context: context,
                       hintText: 'Select gender',
                       value: _selectedGender,
                       options: options,
-                      validator: (dynamic value) {
-                        if (value.isEmpty as bool || value == null) {
-                          return 'required';
-                        }
-                        return null;
-                      },
                       onSaved: (dynamic value) {},
                       onChanged: (dynamic val) {})));
         })),
@@ -349,9 +346,7 @@ void main() {
       expect(find.byKey(formKey), findsOneWidget);
       expect(find.byKey(silSelectOptionField), findsOneWidget);
       expect(find.byType(DropdownButtonHideUnderline), findsOneWidget);
-      expect(find.byType(DropdownButton), findsOneWidget);
-
-      // TODO: vincent michuki investigate why this test is failing
+      expect(find.byType(typeOf<DropdownButton<String>>()), findsOneWidget);
     });
 
     testWidgets('SILDatePicker', (WidgetTester tester) async {

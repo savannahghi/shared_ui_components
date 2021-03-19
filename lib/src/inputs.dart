@@ -607,61 +607,70 @@ GestureDetector SILTimePicker({
 ///    onSaved: (dynamic value) {},
 ///  ),
 /// ```
-// ignore: non_constant_identifier_names
-InputDecorator SILSelectOptionField({
-  Key? dropDownInputKey,
-  @required BuildContext? context,
-  @required FormFieldCallback? onSaved,
-  @required List<String>? options,
-  @required String? value,
-  String? hintText,
-  FocusNode? focusNode,
-  FormFieldCallback? validator,
-  FormFieldCallback? onChanged,
-  bool? disabled,
-  Color? color,
-}) {
-  return InputDecorator(
-    decoration: InputDecoration(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: color ?? grey),
-        borderRadius: const BorderRadius.all(Radius.circular(5)),
-      ),
-      focusedBorder: const OutlineInputBorder(
-        borderSide: BorderSide(color: healthcloudAccentColor),
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-      ),
-      focusColor: healthcloudAccentColor,
-      fillColor: white,
-    ),
-    child: DropdownButtonHideUnderline(
-      child: DropdownButton<dynamic>(
-        key: dropDownInputKey,
-        dropdownColor: white,
-        hint: Text(
-          hintText!,
-          style: Theme.of(context!)
-              .textTheme
-              .headline6!
-              .copyWith(color: Colors.grey, fontSize: 12),
+class SILSelectOptionField extends StatelessWidget {
+  final Key dropDownInputKey;
+  final FormFieldCallback onSaved;
+  final List<String> options;
+  final String hintText;
+  final Color? color;
+  final String value;
+  final bool disabled;
+  final FormFieldCallback onChanged;
+
+  const SILSelectOptionField({
+    required this.onSaved,
+    required this.options,
+    required this.value,
+    required this.dropDownInputKey,
+    required this.hintText,
+    required this.onChanged,
+    this.color,
+    bool? disabled,
+  }) : this.disabled = disabled ?? false;
+
+  @override
+  Widget build(BuildContext context) {
+    return InputDecorator(
+      decoration: InputDecoration(
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: color ?? grey),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
         ),
-        value: value,
-        items: options!.map((String value) {
-          return DropdownMenuItem<dynamic>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-        onChanged: disabled != true
-            ? (dynamic value) {
-                onChanged!(value);
-              }
-            : (dynamic val) {},
-        isDense: true,
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: healthcloudAccentColor),
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+        ),
+        focusColor: healthcloudAccentColor,
+        fillColor: white,
       ),
-    ),
-  );
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          key: dropDownInputKey,
+          dropdownColor: white,
+          hint: Text(
+            hintText,
+            style: Theme.of(context)
+                .textTheme
+                .headline6!
+                .copyWith(color: Colors.grey, fontSize: 16),
+          ),
+          value: value,
+          items: options.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              key: ValueKey<String>(value),
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          onChanged:
+              disabled != true ? (dynamic value) => onChanged(value) : null,
+          isDense: true,
+        ),
+      ),
+    );
+  }
 }
 
 //DISCLAIMER : this may not be so unique to SILPhoneInput. However it is placed here while doing clean-up and to avoid breakage. A further refinement
