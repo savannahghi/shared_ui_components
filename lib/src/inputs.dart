@@ -54,11 +54,10 @@ class SILPhoneInput extends FormField<String> {
     @required TextStyle? labelStyle,
     bool? enabled,
     String? initialValue = '',
-    bool? autoValidate = true,
-    Map<String, String>? data,
+    bool autoValidate = true,
   }) : super(
             enabled: enabled ?? true,
-            autovalidateMode: autoValidate!
+            autovalidateMode: autoValidate
                 ? AutovalidateMode.always
                 : AutovalidateMode.disabled,
             validator: (dynamic value) {
@@ -94,10 +93,7 @@ class SILPhoneInput extends FormField<String> {
             },
             initialValue: initialValue,
             builder: (FormFieldState<String> state) {
-              data ??= <String, String>{
-                'countryCode': '+254',
-                'phoneNumber': ''
-              };
+              String countryCode = '+254';
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -109,13 +105,17 @@ class SILPhoneInput extends FormField<String> {
                         Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
                       Container(
                         height: 54,
-                        padding: const EdgeInsets.fromLTRB(15, 5, 5, 5),
+                        padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border(
                               right: BorderSide(color: Colors.grey[350]!)),
                         ),
-                        child: SILCountryPicker(),
+                        child: SILCountryPicker(
+                          onChanged: (String value) {
+                            countryCode = value;
+                          },
+                        ),
                       ),
                       Flexible(
                         child: SizedBox(
@@ -135,14 +135,15 @@ class SILPhoneInput extends FormField<String> {
                                   const EdgeInsets.fromLTRB(15, 0, 15, 20),
                             ),
                             keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             onChanged: (dynamic value) {
-                              data!['phoneNumber'] = value.toString();
                               state.didChange(value.toString());
-                              final String phoneNumber = formatPhoneNumber(
-                                countryCode: data!['countryCode'].toString(),
+                              onChanged!(formatPhoneNumber(
+                                countryCode: countryCode,
                                 phoneNumber: value.toString(),
-                              );
-                              onChanged!(phoneNumber);
+                              ));
                             },
                           ),
                         ),

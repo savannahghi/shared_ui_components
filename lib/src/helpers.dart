@@ -9,11 +9,11 @@ bool alignLabelWithHint(int? maxLines) => maxLines != null && maxLines > 1;
 
 Country popValue(String name) {
   switch (name) {
-    case 'kenya':
+    case 'Kenya':
       return Country.kenya;
-    case 'uganda':
+    case 'Uganda':
       return Country.uganda;
-    case 'tanzania':
+    case 'Tanzania':
       return Country.tanzania;
     default:
       return Country.us;
@@ -24,7 +24,10 @@ Map<String, String>? getCountry(Country country) {
   switch (country) {
     case Country.kenya:
       return supportedCountries['kenya'];
-
+    case Country.uganda:
+      return supportedCountries['uganda'];
+    case Country.tanzania:
+      return supportedCountries['tanzania'];
     default:
       return supportedCountries['usa'];
   }
@@ -40,7 +43,10 @@ dynamic selectCountryModalBottomSheet(BuildContext context) {
             children: <Widget>[
               for (Map<String, String> country in supportedCountries.values)
                 ListTile(
-                  leading: Image.asset(country['flag']!),
+                  leading: Image.asset(
+                    country['flag']!,
+                    height: 25,
+                  ),
                   title: Text(country['name']!),
                   onTap: () {
                     Navigator.of(context).pop(popValue(country['name']!));

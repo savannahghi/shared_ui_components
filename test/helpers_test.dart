@@ -25,14 +25,16 @@ void main() {
   });
 
   test('should test popValue', () {
-    expect(popValue('kenya'), Country.kenya);
-    expect(popValue('uganda'), Country.uganda);
-    expect(popValue('tanzania'), Country.tanzania);
+    expect(popValue('Kenya'), Country.kenya);
+    expect(popValue('Uganda'), Country.uganda);
+    expect(popValue('Tanzania'), Country.tanzania);
     expect(popValue('United States'), Country.us);
   });
 
   test('should test getCountry', () {
     expect(getCountry(Country.kenya), supportedCountries['kenya']);
+    expect(getCountry(Country.uganda), supportedCountries['uganda']);
+    expect(getCountry(Country.tanzania), supportedCountries['tanzania']);
     expect(getCountry(Country.us), supportedCountries['usa']);
   });
 }

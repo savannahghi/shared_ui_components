@@ -11,7 +11,9 @@ void main() {
         home: Builder(builder: (BuildContext context) {
           return Scaffold(
             body: SizedBox(
-              child: SILCountryPicker(),
+              child: SILCountryPicker(
+                onChanged: (String val) {},
+              ),
             ),
           );
         }),

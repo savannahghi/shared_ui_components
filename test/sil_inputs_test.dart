@@ -146,11 +146,12 @@ void main() {
 
       // enter a valid US phone number value
       await tester.tap(find.byKey(textFormFieldKey));
-      await tester.enterText(find.byKey(textFormFieldKey), '+12025550163');
+      await tester.enterText(find.byKey(textFormFieldKey), '728101710');
       await tester.pumpAndSettle();
 
       // confirm phone number was entered
-      expect(find.text('+12025550163'), findsOneWidget);
+      expect(find.text('728101710'), findsOneWidget);
+      expect(find.text('+254'), findsOneWidget);
       await tester.pumpAndSettle();
     });
   });
