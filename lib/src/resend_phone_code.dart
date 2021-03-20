@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:sil_misc/sil_exception.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
 import 'package:sil_ui_components/src/type_defs.dart';
+import 'package:sil_misc/sil_exception.dart';
 
 import 'buttons.dart';
 import 'constants.dart';

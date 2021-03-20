@@ -12,7 +12,6 @@ import 'package:sil_themes/text_themes.dart';
 import 'package:intl/intl.dart';
 import 'package:sil_ui_components/sil_country_picker.dart';
 import 'package:sil_ui_components/src/helpers.dart';
-import 'package:sil_ui_components/src/type_defs.dart';
 
 import 'constants.dart';
 import 'widget_keys.dart';
@@ -198,14 +197,14 @@ class SILPhoneInput extends FormField<String> {
 TextFormField SILFormTextField({
   @required BuildContext? context,
   Queue<int>? inputController,
-  FormFieldCallback? onSaved,
+  FormFieldSetter<String>? onSaved,
   Function? onTap,
   String? labelText,
   String? hintText,
   String? initialValue,
-  FormFieldCallback? validator,
-  FormFieldCallback? onChanged,
-  FormFieldCallback? onFieldSubmit,
+  FormFieldValidator<String>? validator,
+  ValueChanged<String>? onChanged,
+  ValueChanged<String>? onFieldSubmit,
   TextEditingController? controller,
   FocusNode? focusNode,
   TextInputType? keyboardType,
@@ -297,9 +296,11 @@ TextFormField SILFormTextField({
     textInputAction: textInputAction ?? TextInputAction.done,
     textAlignVertical: TextAlignVertical.center,
     validator: validator != null
-        ? (dynamic value) => validator(value)
+        ? (dynamic value) => validator(value.toString())
         : null,
-    onChanged: onChanged != null ? (dynamic value) => onChanged(value) : null,
+    onChanged: onChanged != null
+        ? (dynamic value) => onChanged(value.toString())
+        : null,
     onTap: onTap != null ? () => onTap() : null,
     controller: initialValue == null ? controller : null,
     focusNode: focusNode,
@@ -354,14 +355,14 @@ GestureDetector SILDatePickerField({
   @required TextEditingController? controller,
   Key? gestureDateKey,
   Key? textFieldDateKey,
-  FormFieldCallback? onSaved,
+  FormFieldSetter<String>? onSaved,
   String? labelText,
   String? hintText,
   String? initialValue,
   FocusNode? focusNode,
   TextInputType? keyboardType,
-  FormFieldCallback? validator,
-  FormFieldCallback? onChanged,
+  FormFieldValidator<String>? validator,
+  FormFieldSetter<String>? onChanged,
   bool? allowCurrentYear = false,
   bool? allowFutureYears = false,
   bool? allowEligibleDate = false,
@@ -501,14 +502,14 @@ GestureDetector SILDatePickerField({
 GestureDetector SILTimePicker({
   @required BuildContext? context,
   @required TextEditingController? controller,
-  @required FormFieldCallback? onChanged,
-  @required FormFieldCallback? onSaved,
+  @required FormFieldSetter<String>? onChanged,
+  @required FormFieldSetter<String>? onSaved,
   String? labelText,
   String? hintText,
   String? initialValue,
   FocusNode? focusNode,
   TextInputType? keyboardType,
-  FormFieldCallback? validator,
+  FormFieldValidator<String>? validator,
   Icon? suffixIcon,
 }) {
   TimeOfDay selectedTime = TimeOfDay.now();
@@ -609,13 +610,13 @@ GestureDetector SILTimePicker({
 /// ```
 class SILSelectOptionField extends StatelessWidget {
   final Key dropDownInputKey;
-  final FormFieldCallback onSaved;
+  final FormFieldSetter<String>? onSaved;
   final List<String> options;
   final String hintText;
   final Color? color;
   final String value;
   final bool disabled;
-  final FormFieldCallback onChanged;
+  final FormFieldSetter<String>? onChanged;
 
   const SILSelectOptionField({
     required this.onSaved,
@@ -664,8 +665,13 @@ class SILSelectOptionField extends StatelessWidget {
               child: Text(value),
             );
           }).toList(),
-          onChanged:
-              disabled != true ? (dynamic value) => onChanged(value) : null,
+          onChanged: disabled != true
+              ? (dynamic value) {
+                  if (onChanged != null) {
+                    onChanged!(value.toString());
+                  }
+                }
+              : null,
           isDense: true,
         ),
       ),
@@ -691,10 +697,10 @@ class SILSelectOptionField extends StatelessWidget {
 // ignore: non_constant_identifier_names
 Row SILCheckbox({
   Key? key,
-  @required BuildContext? context,
-  @required dynamic value,
-  @required String? text,
-  @required FormFieldCallback? onChanged,
+  required BuildContext? context,
+  required dynamic value,
+  required String? text,
+  required ValueChanged<bool?>? onChanged,
 }) {
   return Row(
     children: <Widget>[
@@ -732,7 +738,7 @@ Row SILRadio({
   @required BuildContext? context,
   @required dynamic? value,
   @required String? text,
-  @required FormFieldCallback? onChanged,
+  @required ValueChanged<dynamic?>? onChanged,
   @required dynamic groupValue,
   Key? radioKey,
   bool rightAligned = false,

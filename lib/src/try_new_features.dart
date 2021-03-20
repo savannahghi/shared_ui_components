@@ -42,7 +42,7 @@ class _SILTryNewFeaturesWidgetState extends State<SILTryNewFeaturesWidget> {
             Container(
               padding: const EdgeInsets.all(30),
               decoration: const BoxDecoration(
-                  color: greyCardBackground, shape: BoxShape.circle),
+                  color: Colors.grey, shape: BoxShape.circle),
               child: const Padding(
                   padding: EdgeInsets.all(20.0),
                   child: Image(
