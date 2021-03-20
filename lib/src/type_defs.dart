@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// callback that is passed to a form fields [onChanged] of [onValue]
-typedef FormFieldCallback = dynamic Function(dynamic value);
+typedef FormFieldCallback = String? Function(dynamic value);
 
 typedef SettingsFunc = Future<void> Function(
     {@required bool value, @required BuildContext context});
