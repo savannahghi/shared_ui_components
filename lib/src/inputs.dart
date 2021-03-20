@@ -297,7 +297,7 @@ TextFormField SILFormTextField({
     textInputAction: textInputAction ?? TextInputAction.done,
     textAlignVertical: TextAlignVertical.center,
     validator: validator != null
-        ? (dynamic value) => validator(value).toString()
+        ? (dynamic value) => validator(value)
         : null,
     onChanged: onChanged != null ? (dynamic value) => onChanged(value) : null,
     onTap: onTap != null ? () => onTap() : null,
