@@ -360,13 +360,13 @@ void main() {
               body: Form(
                   key: formKey,
                   child: SILDatePickerField(
-                    gestureDateKey: silDatePickerField,
-                    context: context,
-                    hintText: 'Enter dob',
-                    allowEligibleDate: true,
-                    controller: datePickerController,
-                    keyboardType: TextInputType.datetime,
-                  )));
+                      gestureDateKey: silDatePickerField,
+                      context: context,
+                      hintText: 'Enter dob',
+                      allowEligibleDate: true,
+                      controller: datePickerController,
+                      keyboardType: TextInputType.datetime,
+                      onChanged: (dynamic val) {})));
         })),
       );
 
@@ -411,10 +411,10 @@ void main() {
         home: Builder(builder: (BuildContext context) {
           return Material(
               child: SILDatePickerField(
-            context: context,
-            controller: controller,
-            gestureDateKey: datePickerKey,
-          ));
+                  context: context,
+                  controller: controller,
+                  gestureDateKey: datePickerKey,
+                  onChanged: (dynamic val) {}));
         }),
       ));
 
@@ -439,7 +439,8 @@ void main() {
                   gestureDateKey: datePickerKey,
                   allowCurrentYear: true,
                   allowEligibleDate: true,
-                  allowFutureYears: true));
+                  allowFutureYears: true,
+                  onChanged: (dynamic val) {}));
         }),
       ));
 
@@ -459,10 +460,10 @@ void main() {
         home: Builder(builder: (BuildContext context) {
           return Material(
               child: SILDatePickerField(
-            context: context,
-            controller: controller,
-            gestureDateKey: datePickerKey,
-          ));
+                  context: context,
+                  controller: controller,
+                  gestureDateKey: datePickerKey,
+                  onChanged: (dynamic val) {}));
         }),
       ));
 
@@ -481,6 +482,7 @@ void main() {
                   context: context,
                   controller: controller,
                   gestureDateKey: datePickerKey,
+                  onChanged: (dynamic val) {},
                   allowCurrentYear: true));
         }),
       ));

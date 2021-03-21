@@ -58,25 +58,25 @@ Map<String, Map<String, String>> supportedCountries =
     'code': '+254',
     'initial': 'KE',
     'name': 'Kenya',
-    'flag': 'assets/ke.png',
+    'flag': 'assets/images/ke.png',
   },
   'uganda': <String, String>{
     'code': '+255',
     'initial': 'UG',
     'name': 'Uganda',
-    'flag': 'assets/ug.png',
+    'flag': 'assets/images/ug.png',
   },
   'tanzania': <String, String>{
     'code': '+256',
     'initial': 'TZ',
     'name': 'Tanzania',
-    'flag': 'assets/tz.png',
+    'flag': 'assets/images/tz.png',
   },
   'usa': <String, String>{
     'code': '+1',
     'initial': 'USA',
     'name': 'United States',
-    'flag': 'assets/us.png',
+    'flag': 'assets/images/us.png',
   },
 };
 

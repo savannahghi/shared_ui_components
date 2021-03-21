@@ -39,6 +39,7 @@ class SILProfileBanner extends StatelessWidget {
         ),
       ),
       child: Stack(
+        clipBehavior: Clip.none,
         children: <Widget>[
           Container(
             width: double.infinity,

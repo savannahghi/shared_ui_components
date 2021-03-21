@@ -443,7 +443,13 @@ GestureDetector SILDatePickerField({
 
     if (selectedDate == null) return;
 
-    controller!.text = _convertDateToString(selectedDate as DateTime);
+    final String date = _convertDateToString(selectedDate as DateTime);
+
+    controller!.value = controller.value.copyWith(
+      text: date,
+    );
+
+    onChanged!(date);
   }
 
   return GestureDetector(
