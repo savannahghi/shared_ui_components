@@ -48,10 +48,10 @@ import 'widget_keys.dart';
 
 class SILPhoneInput extends FormField<String> {
   SILPhoneInput({
-    @required Queue<int>? inputController,
-    @required FormFieldSetter<String>? onChanged,
-    @required String? labelText,
-    @required TextStyle? labelStyle,
+    required Queue<int>? inputController,
+    required FormFieldSetter<String>? onChanged,
+    required String? labelText,
+    required TextStyle? labelStyle,
     bool? enabled,
     String? initialValue = '',
     bool autoValidate = true,
@@ -196,7 +196,7 @@ class SILPhoneInput extends FormField<String> {
 ///       on the provided context. For example getting colors from [Theme.of(context)]
 // ignore: non_constant_identifier_names
 TextFormField SILFormTextField({
-  @required BuildContext? context,
+  required BuildContext? context,
   Queue<int>? inputController,
   FormFieldSetter<String>? onSaved,
   Function? onTap,
@@ -352,8 +352,8 @@ TextFormField SILFormTextField({
 ///
 // ignore: non_constant_identifier_names
 GestureDetector SILDatePickerField({
-  @required BuildContext? context,
-  @required TextEditingController? controller,
+  required BuildContext? context,
+  required TextEditingController? controller,
   Key? gestureDateKey,
   Key? textFieldDateKey,
   FormFieldSetter<String>? onSaved,
@@ -507,10 +507,10 @@ GestureDetector SILDatePickerField({
 ///   is formatted to become [8:22 PM]
 // ignore: non_constant_identifier_names
 GestureDetector SILTimePicker({
-  @required BuildContext? context,
-  @required TextEditingController? controller,
-  @required FormFieldSetter<String>? onChanged,
-  @required FormFieldSetter<String>? onSaved,
+  required BuildContext? context,
+  required TextEditingController? controller,
+  required FormFieldSetter<String>? onChanged,
+  required FormFieldSetter<String>? onSaved,
   String? labelText,
   String? hintText,
   String? initialValue,
@@ -742,11 +742,11 @@ Row SILCheckbox({
 /// ```
 // ignore: non_constant_identifier_names
 Row SILRadio({
-  @required BuildContext? context,
-  @required dynamic? value,
-  @required String? text,
-  @required ValueChanged<dynamic?>? onChanged,
-  @required dynamic groupValue,
+  required BuildContext? context,
+  required dynamic? value,
+  required String? text,
+  required ValueChanged<dynamic?>? onChanged,
+  required dynamic groupValue,
   Key? radioKey,
   bool rightAligned = false,
 }) {
@@ -805,9 +805,9 @@ class SILPinCodeTextField extends StatelessWidget {
 
   const SILPinCodeTextField({
     Key? key,
-    @required this.maxLength,
+    required this.maxLength,
     this.onTextChanged,
-    @required this.onDone,
+    required this.onDone,
     this.autoFocus = false,
     this.wrapAlignment = WrapAlignment.spaceBetween,
     this.pinBoxHeight = 50.0,

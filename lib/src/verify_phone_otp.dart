@@ -9,40 +9,39 @@ import 'package:sil_ui_components/sil_inputs.dart';
 import 'package:sil_ui_components/src/animated_count.dart';
 import 'package:sil_ui_components/src/constants.dart';
 import 'package:sil_ui_components/src/helpers.dart';
-import 'package:sil_ui_components/src/type_defs.dart';
 
-class VerifyPhoneOtp extends StatefulWidget {
-  final String? phoneNo;
-  final String? otp;
+class SILVerifyPhoneOtp extends StatefulWidget {
+  final String phoneNo;
+  final String otp;
   final Function? setValues;
-  final Function? successCallBack;
-  final Widget? loader;
-  final GenerateRetryOtpFunc? generateOtpFunc;
-  final dynamic? client;
-  final dynamic? appWrapperContext;
-  final BuildContext? context;
+  final Function successCallBack;
+  final Widget loader;
+  final Function generateOtpFunc;
+  final dynamic client;
+  final dynamic appWrapperContext;
+  final BuildContext context;
 
   /// endpoint
-  final Function? retrySendOtpEndpoint;
+  final Function retrySendOtpEndpoint;
 
-  const VerifyPhoneOtp({
+  const SILVerifyPhoneOtp({
     Key? key,
-    @required this.phoneNo,
-    @required this.otp,
-    @required this.successCallBack,
-    @required this.loader,
-    @required this.generateOtpFunc,
-    @required this.client,
-    @required this.retrySendOtpEndpoint,
-    @required this.appWrapperContext,
-    @required this.context,
+    required this.phoneNo,
+    required this.otp,
+    required this.successCallBack,
+    required this.loader,
+    required this.generateOtpFunc,
+    required this.client,
+    required this.retrySendOtpEndpoint,
+    required this.appWrapperContext,
+    required this.context,
     this.setValues,
   }) : super(key: key);
   @override
-  _VerifyPhoneOtpState createState() => _VerifyPhoneOtpState();
+  _SILVerifyPhoneOtpState createState() => _SILVerifyPhoneOtpState();
 }
 
-class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
+class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
     with SingleTickerProviderStateMixin {
   TextEditingController textEditingController = TextEditingController();
   bool loading = false;
@@ -118,7 +117,7 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
           onDone: (String v) async {
             if (v == otp) {
               toggleLoading();
-              widget.successCallBack!(otp: otp, toggleLoading: toggleLoading);
+              widget.successCallBack(otp: otp, toggleLoading: toggleLoading);
               toggleLoading();
               return;
             }
@@ -134,7 +133,7 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
         largeVerticalSizedBox,
         if (loading) ...<Widget>[
           mediumVerticalSizedBox,
-          widget.loader!,
+          widget.loader,
         ],
         if (!loading) ...<Widget>[
           if (!canResend)
@@ -148,12 +147,12 @@ class _VerifyPhoneOtpState extends State<VerifyPhoneOtp>
               onPressed: () async {
                 final String res = await showResendBottomSheet(
                   context: context,
-                  phoneNo: widget.phoneNo!,
-                  loader: widget.loader!,
+                  phoneNo: widget.phoneNo,
+                  loader: widget.loader,
                   resetTimer: restartTimer,
-                  generateOtpFunc: widget.generateOtpFunc!,
+                  generateOtpFunc: widget.generateOtpFunc,
                   client: widget.client,
-                  retrySendOtpEndpoint: widget.retrySendOtpEndpoint!,
+                  retrySendOtpEndpoint: widget.retrySendOtpEndpoint,
                   appWrapperContext: widget.appWrapperContext,
                 );
                 if (res != 'err') {

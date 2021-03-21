@@ -3,7 +3,6 @@ import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
 import 'package:sil_ui_components/sil_resend_phone_code.dart';
 import 'package:sil_ui_components/src/constants.dart';
-import 'package:sil_ui_components/src/type_defs.dart';
 
 bool alignLabelWithHint(int? maxLines) => maxLines != null && maxLines > 1;
 
@@ -64,7 +63,7 @@ Future<String> showResendBottomSheet({
   required String phoneNo,
   required Widget loader,
   required Function? resetTimer,
-  required GenerateRetryOtpFunc generateOtpFunc,
+  required Function generateOtpFunc,
   required dynamic appWrapperContext,
   required dynamic client,
   required Function retrySendOtpEndpoint,

@@ -12,7 +12,7 @@ class SILTryNewFeaturesWidget extends StatefulWidget {
   final bool? canExperiment;
 
   const SILTryNewFeaturesWidget(
-      {Key? key, @required this.settingsFunc, @required this.canExperiment})
+      {Key? key, required this.settingsFunc, required this.canExperiment})
       : super(key: key);
   @override
   _SILTryNewFeaturesWidgetState createState() =>

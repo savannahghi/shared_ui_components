@@ -6,8 +6,7 @@ typedef OnPressed = Function(String val);
 class SILPrimaryButton extends StatelessWidget {
   const SILPrimaryButton(
       {this.buttonKey,
-      // ignore: tighten_type_of_initializing_formals
-      @required this.onPressed,
+      required this.onPressed,
       this.onLongPress,
       this.text,
       this.buttonColor,
@@ -62,7 +61,7 @@ class SILPrimaryButton extends StatelessWidget {
 class SILSecondaryButton extends StatelessWidget {
   const SILSecondaryButton({
     this.buttonKey,
-    @required this.onPressed,
+    required this.onPressed,
     this.text,
     this.buttonColor,
     this.textColor,
@@ -108,8 +107,8 @@ class SILSecondaryButton extends StatelessWidget {
 class SILNoBorderButton extends StatelessWidget {
   const SILNoBorderButton(
       {this.buttonKey,
-      @required this.onPressed,
-      @required this.text,
+      required this.onPressed,
+      required this.text,
       this.onLongPress,
       this.textColor,
       this.customChild})
@@ -143,7 +142,7 @@ class SILNoBorderButton extends StatelessWidget {
 }
 
 class SILIconButton extends StatelessWidget {
-  const SILIconButton({Key? key, @required this.icon, this.callback})
+  const SILIconButton({Key? key, required this.icon, this.callback})
       : super(key: key);
 
   final Function? callback;

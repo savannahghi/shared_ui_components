@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
-import 'package:sil_ui_components/src/type_defs.dart';
 import 'package:sil_misc/sil_exception.dart';
 
 import 'buttons.dart';
@@ -22,8 +21,7 @@ class SILResendPhoneCode extends StatefulWidget {
   final dynamic client;
   final dynamic appWrapperContext;
 
-  /// [GenerateRetryOtpFunc] will be called to generate a new otp
-  final GenerateRetryOtpFunc generateOtpFunc;
+  final Function generateOtpFunc;
 
   /// endpoint
   final Function retrySendOtpEndpoint;

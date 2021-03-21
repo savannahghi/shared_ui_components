@@ -11,7 +11,7 @@ class SILFancyLoading extends StatelessWidget {
   final double size;
 
   const SILFancyLoading(
-      {@required this.color,
+      {required this.color,
       this.type = SILFancyLoadingType.cubeGrid,
       this.size = 50});
 
