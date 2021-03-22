@@ -46,7 +46,7 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
   BehaviorSubject<bool> canResendOtp = BehaviorSubject<bool>.seeded(false);
   int resendTimeout = 30;
   Animation<double>? animation;
-  late AnimationController? _controller;
+  late AnimationController _controller;
   String? otp;
   bool canResend = false;
 
@@ -57,7 +57,7 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
     _controller =
         AnimationController(duration: const Duration(seconds: 30), vsync: this);
     animation = Tween<double>(begin: resendTimeout.toDouble(), end: 0)
-        .animate(_controller!)
+        .animate(_controller)
           ..addListener(() {
             if (resendTimeout == 0) {
               canResendOtp.add(true);
@@ -66,14 +66,14 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
               resendTimeout = int.parse(animation!.value.toStringAsFixed(0));
             });
           });
-    _controller!.forward();
+    _controller.forward();
     super.initState();
   }
 
   void restartTimer() {
     resendTimeout = 30;
-    _controller!.value = 0;
-    _controller!.forward();
+    _controller.value = 0;
+    _controller.forward();
     canResendOtp.add(false);
   }
 
@@ -95,7 +95,7 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
 
   @override
   void dispose() {
-    _controller!.dispose();
+    _controller.dispose();
     super.dispose();
   }
 

@@ -6,6 +6,7 @@ void main() {
   group('SILPrimaryButton', () {
     testWidgets('should render correctly', (WidgetTester tester) async {
       bool isActionTapped = false;
+      bool islongPressed = false;
       const Key buttonKey = Key('button_key');
 
       await tester.pumpWidget(MaterialApp(
@@ -17,7 +18,9 @@ void main() {
                   onPressed: () {
                     isActionTapped = true;
                   },
-                  onLongPress: () {});
+                  onLongPress: () {
+                    islongPressed = true;
+                  });
             }),
           ),
         ),
@@ -28,14 +31,14 @@ void main() {
       await tester.tap(find.byKey(buttonKey));
       await tester.pumpAndSettle();
       expect(isActionTapped, true);
+
+      await tester.longPress(find.byKey(buttonKey));
+      await tester.pumpAndSettle();
+      expect(islongPressed, true);
     });
 
     testWidgets('should show assertion error', (WidgetTester tester) async {
-      expect(
-          () => SILPrimaryButton(
-                onPressed: null,
-              ),
-          throwsAssertionError);
+      expect(() => SILPrimaryButton(onPressed: null), throwsAssertionError);
     });
   });
 
@@ -50,8 +53,6 @@ void main() {
             child: Builder(builder: (BuildContext context) {
               return SILSecondaryButton(
                 buttonKey: buttonKey,
-                addBorder: true,
-                borderColor: Theme.of(context).accentColor,
                 onPressed: () {
                   isActionTapped = true;
                 },
@@ -62,12 +63,6 @@ void main() {
       ));
 
       expect(find.byType(OutlinedButton), findsOneWidget);
-      expect(
-          tester.widget(find.byType(SILSecondaryButton)),
-          isA<SILSecondaryButton>().having(
-              (SILSecondaryButton button) => button.addBorder,
-              'addBorder',
-              true));
 
       await tester.tap(find.byKey(buttonKey));
       await tester.pumpAndSettle();
@@ -75,17 +70,15 @@ void main() {
     });
 
     testWidgets('should show assertion error', (WidgetTester tester) async {
-      expect(
-          () => SILSecondaryButton(
-                onPressed: null,
-              ),
-          throwsAssertionError);
+      expect(() => SILSecondaryButton(onPressed: null), throwsAssertionError);
     });
   });
 
   group('SILNoBorderButton', () {
     testWidgets('should render correctly', (WidgetTester tester) async {
       bool isActionTapped = false;
+      bool islongPressed = false;
+
       const Key buttonKey = Key('button_key');
 
       await tester.pumpWidget(MaterialApp(
@@ -93,12 +86,14 @@ void main() {
           body: Center(
             child: Builder(builder: (BuildContext context) {
               return SILNoBorderButton(
-                buttonKey: buttonKey,
-                onPressed: () {
-                  isActionTapped = true;
-                },
-                text: 'Next',
-              );
+                  buttonKey: buttonKey,
+                  onPressed: () {
+                    isActionTapped = true;
+                  },
+                  onLongPress: () {
+                    islongPressed = true;
+                  },
+                  text: 'Next');
             }),
           ),
         ),
@@ -109,14 +104,14 @@ void main() {
       await tester.tap(find.byKey(buttonKey));
       await tester.pumpAndSettle();
       expect(isActionTapped, true);
+
+      await tester.longPress(find.byKey(buttonKey));
+      await tester.pumpAndSettle();
+      expect(islongPressed, true);
     });
 
     testWidgets('should show assertion error', (WidgetTester tester) async {
-      expect(
-          () => SILNoBorderButton(
-                onPressed: null,
-                text: null,
-              ),
+      expect(() => SILNoBorderButton(onPressed: null, text: null),
           throwsAssertionError);
     });
   });
@@ -131,12 +126,11 @@ void main() {
         body: Center(
           child: Builder(builder: (BuildContext context) {
             return SILIconButton(
-              key: buttonKey,
-              callback: () {
-                isActionTapped = true;
-              },
-              icon: null,
-            );
+                key: buttonKey,
+                callback: () {
+                  isActionTapped = true;
+                },
+                icon: null);
           }),
         ),
       ),

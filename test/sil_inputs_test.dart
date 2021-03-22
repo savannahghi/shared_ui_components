@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
+import 'package:sil_ui_components/sil_country_picker.dart';
 import 'package:sil_ui_components/sil_fancy_loading.dart';
 import 'package:sil_ui_components/sil_inputs.dart';
 import 'package:sil_themes/text_themes.dart';
@@ -153,6 +154,14 @@ void main() {
       // enter a valid KE phone number value
       await tester.tap(find.byKey(textFormFieldKey));
       await tester.enterText(find.byKey(textFormFieldKey), '0712345678');
+      await tester.pumpAndSettle();
+
+      expect(find.byType(SILCountryPicker), findsOneWidget);
+      await tester.tap(find.byType(SILCountryPicker));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ListTile), findsNWidgets(4));
+      await tester.tap(find.byType(ListTile).first);
       await tester.pumpAndSettle();
 
       // confirm phone number was entered

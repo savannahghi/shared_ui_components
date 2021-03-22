@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -40,8 +38,7 @@ import 'package:sil_ui_components/src/type_defs.dart';
 // ignore: non_constant_identifier_names
 
 class SILTimePicker extends StatelessWidget {
-  final BuildContext? context;
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final FormFieldCallback? onChanged;
   final FormFieldCallback? onSaved;
   final String? labelText;
@@ -53,7 +50,6 @@ class SILTimePicker extends StatelessWidget {
   final Icon? suffixIcon;
 
   const SILTimePicker({
-    required this.context,
     required this.controller,
     required this.onChanged,
     required this.onSaved,
@@ -95,11 +91,12 @@ class SILTimePicker extends StatelessWidget {
 
   Future<void> selectTime(
       {required BuildContext context,
-      TextEditingController? controller,
+      required TextEditingController controller,
       required TimeOfDay initialTime}) async {
     TimeOfDay selectedTime = initialTime;
     dynamic picked;
-    if (Platform.isIOS) {
+    final TargetPlatform _platForm = Theme.of(context).platform;
+    if (_platForm == TargetPlatform.iOS) {
       final DateTime minimumDateTime = DateTime(currentYear, currentMonth,
           currentDay, TimeOfDay.now().hour, TimeOfDay.now().minute);
       await showModalBottomSheet(
@@ -146,6 +143,6 @@ class SILTimePicker extends StatelessWidget {
       return DateFormat.jm().format(formattedDateTime);
     }
 
-    controller!.text = _convertTimeToString(selectedTime);
+    controller.text = _convertTimeToString(selectedTime);
   }
 }
