@@ -4,13 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
-import 'package:sil_misc/sil_misc.dart';
 
 import 'package:sil_themes/colors.dart';
 import 'package:sil_themes/text_themes.dart';
 import 'package:intl/intl.dart';
 import 'package:sil_ui_components/sil_country_picker.dart';
 import 'package:sil_ui_components/src/helpers.dart';
+import 'package:sil_ui_components/src/type_defs.dart';
 
 import 'constants.dart';
 import 'widget_keys.dart';
@@ -51,6 +51,7 @@ class SILPhoneInput extends FormField<String> {
     required FormFieldSetter<String>? onChanged,
     required String? labelText,
     required TextStyle? labelStyle,
+    required PhoneNumberFormatterFunc phoneNumberFormatter,
     bool? enabled,
     String? initialValue = '',
     bool autoValidate = true,
@@ -140,7 +141,7 @@ class SILPhoneInput extends FormField<String> {
                             onChanged: (String value) {
                               state.didChange(value.toString());
                               onChanged!(
-                                formatPhoneNumber(
+                                phoneNumberFormatter(
                                   countryCode: countryCode,
                                   phoneNumber: value.toString(),
                                 ),

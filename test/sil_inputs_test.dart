@@ -128,6 +128,20 @@ void main() {
     });
 
     testWidgets('should render SILPhoneInput ', (WidgetTester tester) async {
+      String formatPhoneNumber(
+          {required String countryCode, required String phoneNumber}) {
+        if (!countryCode.startsWith('+')) {
+          return '+$countryCode';
+        }
+        if (countryCode == '+1') {
+          return '$countryCode$phoneNumber';
+        }
+        if (phoneNumber.startsWith('0')) {
+          return phoneNumber.substring(1);
+        }
+        return '$countryCode$phoneNumber';
+      }
+
       final Queue<int> phoneNumberInputController = Queue<int>();
       await tester.pumpWidget(MaterialApp(
         home: Builder(builder: (BuildContext context) {
@@ -137,6 +151,7 @@ void main() {
               inputController: phoneNumberInputController,
               labelText: 'x',
               labelStyle: TextThemes.boldSize16Text(),
+              phoneNumberFormatter: formatPhoneNumber,
               onChanged: (dynamic value) {
                 phoneNumberInputController.add(1);
               },

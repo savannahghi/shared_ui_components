@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
-import 'package:sil_misc/sil_exception.dart';
 
 import 'buttons.dart';
 import 'constants.dart';
@@ -31,6 +30,7 @@ class SILResendPhoneCode extends StatefulWidget {
   final String phoneNumber;
   final ResendVia resendVia;
   final Function resetTimer;
+
   /// endpoint
   final Function retrySendOtpEndpoint;
 
@@ -74,7 +74,7 @@ class _SILResendPhoneCodeState extends State<SILResendPhoneCode>
     } catch (e) {
       toggleResend();
       showErr(val: true);
-      throw SILException(cause: 'network_error', message: e.toString());
+      throw Exception(e.toString());
     }
   }
 
