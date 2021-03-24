@@ -8,12 +8,13 @@ import 'package:sil_ui_components/src/constants.dart';
 import 'package:sil_ui_components/src/type_defs.dart';
 
 class SILTryNewFeaturesWidget extends StatefulWidget {
-  final SettingsFunc? settingsFunc;
-  final bool? canExperiment;
-
   const SILTryNewFeaturesWidget(
       {Key? key, required this.settingsFunc, required this.canExperiment})
       : super(key: key);
+
+  final bool? canExperiment;
+  final SettingsFunc? settingsFunc;
+
   @override
   _SILTryNewFeaturesWidgetState createState() =>
       _SILTryNewFeaturesWidgetState();
@@ -21,6 +22,7 @@ class SILTryNewFeaturesWidget extends StatefulWidget {
 
 class _SILTryNewFeaturesWidgetState extends State<SILTryNewFeaturesWidget> {
   bool isProcessing = false;
+
   Widget tryNewFeaturesBuilder() {
     return Column(
       children: <Widget>[

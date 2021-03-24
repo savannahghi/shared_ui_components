@@ -25,10 +25,6 @@ class SILSnackBarAction extends StatefulWidget {
     required this.onPressed,
   }) : super(key: key);
 
-  /// The button label color. If not provided, defaults to
-  /// [SnackBarThemeData.actionTextColor].
-  final Color? textColor;
-
   /// The button disabled label color. This color is shown after the
   /// [SnackBarAction] is dismissed.
   final Color? disabledTextColor;
@@ -41,6 +37,10 @@ class SILSnackBarAction extends StatefulWidget {
   /// This callback will be called at most once each time this action is
   /// displayed in a [SnackBar].
   final VoidCallback onPressed;
+
+  /// The button label color. If not provided, defaults to
+  /// [SnackBarThemeData.actionTextColor].
+  final Color? textColor;
 
   @override
   State<SILSnackBarAction> createState() => _SILSnackBarActionState();

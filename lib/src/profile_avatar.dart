@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:sil_ui_components/src/constants.dart';
 
 class SILProfileAvatar extends StatelessWidget {
+  const SILProfileAvatar({required this.photoUrl});
+
   final String? photoUrl;
 
-  const SILProfileAvatar({required this.photoUrl});
   @override
   Widget build(BuildContext context) {
     return SizedBox(

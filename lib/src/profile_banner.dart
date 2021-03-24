@@ -6,14 +6,6 @@ import 'package:sil_ui_components/sil_profile_avator.dart';
 import 'package:sil_ui_components/src/constants.dart';
 
 class SILProfileBanner extends StatelessWidget {
-  final bool editable;
-  final double height;
-  final String backgroundImagePath;
-  final String userPhotoUrl;
-  final String profileRoute;
-  final String userName;
-  final String primaryPhone;
-
   const SILProfileBanner({
     required this.backgroundImagePath,
     required this.userPhotoUrl,
@@ -23,6 +15,15 @@ class SILProfileBanner extends StatelessWidget {
     this.editable = false,
     this.height = 200.00,
   });
+
+  final String backgroundImagePath;
+  final bool editable;
+  final double height;
+  final String primaryPhone;
+  final String profileRoute;
+  final String userName;
+  final String userPhotoUrl;
+
   @override
   Widget build(BuildContext context) {
     return Container(

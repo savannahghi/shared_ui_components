@@ -14,18 +14,6 @@ import 'constants.dart';
 enum ResendVia { graph, endpoint }
 
 class SILResendPhoneCode extends StatefulWidget {
-  final String phoneNumber;
-  final Function resetTimer;
-  final ResendVia resendVia;
-  final Widget loader;
-  final dynamic client;
-  final dynamic appWrapperContext;
-
-  final Function generateOtpFunc;
-
-  /// endpoint
-  final Function retrySendOtpEndpoint;
-
   const SILResendPhoneCode(
       {required this.phoneNumber,
       required this.resetTimer,
@@ -35,16 +23,27 @@ class SILResendPhoneCode extends StatefulWidget {
       required this.retrySendOtpEndpoint,
       required this.appWrapperContext,
       this.resendVia = ResendVia.endpoint});
+
+  final dynamic appWrapperContext;
+  final dynamic client;
+  final Function generateOtpFunc;
+  final Widget loader;
+  final String phoneNumber;
+  final ResendVia resendVia;
+  final Function resetTimer;
+  /// endpoint
+  final Function retrySendOtpEndpoint;
+
   @override
   _SILResendPhoneCodeState createState() => _SILResendPhoneCodeState();
 }
 
 class _SILResendPhoneCodeState extends State<SILResendPhoneCode>
     with SingleTickerProviderStateMixin {
-  bool resending = false;
   bool hasErr = false;
-  int step = 1;
   late Function resendCode;
+  bool resending = false;
+  int step = 1;
 
   @override
   void initState() {

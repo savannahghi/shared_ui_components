@@ -6,14 +6,14 @@ import 'widget_keys.dart';
 enum SILFancyLoadingType { cubeGrid, foldingCube, chasingDots, ripple }
 
 class SILFancyLoading extends StatelessWidget {
-  final SILFancyLoadingType type;
-  final Color? color;
-  final double size;
-
   const SILFancyLoading(
       {required this.color,
       this.type = SILFancyLoadingType.cubeGrid,
       this.size = 50});
+
+  final Color? color;
+  final double size;
+  final SILFancyLoadingType type;
 
   @override
   Widget build(BuildContext context) {

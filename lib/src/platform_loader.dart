@@ -5,8 +5,10 @@ import 'package:sil_themes/colors.dart';
 import 'package:sil_ui_components/src/widget_keys.dart';
 
 class SILPlatformLoader extends StatelessWidget {
-  final Color color;
   const SILPlatformLoader({this.color = grey});
+
+  final Color color;
+
   @override
   Widget build(BuildContext context) {
     final TargetPlatform _platform = Theme.of(context).platform;

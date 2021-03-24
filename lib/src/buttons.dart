@@ -82,10 +82,10 @@ class SILSecondaryButton extends StatelessWidget {
   final double? customElevation;
   final EdgeInsets? customPadding;
   final double? customRadius;
+  final Function? onLongPress;
   final Function? onPressed;
   final String? text;
   final Color? textColor;
-  final Function? onLongPress;
 
   @override
   Widget build(BuildContext context) {

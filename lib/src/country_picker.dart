@@ -4,9 +4,10 @@ import 'package:sil_ui_components/src/constants.dart';
 import 'package:sil_ui_components/src/helpers.dart';
 
 class SILCountryPicker extends StatefulWidget {
+  const SILCountryPicker({Key? key, required this.onChanged}) : super(key: key);
+
   final Function onChanged;
 
-  const SILCountryPicker({Key? key, required this.onChanged}) : super(key: key);
   @override
   _SILCountryPickerState createState() => _SILCountryPickerState();
 }

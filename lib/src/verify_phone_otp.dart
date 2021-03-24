@@ -11,18 +11,6 @@ import 'package:sil_ui_components/src/constants.dart';
 import 'package:sil_ui_components/src/helpers.dart';
 
 class SILVerifyPhoneOtp extends StatefulWidget {
-  final String phoneNo;
-  final String otp;
-  final Function? setValues;
-  final Function successCallBack;
-  final Widget loader;
-  final Function generateOtpFunc;
-  final dynamic client;
-  final dynamic appWrapperContext;
-
-  /// endpoint
-  final Function retrySendOtpEndpoint;
-
   const SILVerifyPhoneOtp({
     Key? key,
     required this.phoneNo,
@@ -35,20 +23,50 @@ class SILVerifyPhoneOtp extends StatefulWidget {
     required this.appWrapperContext,
     this.setValues,
   }) : super(key: key);
+
+  final dynamic appWrapperContext;
+  final dynamic client;
+  final Function generateOtpFunc;
+  final Widget loader;
+  final String otp;
+  final String phoneNo;
+  /// endpoint
+  final Function retrySendOtpEndpoint;
+
+  final Function? setValues;
+  final Function successCallBack;
+
   @override
   _SILVerifyPhoneOtpState createState() => _SILVerifyPhoneOtpState();
 }
 
 class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
     with SingleTickerProviderStateMixin {
-  TextEditingController textEditingController = TextEditingController();
-  bool loading = false;
-  BehaviorSubject<bool> canResendOtp = BehaviorSubject<bool>.seeded(false);
-  int resendTimeout = 30;
   Animation<double>? animation;
-  late AnimationController _controller;
-  String? otp;
   bool canResend = false;
+  BehaviorSubject<bool> canResendOtp = BehaviorSubject<bool>.seeded(false);
+  bool loading = false;
+  String? otp;
+  int resendTimeout = 30;
+  TextEditingController textEditingController = TextEditingController();
+
+  late AnimationController _controller;
+
+  @override
+  void didChangeDependencies() {
+    canResendOtp.listen((bool value) {
+      setState(() {
+        canResend = value;
+      });
+    });
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -77,26 +95,10 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
     canResendOtp.add(false);
   }
 
-  @override
-  void didChangeDependencies() {
-    canResendOtp.listen((bool value) {
-      setState(() {
-        canResend = value;
-      });
-    });
-    super.didChangeDependencies();
-  }
-
   void toggleLoading() {
     setState(() {
       loading = !loading;
     });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override

@@ -7,10 +7,10 @@ import 'package:sil_ui_components/src/widget_keys.dart';
 enum BadgeType { info, danger }
 
 class SILBadge extends StatelessWidget {
+  const SILBadge({required this.text, this.type = BadgeType.info});
+
   final String text;
   final BadgeType type;
-
-  const SILBadge({required this.text, this.type = BadgeType.info});
 
   @override
   Widget build(BuildContext context) {
