@@ -15,7 +15,7 @@ void main() {
   group('SILPhoneNumberField', () {
     testWidgets('should render SILCheckbox ', (WidgetTester tester) async {
       const Key silCheckBoxKey = Key('sil_checkbox_key');
-      int counter = 0;
+      bool counter = false;
       final Widget testWidget = MaterialApp(
         home: Builder(builder: (BuildContext context) {
           return Scaffold(
@@ -26,7 +26,7 @@ void main() {
               text: 'x',
               value: false,
               onChanged: (dynamic value) {
-                counter = counter + 1;
+                counter = !counter;
               },
             ),
           ));
@@ -39,7 +39,18 @@ void main() {
       // verify SILCheckbox renders correctly
       expect(find.text('x'), findsOneWidget);
       expect(find.byType(Checkbox), findsOneWidget);
+      expect(find.byKey(silCheckBoxKey), findsOneWidget);
       expect(tester.getSize(find.byType(Checkbox)), const Size(48.0, 48.0));
+
+      await tester.tap(find.byKey(silCheckBoxKey));
+      await tester.pump();
+
+      expect(counter, true);
+
+      await tester.tap(find.byKey(silCheckBoxKey));
+      await tester.pump();
+
+      expect(counter, false);
     });
 
     testWidgets('should render SILRadio when rightAligned is false',

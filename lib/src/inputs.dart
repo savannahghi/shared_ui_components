@@ -137,7 +137,7 @@ class SILPhoneInput extends FormField<String> {
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.digitsOnly
                             ],
-                            onChanged: (dynamic value) {
+                            onChanged: (String value) {
                               state.didChange(value.toString());
                               onChanged!(formatPhoneNumber(
                                 countryCode: countryCode,
@@ -193,7 +193,6 @@ class SILPhoneInput extends FormField<String> {
 ///       focused the moment the UI containing that widget is rendered
 ///   4. [context] is used when applying the active and focused colors depending
 ///       on the provided context. For example getting colors from [Theme.of(context)]
-// ignore: non_constant_identifier_names
 TextFormField SILFormTextField({
   required BuildContext? context,
   Queue<int>? inputController,
@@ -295,12 +294,8 @@ TextFormField SILFormTextField({
             .copyWith(color: black, fontSize: 16),
     textInputAction: textInputAction ?? TextInputAction.done,
     textAlignVertical: TextAlignVertical.center,
-    validator: validator != null
-        ? (dynamic value) => validator(value.toString())
-        : null,
-    onChanged: onChanged != null
-        ? (dynamic value) => onChanged(value.toString())
-        : null,
+    validator: validator != null ? (String? value) => validator(value) : null,
+    onChanged: onChanged != null ? (String value) => onChanged(value) : null,
     onTap: onTap != null ? () => onTap() : null,
     controller: initialValue == null ? controller : null,
     focusNode: focusNode,
@@ -349,7 +344,6 @@ TextFormField SILFormTextField({
 ///   3. [allowEligibleDate] - allows selection of dates up to the eligible year
 ///      which is defined in [lib/shared/constants/date_time/date_time_constants.dart]
 ///
-// ignore: non_constant_identifier_names
 GestureDetector SILDatePickerField({
   required BuildContext? context,
   required TextEditingController? controller,
@@ -583,7 +577,6 @@ class SILSelectOptionField extends StatelessWidget {
 ///     },
 ///   ),
 ///   ```
-// ignore: non_constant_identifier_names
 Row SILCheckbox({
   Key? key,
   required BuildContext? context,
@@ -594,6 +587,7 @@ Row SILCheckbox({
   return Row(
     children: <Widget>[
       Checkbox(
+        key: key,
         activeColor: healthcloudAccentColor,
         materialTapTargetSize: MaterialTapTargetSize.padded,
         value: value as bool,
@@ -622,7 +616,6 @@ Row SILCheckbox({
 ///     },
 ///   ),
 /// ```
-// ignore: non_constant_identifier_names
 Row SILRadio({
   required BuildContext? context,
   required dynamic? value,
@@ -734,3 +727,5 @@ class SILPinCodeTextField extends StatelessWidget {
     );
   }
 }
+
+// ignore_for_file: non_constant_identifier_names
