@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sil_themes/constants.dart';
 import 'package:sil_themes/text_themes.dart';
-import 'package:sil_ui_components/sil_snack_bar.dart';
+
 import 'package:sil_ui_components/src/constants.dart';
+import 'package:sil_ui_components/src/snack_bar.dart';
+import 'package:sil_ui_components/src/snack_bar_action.dart';
 
 /// used to show the custom [SilSnackBar]
 /// takes an optional title and message

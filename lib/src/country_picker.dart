@@ -16,7 +16,6 @@ class _SILCountryPickerState extends State<SILCountryPicker> {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, String>? countryData = getCountry(_country);
     return GestureDetector(
       onTap: () async {
         final dynamic _result = await selectCountryModalBottomSheet(context);
@@ -34,7 +33,8 @@ class _SILCountryPickerState extends State<SILCountryPicker> {
         child: Row(
           children: <Widget>[
             Text(
-              countryData!['code']!,
+              getCountry(this._country)!['code']!,
+              key: const Key('countrySelectedKey'),
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
               ),
@@ -43,7 +43,7 @@ class _SILCountryPickerState extends State<SILCountryPicker> {
               width: 10,
             ),
             Image.asset(
-              countryData['flag']!,
+              getCountry(this._country)!['flag']!,
               height: 20,
             ),
           ],

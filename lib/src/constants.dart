@@ -40,7 +40,8 @@ const String tryFeaturesDescription =
 const String tryFeaturesNotice =
     'You can always switch back anytime you want to';
 
-const String tryFeaturesImgUrl = 'assets/images/try_features.jpg';
+const String tryFeaturesImgUrl =
+    'packages/sil_ui_components/assets/try_features.jpg';
 
 final Map<String, String> requestHeaders = <String, String>{
   'Accept': 'application/json',
@@ -58,25 +59,25 @@ Map<String, Map<String, String>> supportedCountries =
     'code': '+254',
     'initial': 'KE',
     'name': 'Kenya',
-    'flag': 'assets/images/ke.png',
+    'flag': 'packages/sil_ui_components/assets/ke.png',
   },
   'uganda': <String, String>{
     'code': '+255',
     'initial': 'UG',
     'name': 'Uganda',
-    'flag': 'assets/images/ug.png',
+    'flag': 'packages/sil_ui_components/assets/ug.png',
   },
   'tanzania': <String, String>{
     'code': '+256',
     'initial': 'TZ',
     'name': 'Tanzania',
-    'flag': 'assets/images/tz.png',
+    'flag': 'packages/sil_ui_components/assets/tz.png',
   },
   'usa': <String, String>{
     'code': '+1',
     'initial': 'USA',
     'name': 'United States',
-    'flag': 'assets/images/us.png',
+    'flag': 'packages/sil_ui_components/assets/us.png',
   },
 };
 

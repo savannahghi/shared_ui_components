@@ -9,6 +9,7 @@ analyzer:
     missing_required_param: error
     missing_return: error
   exclude:
+    - 'example/**/*.dart'
     - 'lib/generated_plugin_*.dart'
     - 'bin/cache/**'
     - 'lib/**/*.g.dart'

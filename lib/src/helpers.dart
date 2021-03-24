@@ -32,7 +32,7 @@ Map<String, String>? getCountry(Country country) {
   }
 }
 
-// tood :retire this in favor of the one defined in dart utils
+// todo :retire this in favor of the one defined in dart utils
 dynamic selectCountryModalBottomSheet(BuildContext context) {
   return showModalBottomSheet(
       context: context,

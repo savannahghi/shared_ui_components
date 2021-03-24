@@ -139,10 +139,12 @@ class SILPhoneInput extends FormField<String> {
                             ],
                             onChanged: (String value) {
                               state.didChange(value.toString());
-                              onChanged!(formatPhoneNumber(
-                                countryCode: countryCode,
-                                phoneNumber: value.toString(),
-                              ));
+                              onChanged!(
+                                formatPhoneNumber(
+                                  countryCode: countryCode,
+                                  phoneNumber: value.toString(),
+                                ),
+                              );
                             },
                           ),
                         ),

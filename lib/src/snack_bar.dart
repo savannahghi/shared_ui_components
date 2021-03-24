@@ -3,8 +3,11 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
-import 'package:sil_ui_components/sil_snack_bar.dart';
+
 import 'package:sil_ui_components/src/constants.dart';
+import 'package:sil_ui_components/src/snack_bar_action.dart';
+
+/// PLEASE DON'T DELETE. A BETTER IMPLEMENTATION WILL BE INTRODUCED BASED ON THIS FILE.
 
 // ignore: todo
 // TODO(vincent): We should check if the given text and actions are going to fit on

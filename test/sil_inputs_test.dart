@@ -146,6 +146,10 @@ void main() {
 
       await tester.pumpAndSettle();
 
+      expect(find.byKey(const Key('countrySelectedKey')), findsOneWidget);
+
+      expect(find.text('+254'), findsOneWidget);
+
       // enter a valid KE phone number value
       await tester.tap(find.byKey(textFormFieldKey));
       await tester.enterText(find.byKey(textFormFieldKey), '0712345678');
