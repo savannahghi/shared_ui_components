@@ -33,11 +33,13 @@ class _SILCountryPickerState extends State<SILCountryPicker> {
         width: 76,
         child: Row(
           children: <Widget>[
-            Text(
-              getCountry(this._country)!['code']!,
-              key: const Key('countrySelectedKey'),
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
+            Expanded(
+              child: Text(
+                getCountry(this._country)!['code']!,
+                key: const Key('countrySelectedKey'),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
             const SizedBox(
