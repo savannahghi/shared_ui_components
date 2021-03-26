@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
 import 'package:sil_ui_components/sil_resend_phone_code.dart';
@@ -142,4 +143,14 @@ Future<String> showResendBottomSheet({
     ),
   );
   return 'err';
+}
+
+/// [titleCase] returns a title cased sentence
+String titleCase(String sentence) {
+  return sentence
+      .toLowerCase()
+      .split(' ')
+      .map((String e) => e.trim())
+      .map((String word) => toBeginningOfSentenceCase(word))
+      .join(' ');
 }
