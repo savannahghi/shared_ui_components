@@ -99,58 +99,60 @@ class SILPhoneInput extends FormField<String> {
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey[350]!),
-                    ),
-                    child:
-                        Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                      Container(
-                        height: 54,
-                        padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border(
-                              right: BorderSide(color: Colors.grey[350]!)),
-                        ),
-                        child: SILCountryPicker(
-                          onChanged: (String value) {
-                            countryCode = value;
-                          },
-                        ),
-                      ),
-                      Flexible(
-                        child: SizedBox(
+                        border: Border.all(color: Colors.grey[350]!),
+                        color: Colors.grey.withOpacity(0.08),
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Container(
                           height: 54,
-                          child: TextFormField(
-                            key: textFormFieldKey,
-                            decoration: InputDecoration(
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.never,
-                              labelText: labelText,
-                              labelStyle: labelStyle,
-                              border: InputBorder.none,
-                              fillColor: Colors.white,
-                              isDense: true,
-                              filled: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(15, 0, 15, 20),
-                            ),
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
+                          padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                          decoration: BoxDecoration(
+                            border: Border(
+                                right: BorderSide(color: Colors.grey[350]!)),
+                          ),
+                          child: SILCountryPicker(
                             onChanged: (String value) {
-                              state.didChange(value.toString());
-                              onChanged!(
-                                phoneNumberFormatter(
-                                  countryCode: countryCode,
-                                  phoneNumber: value.toString(),
-                                ),
-                              );
+                              countryCode = value;
                             },
                           ),
                         ),
-                      )
-                    ]),
+                        Flexible(
+                          child: SizedBox(
+                            height: 54,
+                            child: Center(
+                              child: TextFormField(
+                                key: textFormFieldKey,
+                                decoration: InputDecoration(
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.never,
+                                  labelText: labelText,
+                                  labelStyle: labelStyle,
+                                  border: InputBorder.none,
+                                  fillColor: Colors.transparent,
+                                  contentPadding:
+                                      const EdgeInsets.fromLTRB(15, 0, 15, 15),
+                                ),
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                onChanged: (String value) {
+                                  state.didChange(value.toString());
+                                  onChanged!(
+                                    phoneNumberFormatter(
+                                      countryCode: countryCode,
+                                      phoneNumber: value.toString(),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                   if (state.hasError)
                     Padding(
