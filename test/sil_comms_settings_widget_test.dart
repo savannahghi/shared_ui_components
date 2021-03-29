@@ -3,9 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sil_ui_components/sil_comms_setting.dart';
 
 void main() {
-  test('comms enums', () {
-    const CommunicationType email = CommunicationType.allowEmail;
-    expect(email.toShortString(), 'allowEmail');
+  test('communications enum should convert to a short string correctly', () {
+    expect(CommunicationType.allowEmail.toShortString(), 'allowEmail');
+    expect(CommunicationType.allowPush.toShortString(), 'allowPush');
+    expect(CommunicationType.allowTextSMS.toShortString(), 'allowTextSMS');
+    expect(CommunicationType.allowWhatsApp.toShortString(), 'allowWhatsApp');
   });
 
   testWidgets(

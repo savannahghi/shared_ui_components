@@ -6,7 +6,7 @@ void main() {
   group('SILPrimaryButton', () {
     testWidgets('should render correctly', (WidgetTester tester) async {
       bool isActionTapped = false;
-      bool islongPressed = false;
+      bool isLongPressed = false;
       const Key buttonKey = Key('button_key');
 
       await tester.pumpWidget(MaterialApp(
@@ -19,7 +19,7 @@ void main() {
                     isActionTapped = true;
                   },
                   onLongPress: () {
-                    islongPressed = true;
+                    isLongPressed = true;
                   });
             }),
           ),
@@ -34,7 +34,7 @@ void main() {
 
       await tester.longPress(find.byKey(buttonKey));
       await tester.pumpAndSettle();
-      expect(islongPressed, true);
+      expect(isLongPressed, true);
     });
 
     testWidgets('should show assertion error', (WidgetTester tester) async {
@@ -62,7 +62,7 @@ void main() {
         ),
       ));
 
-      expect(find.byType(OutlinedButton), findsOneWidget);
+      expect(find.byType(ElevatedButton), findsOneWidget);
 
       await tester.tap(find.byKey(buttonKey));
       await tester.pumpAndSettle();
@@ -77,7 +77,7 @@ void main() {
   group('SILNoBorderButton', () {
     testWidgets('should render correctly', (WidgetTester tester) async {
       bool isActionTapped = false;
-      bool islongPressed = false;
+      bool isLongPressed = false;
 
       const Key buttonKey = Key('button_key');
 
@@ -91,7 +91,7 @@ void main() {
                     isActionTapped = true;
                   },
                   onLongPress: () {
-                    islongPressed = true;
+                    isLongPressed = true;
                   },
                   text: 'Next');
             }),
@@ -107,7 +107,7 @@ void main() {
 
       await tester.longPress(find.byKey(buttonKey));
       await tester.pumpAndSettle();
-      expect(islongPressed, true);
+      expect(isLongPressed, true);
     });
 
     testWidgets('should show assertion error', (WidgetTester tester) async {

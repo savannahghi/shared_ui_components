@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sil_themes/colors.dart';
 import 'package:sil_themes/text_themes.dart';
 
 typedef OnPressed = Function(String val);
@@ -89,11 +90,16 @@ class SILSecondaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
+    return ElevatedButton(
       key: buttonKey,
-      onPressed: () {
-        onPressed!();
-      },
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        primary: Colors.transparent,
+        shape: RoundedRectangleBorder(
+            side: BorderSide(color: borderColor ?? healthcloudAccentColor),
+            borderRadius: BorderRadius.circular(customRadius ?? 25)),
+      ),
+      onPressed: () => onPressed!(),
       child: customChild ??
           Text(
             text ?? '',
@@ -129,7 +135,9 @@ class SILNoBorderButton extends StatelessWidget {
         onPressed!();
       },
       onLongPress: () {
-        onLongPress!();
+        if (onLongPress != null) {
+          onLongPress!();
+        }
       },
       child: customChild ??
           Text(
