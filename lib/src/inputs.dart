@@ -297,6 +297,8 @@ TextFormField SILFormTextField({
             .textTheme
             .headline6!
             .copyWith(color: black, fontSize: 16),
+    onFieldSubmitted:
+        onFieldSubmit != null ? (String value) => onFieldSubmit(value) : null,
     textInputAction: textInputAction ?? TextInputAction.done,
     textAlignVertical: TextAlignVertical.center,
     validator: validator != null ? (String? value) => validator(value) : null,
