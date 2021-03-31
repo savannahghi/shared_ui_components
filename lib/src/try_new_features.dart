@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sil_misc/sil_enums.dart';
+import 'package:sil_misc/sil_number_constants.dart';
+import 'package:sil_misc/sil_responsive_widget.dart';
 
 import 'package:sil_themes/colors.dart';
 import 'package:sil_themes/spaces.dart';
@@ -38,58 +41,73 @@ class _SILTryNewFeaturesWidgetState extends State<SILTryNewFeaturesWidget> {
             ],
           ),
         ),
-        Column(
-          children: <Widget>[
-            smallVerticalSizedBox,
-            Container(
-              padding: const EdgeInsets.all(30),
-              decoration: const BoxDecoration(
-                  color: Colors.grey, shape: BoxShape.circle),
-              child: const Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Image(
-                    image: AssetImage(tryFeaturesImgUrl),
-                  )),
-            ),
-            mediumVerticalSizedBox,
-            Column(
-              children: <Widget>[
-                Text(
-                  tryFeaturesTitle,
-                  textAlign: TextAlign.center,
-                  style: TextThemes.heavySize20Text(),
-                ),
-                smallVerticalSizedBox,
-                Text(
-                  tryFeaturesDescription,
-                  textAlign: TextAlign.center,
-                  style:
-                      TextThemes.normalSize13Text(grey).copyWith(height: 1.6),
-                ),
-                smallVerticalSizedBox,
-                smallVerticalSizedBox,
-              ],
-            ),
-            if (isProcessing)
-              const SILFancyLoading(
-                  color: grey, type: SILFancyLoadingType.ripple),
-            if (!isProcessing)
-              Switch.adaptive(
-                  onChanged: (bool value) async {
-                    setState(() {
-                      isProcessing = true;
-                    });
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal:
+                  SILResponsiveWidget.preferredPaddingOnStretchedScreens(
+                      context: context)),
+          child: Column(
+            children: <Widget>[
+              smallVerticalSizedBox,
+              if (!SILResponsiveWidget.isSmallScreenAndOnLandscape(
+                  context: context))
+                Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Image(
+                      height: (SILResponsiveWidget.deviceType(context) !=
+                              DeviceScreensType.Mobile)
+                          ? number250
+                          : number200,
+                      width: (SILResponsiveWidget.deviceType(context) !=
+                              DeviceScreensType.Mobile)
+                          ? number250
+                          : number200,
+                      image: const AssetImage(tryFeaturesImgUrl),
+                    )),
+              mediumVerticalSizedBox,
+              Column(
+                children: <Widget>[
+                  Text(
+                    tryFeaturesTitle,
+                    textAlign: TextAlign.center,
+                    style: TextThemes.heavySize20Text(),
+                  ),
+                  smallVerticalSizedBox,
+                  Text(
+                    tryFeaturesDescription,
+                    textAlign: TextAlign.center,
+                    style:
+                        TextThemes.normalSize13Text(grey).copyWith(height: 1.6),
+                  ),
+                  smallVerticalSizedBox,
+                  smallVerticalSizedBox,
+                ],
+              ),
+              if (isProcessing)
+                const SILFancyLoading(
+                    color: grey, type: SILFancyLoadingType.ripple),
+              if (!isProcessing)
+                Switch.adaptive(
+                    onChanged: (bool value) async {
+                      setState(() {
+                        isProcessing = true;
+                      });
 
-                    await widget.settingsFunc!(value: value, context: context);
+                      await widget.settingsFunc!(
+                          value: value, context: context);
 
-                    setState(() {
-                      isProcessing = false;
-                    });
-                  },
-                  value: widget.canExperiment!),
-            smallVerticalSizedBox,
-            const Text(tryFeaturesNotice),
-          ],
+                      setState(() {
+                        isProcessing = false;
+                      });
+                    },
+                    value: widget.canExperiment!),
+              smallVerticalSizedBox,
+              const Text(
+                tryFeaturesNotice,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ],
     );
