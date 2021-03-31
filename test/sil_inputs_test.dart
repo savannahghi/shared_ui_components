@@ -151,10 +151,10 @@ void main() {
               inputController: phoneNumberInputController,
               labelText: 'x',
               labelStyle: TextThemes.boldSize16Text(),
-              phoneNumberFormatter: formatPhoneNumber,
               onChanged: (dynamic value) {
                 phoneNumberInputController.add(1);
               },
+              phoneNumberFormatter: formatPhoneNumber,
             ),
           ));
         }),

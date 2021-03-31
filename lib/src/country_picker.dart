@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:sil_ui_components/src/constants.dart';
 import 'package:sil_ui_components/src/helpers.dart';
 
@@ -14,6 +15,8 @@ class SILCountryPicker extends StatefulWidget {
 
 class _SILCountryPickerState extends State<SILCountryPicker> {
   Country _country = Country.kenya;
+  PhoneInputBehaviorSubject phoneInputBehaviorSubject =
+      PhoneInputBehaviorSubject();
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,8 @@ class _SILCountryPickerState extends State<SILCountryPicker> {
             _country = _result as Country;
           });
           widget.onChanged(getCountry(_country)!['code']);
+          phoneInputBehaviorSubject.countryCode
+              .add(getCountry(_country)!['code']!);
         }
       },
       child: SizedBox(
@@ -54,4 +59,18 @@ class _SILCountryPickerState extends State<SILCountryPicker> {
       ),
     );
   }
+}
+
+class PhoneInputBehaviorSubject {
+  static final PhoneInputBehaviorSubject _singleton =
+      PhoneInputBehaviorSubject._internal();
+
+  factory PhoneInputBehaviorSubject() {
+    return _singleton;
+  }
+
+  PhoneInputBehaviorSubject._internal();
+
+  BehaviorSubject<String> countryCode = BehaviorSubject<String>.seeded('+254');
+  BehaviorSubject<String> phoneNumber = BehaviorSubject<String>();
 }

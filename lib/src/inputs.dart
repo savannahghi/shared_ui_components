@@ -93,7 +93,8 @@ class SILPhoneInput extends FormField<String> {
             },
             initialValue: initialValue,
             builder: (FormFieldState<String> state) {
-              String countryCode = '+254';
+              final PhoneInputBehaviorSubject phoneInputBehaviorSubject =
+                  PhoneInputBehaviorSubject();
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -114,7 +115,15 @@ class SILPhoneInput extends FormField<String> {
                           ),
                           child: SILCountryPicker(
                             onChanged: (String value) {
-                              countryCode = value;
+                              phoneInputBehaviorSubject.countryCode.add(value);
+                              onChanged!(
+                                phoneNumberFormatter(
+                                  countryCode: phoneInputBehaviorSubject
+                                      .countryCode.valueWrapper!.value,
+                                  phoneNumber: phoneInputBehaviorSubject
+                                      .phoneNumber.valueWrapper!.value,
+                                ),
+                              );
                             },
                           ),
                         ),
@@ -140,9 +149,12 @@ class SILPhoneInput extends FormField<String> {
                                 ],
                                 onChanged: (String value) {
                                   state.didChange(value.toString());
+                                  phoneInputBehaviorSubject.phoneNumber
+                                      .add(value.toString());
                                   onChanged!(
                                     phoneNumberFormatter(
-                                      countryCode: countryCode,
+                                      countryCode: phoneInputBehaviorSubject
+                                          .countryCode.valueWrapper!.value,
                                       phoneNumber: value.toString(),
                                     ),
                                   );
