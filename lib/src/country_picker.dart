@@ -20,6 +20,7 @@ class _SILCountryPickerState extends State<SILCountryPicker> {
 
   @override
   Widget build(BuildContext context) {
+    phoneInputBehaviorSubject.countryCode.add(getCountry(_country)!['code']!);
     return GestureDetector(
       onTap: () async {
         final dynamic _result = await selectCountryModalBottomSheet(context);
