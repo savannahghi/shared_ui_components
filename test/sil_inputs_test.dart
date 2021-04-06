@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -142,18 +140,18 @@ void main() {
         return '$countryCode$phoneNumber';
       }
 
-      final Queue<int> phoneNumberInputController = Queue<int>();
+      final TextEditingController phoneNumberInputController =
+          TextEditingController();
       await tester.pumpWidget(MaterialApp(
         home: Builder(builder: (BuildContext context) {
           return Scaffold(
               body: SizedBox(
             child: SILPhoneInput(
+              autoValidate: true,
               inputController: phoneNumberInputController,
               labelText: 'x',
               labelStyle: TextThemes.boldSize16Text(),
-              onChanged: (dynamic value) {
-                phoneNumberInputController.add(1);
-              },
+              onChanged: (String? value) {},
               phoneNumberFormatter: formatPhoneNumber,
             ),
           ));

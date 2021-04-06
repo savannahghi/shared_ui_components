@@ -47,51 +47,51 @@ import 'widget_keys.dart';
 
 class SILPhoneInput extends FormField<String> {
   SILPhoneInput({
-    required Queue<int>? inputController,
-    required FormFieldSetter<String>? onChanged,
+    required TextEditingController? inputController,
+    required FormFieldSetter<String> onChanged,
     required String? labelText,
     required TextStyle? labelStyle,
     required PhoneNumberFormatterFunc phoneNumberFormatter,
     bool? enabled,
     String? initialValue = '',
-    bool autoValidate = true,
+    bool autoValidate = false,
   }) : super(
             enabled: enabled ?? true,
             autovalidateMode: autoValidate
                 ? AutovalidateMode.always
                 : AutovalidateMode.disabled,
-            validator: (dynamic value) {
+            validator: (String? value) {
               final RegExp kenyanRegExp = RegExp(r'^[0-9]{9}$');
               final RegExp usRegExp = RegExp(r'^[0-9]{10}$');
-              // check if the user has interacted with the input field
-              if (inputController!.isEmpty) {
-                return null;
-              }
-              if (inputController.isEmpty && value.isEmpty as bool) {
-                return ' Phone number is required';
-              }
-              final String entry = value as String;
 
-              final List<int> validLengths = <int>[9, 10];
+              if (value != null) {
+                if (value.isEmpty) {
+                  return phoneNumberRequiredText;
+                }
 
-              if (!validLengths.contains(entry.length)) {
-                return 'Please enter a valid phone number';
+                final List<int> validLengths = <int>[9, 10];
+
+                if (!validLengths.contains(value.length)) {
+                  return validPhoneNumberText;
+                }
+
+                String phone;
+
+                if (value.startsWith('0')) {
+                  phone = value.substring(1);
+                } else {
+                  phone = value;
+                }
+
+                if (!kenyanRegExp.hasMatch(phone) &&
+                    !usRegExp.hasMatch(phone)) {
+                  return validPhoneNumberText;
+                }
               }
-
-              String phone;
-
-              if (entry.startsWith('0')) {
-                phone = entry.substring(1);
-              } else {
-                phone = entry;
-              }
-
-              if (!kenyanRegExp.hasMatch(phone) && !usRegExp.hasMatch(phone)) {
-                return ' Please enter a valid phone number';
-              }
-              return null;
             },
-            initialValue: initialValue,
+            initialValue: inputController != null
+                ? inputController.text
+                : (initialValue ?? ''),
             builder: (FormFieldState<String> state) {
               final PhoneInputBehaviorSubject phoneInputBehaviorSubject =
                   PhoneInputBehaviorSubject();
@@ -116,7 +116,7 @@ class SILPhoneInput extends FormField<String> {
                           child: SILCountryPicker(
                             onChanged: (String value) {
                               phoneInputBehaviorSubject.countryCode.add(value);
-                              onChanged!(
+                              onChanged(
                                 phoneNumberFormatter(
                                   countryCode: phoneInputBehaviorSubject
                                       .countryCode.valueWrapper!.value,
@@ -148,14 +148,15 @@ class SILPhoneInput extends FormField<String> {
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
                                 onChanged: (String value) {
-                                  state.didChange(value.toString());
+                                  state.didChange(value);
+                                  inputController?.text = value;
                                   phoneInputBehaviorSubject.phoneNumber
-                                      .add(value.toString());
-                                  onChanged!(
+                                      .add(value);
+                                  onChanged(
                                     phoneNumberFormatter(
                                       countryCode: phoneInputBehaviorSubject
                                           .countryCode.valueWrapper!.value,
-                                      phoneNumber: value.toString(),
+                                      phoneNumber: value,
                                     ),
                                   );
                                 },

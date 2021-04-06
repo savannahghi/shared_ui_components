@@ -21,6 +21,9 @@ String verifyDesc(String phoneNo) {
   return 'We have sent a 6 digit code to $phoneNo. Enter the code below to proceed';
 }
 
+const String phoneNumberRequiredText = 'Phone number is required';
+const String validPhoneNumberText = 'Please enter a valid phone number';
+
 const String sendCodeAgain = ' Send the code again ';
 const String changeNo = 'Change number';
 const String codeSent = 'Code was resent successfully to';
