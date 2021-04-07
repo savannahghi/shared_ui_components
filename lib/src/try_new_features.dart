@@ -46,8 +46,8 @@ class _SILTryNewFeaturesWidgetState extends State<SILTryNewFeaturesWidget> {
 
         Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: SILResponsiveWidget.deviceType(context) ==
-                    DeviceScreensType.Tablet
+            horizontal: SILResponsiveWidget.deviceType(context) !=
+                    DeviceScreensType.Mobile
                 ? number30
                 : SILResponsiveWidget.preferredPaddingOnStretchedScreens(
                     context: context),
