@@ -29,23 +29,29 @@ class _SILTryNewFeaturesWidgetState extends State<SILTryNewFeaturesWidget> {
   Widget tryNewFeaturesBuilder() {
     return Column(
       children: <Widget>[
-        SafeArea(
-          child: Row(
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: const Icon(Icons.arrow_back_outlined),
-              ),
-            ],
+        // back button
+        if (SILResponsiveWidget.deviceType(context) == DeviceScreensType.Mobile)
+          SafeArea(
+            child: Row(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(Icons.arrow_back_outlined),
+                ),
+              ],
+            ),
           ),
-        ),
+
         Padding(
           padding: EdgeInsets.symmetric(
-              horizontal:
-                  SILResponsiveWidget.preferredPaddingOnStretchedScreens(
-                      context: context)),
+            horizontal: SILResponsiveWidget.deviceType(context) ==
+                    DeviceScreensType.Tablet
+                ? number30
+                : SILResponsiveWidget.preferredPaddingOnStretchedScreens(
+                    context: context),
+          ),
           child: Column(
             children: <Widget>[
               smallVerticalSizedBox,
