@@ -1,9 +1,14 @@
+import 'dart:convert';
+
+import 'package:http/http.dart';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
 import 'package:sil_ui_components/sil_resend_phone_code.dart';
 import 'package:sil_ui_components/src/constants.dart';
+import 'package:sil_ui_components/src/type_defs.dart';
 
 bool alignLabelWithHint(int? maxLines) => maxLines != null && maxLines > 1;
 
@@ -33,7 +38,6 @@ Map<String, String>? getCountry(Country country) {
   }
 }
 
-// todo :retire this in favor of the one defined in dart utils
 dynamic selectCountryModalBottomSheet(BuildContext context) {
   return showModalBottomSheet(
       context: context,
@@ -58,7 +62,6 @@ dynamic selectCountryModalBottomSheet(BuildContext context) {
       });
 }
 
-// todo: this should be retired in favor in sil_misc
 Future<String> showResendBottomSheet({
   required BuildContext context,
   required String phoneNo,
@@ -68,6 +71,7 @@ Future<String> showResendBottomSheet({
   required dynamic appWrapperContext,
   required dynamic client,
   required Function retrySendOtpEndpoint,
+  final Client? httpClient,
 }) async {
   final dynamic res = await showModalBottomSheet<dynamic>(
     context: context,
@@ -123,6 +127,7 @@ Future<String> showResendBottomSheet({
               appWrapperContext: appWrapperContext,
               client: client,
               retrySendOtpEndpoint: retrySendOtpEndpoint,
+              httpClient: httpClient,
               generateOtpFunc: generateOtpFunc),
           size15VerticalSizedBox
         ],
@@ -153,4 +158,82 @@ String titleCase(String sentence) {
       .map((String e) => e.trim())
       .map((String word) => toBeginningOfSentenceCase(word))
       .join(' ');
+}
+
+/// [useEndpointResend] send a resend otp request via REST endpoint. This function should only be used in the context
+/// of [SILResendPhoneCode] widget. It's extracted here for testability
+Future<void> useEndpointResend(
+    {required BuildContext context,
+    required dynamic appWrapperContext,
+    required String phoneNumber,
+    required int step,
+    required Function retrySendOtpEndpoint,
+    required Function toggleResend,
+    required Function showErr,
+    required Function resetTimer,
+    required OnOTPReceivedNavigateCallback onOTPCallback,
+    Client? httpClient}) async {
+  final Client _client = httpClient ?? Client();
+
+  toggleResend();
+  showErr(val: false);
+  try {
+    final Response response = await _client.post(
+      retrySendOtpEndpoint(appWrapperContext) as Uri,
+      body: json.encode(<String, dynamic>{
+        'phoneNumber': phoneNumber,
+        'retryStep': step,
+      }),
+      headers: requestHeaders,
+    );
+
+    // reset the timer
+    resetTimer();
+
+    // return the new otp
+    // Navigator.pop(context, json.decode(response.body)['otp']  );
+    final Map<String, dynamic> body =
+        json.decode(response.body) as Map<String, dynamic>;
+
+    onOTPCallback(body['otp'] as String);
+    toggleResend();
+  } catch (e) {
+    toggleResend();
+    showErr(val: true);
+  }
+}
+
+Future<void> useGraphResend({
+  required BuildContext context,
+  required dynamic appWrapperContext,
+  required String phoneNumber,
+  required int step,
+  required Function toggleResend,
+  required Function showErr,
+  required Function resetTimer,
+  required Function generateOtpFunc,
+  required dynamic client,
+  required OnOTPReceivedNavigateCallback onOTPCallback,
+}) async {
+  toggleResend();
+  showErr(val: false);
+  try {
+    // do the resend here
+    final dynamic otp = await generateOtpFunc(
+        client: client, phoneNumber: phoneNumber, step: step);
+
+    if (otp == 'Error') {
+      throw 'Could not regenerate otp';
+    } else {
+      // reset the timer
+      resetTimer();
+
+      // return the new otp
+      onOTPCallback(otp as String);
+      toggleResend();
+    }
+  } catch (e) {
+    toggleResend();
+    showErr(val: true);
+  }
 }

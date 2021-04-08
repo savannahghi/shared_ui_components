@@ -1,8 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sil_ui_components/src/constants.dart';
 import 'package:sil_ui_components/src/helpers.dart';
 
+import 'mocks.dart';
+
 void main() {
+  Future<String> testFunc({
+    required String phoneNumber,
+    required int step,
+    required dynamic client,
+  }) {
+    return Future<String>.value('1234');
+  }
+
   test('should return correct time respectively', () {
     expect(now, isA<DateTime>());
     expect(currentMonth, now.month);
@@ -36,5 +47,45 @@ void main() {
     expect(getCountry(Country.uganda), supportedCountries['uganda']);
     expect(getCountry(Country.tanzania), supportedCountries['tanzania']);
     expect(getCountry(Country.us), supportedCountries['usa']);
+  });
+
+  test('should titlecase ', () {
+    expect(titleCase('this is awesome'), 'This Is Awesome');
+  });
+
+  testWidgets('resend phone code renders correctly',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Builder(
+          builder: (BuildContext context) {
+            return TextButton(
+              key: const Key('button'),
+              onPressed: () {
+                showResendBottomSheet(
+                  appWrapperContext: 'text',
+                  client: MockHttpClient(),
+                  context: context,
+                  generateOtpFunc: testFunc,
+                  loader: const CircularProgressIndicator(
+                      key: Key('loader_indicator')),
+                  phoneNo: '+254700123456',
+                  resetTimer: () {},
+                  retrySendOtpEndpoint: (dynamic val) {
+                    return Uri.parse('http://example.com');
+                  },
+                  httpClient: MockHttpClient(),
+                );
+              },
+              child: const Text('button'),
+            );
+          },
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('button')), findsNWidgets(1));
+    // todo : fix this
+    // await tester.tap(find.byKey(const Key('button')));
   });
 }

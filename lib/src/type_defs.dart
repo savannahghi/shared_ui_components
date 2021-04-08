@@ -9,3 +9,5 @@ typedef TextFieldCallback = void Function(String value);
 
 typedef PhoneNumberFormatterFunc = String Function(
     {required String countryCode, required String phoneNumber});
+
+typedef OnOTPReceivedNavigateCallback = void Function(String value);

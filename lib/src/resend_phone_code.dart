@@ -1,9 +1,10 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
+import 'package:sil_ui_components/src/helpers.dart';
 
 import 'buttons.dart';
 import 'constants.dart';
@@ -21,7 +22,9 @@ class SILResendPhoneCode extends StatefulWidget {
       required this.generateOtpFunc,
       required this.retrySendOtpEndpoint,
       required this.appWrapperContext,
-      this.resendVia = ResendVia.endpoint});
+      this.onOtpCallback = Navigator.pop,
+      this.resendVia = ResendVia.endpoint,
+      this.httpClient});
 
   final dynamic appWrapperContext;
   final dynamic client;
@@ -30,6 +33,8 @@ class SILResendPhoneCode extends StatefulWidget {
   final String phoneNumber;
   final ResendVia resendVia;
   final Function resetTimer;
+  final Function onOtpCallback;
+  final Client? httpClient;
 
   /// endpoint
   final Function retrySendOtpEndpoint;
@@ -53,53 +58,37 @@ class _SILResendPhoneCodeState extends State<SILResendPhoneCode>
   }
 
   Future<void> endpointResend(BuildContext context) async {
-    toggleResend();
-    showErr(val: false);
-    try {
-      final http.Response response = await http.Client().post(
-        widget.retrySendOtpEndpoint(widget.appWrapperContext) as Uri,
-        body: json.encode(<String, dynamic>{
-          'phoneNumber': widget.phoneNumber,
-          'retryStep': step,
-        }),
-        headers: requestHeaders,
-      );
-
-      // reset the timer
-      widget.resetTimer();
-
-      // return the new otp
-      Navigator.pop(context, json.decode(response.body)['otp']);
-      toggleResend();
-    } catch (e) {
-      toggleResend();
-      showErr(val: true);
-      throw Exception(e.toString());
-    }
+    return useEndpointResend(
+      appWrapperContext: widget.appWrapperContext,
+      context: context,
+      onOTPCallback: (String value) {
+        widget.onOtpCallback(context, value);
+      },
+      phoneNumber: widget.phoneNumber,
+      resetTimer: widget.resetTimer,
+      retrySendOtpEndpoint: widget.retrySendOtpEndpoint,
+      showErr: showErr,
+      step: step,
+      toggleResend: toggleResend,
+      httpClient: widget.httpClient,
+    );
   }
 
   Future<void> graphResend(BuildContext context) async {
-    toggleResend();
-    showErr(val: false);
-    try {
-      // do the resend here
-      final dynamic otp = await widget.generateOtpFunc(
-          client: widget.client, phoneNumber: widget.phoneNumber, step: step);
-
-      if (otp == 'Error') {
-        throw 'Could not regenerate otp';
-      } else {
-        // reset the timer
-        widget.resetTimer();
-
-        // return the new otp
-        Navigator.pop(context, otp);
-        toggleResend();
-      }
-    } catch (e) {
-      toggleResend();
-      showErr(val: true);
-    }
+    return useGraphResend(
+      appWrapperContext: widget.appWrapperContext,
+      context: context,
+      onOTPCallback: (String value) {
+        widget.onOtpCallback(context, value);
+      },
+      phoneNumber: widget.phoneNumber,
+      resetTimer: widget.resetTimer,
+      showErr: showErr,
+      step: step,
+      toggleResend: toggleResend,
+      client: widget.client,
+      generateOtpFunc: widget.generateOtpFunc,
+    );
   }
 
   void toggleResend() {
@@ -126,6 +115,7 @@ class _SILResendPhoneCodeState extends State<SILResendPhoneCode>
             if (resending) widget.loader,
             if (!resending) ...<Widget>[
               ListTile(
+                key: const Key('send_via_text_msg'),
                 leading: const Icon(Icons.message_outlined),
                 title: Text(
                   viaText,
@@ -137,6 +127,7 @@ class _SILResendPhoneCodeState extends State<SILResendPhoneCode>
                 },
               ),
               ListTile(
+                key: const Key('send_via_whatsapp_msg'),
                 leading: const Icon(Icons.chat),
                 title: Text(
                   viaWhatsApp,
@@ -149,9 +140,13 @@ class _SILResendPhoneCodeState extends State<SILResendPhoneCode>
               ),
             ],
             if (hasErr) ...<Widget>[
-              const Text('An error occurred'),
+              const Text(
+                'An error occurred',
+                key: Key('has_error'),
+              ),
               size15VerticalSizedBox,
               SILSecondaryButton(
+                buttonKey: const Key('has_error_resend_btn'),
                 onPressed: () {
                   resendCode(context);
                 },
