@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:sil_ui_components/sil_resend_phone_code.dart';
+import 'package:sil_ui_components/src/constants.dart';
 
 import 'mocks.dart';
 
@@ -59,7 +60,7 @@ void main() {
       ),
     ));
     await tester.pumpAndSettle();
-    final Finder element = find.byKey(const Key('send_via_text_msg'));
+    final Finder element = find.byKey(resendViaText);
     expect(element, findsNWidgets(1));
     expect(find.byKey(const Key('loader_indicator')), findsNWidgets(0));
     await tester.tap(element);
@@ -90,7 +91,7 @@ void main() {
       ),
     ));
     await tester.pumpAndSettle();
-    final Finder element = find.byKey(const Key('send_via_text_msg'));
+    final Finder element = find.byKey(resendViaText);
     expect(element, findsNWidgets(1));
     expect(find.byKey(const Key('has_error')), findsNWidgets(0));
     expect(find.byKey(const Key('has_error_resend_btn')), findsNWidgets(0));

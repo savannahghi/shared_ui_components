@@ -29,7 +29,7 @@ class MockHttpClient implements Client {
   Future<Response> post(Uri url,
           {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
       Future<Response>.value(
-          Response(json.encode(<String, String>{'otp': '1234'}), 200));
+          Response(json.encode(<String, String>{'otp': '123456'}), 200));
 
   @override
   Future<Response> put(Uri url,

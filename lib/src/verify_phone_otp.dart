@@ -30,6 +30,7 @@ class SILVerifyPhoneOtp extends StatefulWidget {
   final Widget loader;
   final String otp;
   final String phoneNo;
+
   /// endpoint
   final Function retrySendOtpEndpoint;
 
@@ -45,7 +46,8 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
   Animation<double>? animation;
   bool canResend = false;
   BehaviorSubject<bool> canResendOtp = BehaviorSubject<bool>.seeded(false);
-  bool loading = false;
+  VerifyPhoneBehaviorSubject verifyPhoneBehaviorSubject =
+      VerifyPhoneBehaviorSubject();
   String? otp;
   int resendTimeout = 30;
   TextEditingController textEditingController = TextEditingController();
@@ -96,13 +98,15 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
   }
 
   void toggleLoading() {
-    setState(() {
-      loading = !loading;
-    });
+    final bool loading = verifyPhoneBehaviorSubject.loading.valueWrapper!.value;
+    verifyPhoneBehaviorSubject.loading.add(!loading);
   }
 
   @override
   Widget build(BuildContext context) {
+    final bool isloading =
+        verifyPhoneBehaviorSubject.loading.valueWrapper!.value;
+
     return Column(
       children: <Widget>[
         smallVerticalSizedBox,
@@ -119,23 +123,22 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
               toggleLoading();
               widget.successCallBack(otp: otp, toggleLoading: toggleLoading);
               toggleLoading();
-              return;
             }
-            await HapticFeedback.vibrate();
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Invalid Code'),
               ),
             );
             textEditingController.clear();
+            await HapticFeedback.vibrate();
           },
         ),
         largeVerticalSizedBox,
-        if (loading) ...<Widget>[
+        if (isloading == true) ...<Widget>[
           mediumVerticalSizedBox,
           widget.loader,
         ],
-        if (!loading) ...<Widget>[
+        if (isloading == false) ...<Widget>[
           if (!canResend)
             AnimatedCount(
               count: resendTimeout,
@@ -143,7 +146,7 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
             ),
           if (canResend)
             SILSecondaryButton(
-              buttonKey: const Key('resendOtpCode'),
+              buttonKey: resendOtp,
               textColor: Theme.of(context).primaryColor,
               onPressed: () async {
                 final String res = await showResendBottomSheet(
@@ -178,4 +181,17 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
       ],
     );
   }
+}
+
+class VerifyPhoneBehaviorSubject {
+  static final VerifyPhoneBehaviorSubject _singleton =
+      VerifyPhoneBehaviorSubject._internal();
+
+  factory VerifyPhoneBehaviorSubject() {
+    return _singleton;
+  }
+
+  VerifyPhoneBehaviorSubject._internal();
+
+  BehaviorSubject<bool> loading = BehaviorSubject<bool>.seeded(false);
 }

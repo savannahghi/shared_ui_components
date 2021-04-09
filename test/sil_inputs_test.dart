@@ -8,6 +8,7 @@ import 'package:sil_ui_components/sil_country_picker.dart';
 import 'package:sil_ui_components/sil_fancy_loading.dart';
 import 'package:sil_ui_components/sil_inputs.dart';
 import 'package:sil_themes/text_themes.dart';
+import 'package:sil_ui_components/src/constants.dart';
 import 'package:sil_ui_components/src/widget_keys.dart';
 
 void main() {
@@ -164,7 +165,6 @@ void main() {
 
       expect(find.text('+254'), findsOneWidget);
 
-      // enter a valid KE phone number value
       await tester.tap(find.byKey(textFormFieldKey));
       await tester.enterText(find.byKey(textFormFieldKey), '0712345678');
       await tester.pumpAndSettle();
@@ -191,6 +191,102 @@ void main() {
       expect(find.text('+254'), findsOneWidget);
       await tester.pumpAndSettle();
     });
+  });
+
+  testWidgets('should render show error message if number is short  ',
+      (WidgetTester tester) async {
+    String formatPhoneNumber(
+        {required String countryCode, required String phoneNumber}) {
+      if (!countryCode.startsWith('+')) {
+        return '+$countryCode';
+      }
+      if (countryCode == '+1') {
+        return '$countryCode$phoneNumber';
+      }
+      if (phoneNumber.startsWith('0')) {
+        return phoneNumber.substring(1);
+      }
+      return '$countryCode$phoneNumber';
+    }
+
+    final TextEditingController phoneNumberInputController =
+        TextEditingController();
+    await tester.pumpWidget(MaterialApp(
+      home: Builder(builder: (BuildContext context) {
+        return Scaffold(
+            body: SizedBox(
+          child: SILPhoneInput(
+            autoValidate: true,
+            inputController: phoneNumberInputController,
+            labelText: 'x',
+            labelStyle: TextThemes.boldSize16Text(),
+            onChanged: (String? value) {},
+            phoneNumberFormatter: formatPhoneNumber,
+          ),
+        ));
+      }),
+    ));
+
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('countrySelectedKey')), findsOneWidget);
+
+    expect(find.text('+254'), findsOneWidget);
+
+    // enter a valid KE phone number value
+    await tester.tap(find.byKey(textFormFieldKey));
+    await tester.enterText(find.byKey(textFormFieldKey), '075678');
+    await tester.pumpAndSettle();
+
+    expect(find.text(validPhoneNumberText), findsOneWidget);
+  });
+
+  testWidgets('should render show error message if number is invalid  ',
+      (WidgetTester tester) async {
+    String formatPhoneNumber(
+        {required String countryCode, required String phoneNumber}) {
+      if (!countryCode.startsWith('+')) {
+        return '+$countryCode';
+      }
+      if (countryCode == '+1') {
+        return '$countryCode$phoneNumber';
+      }
+      if (phoneNumber.startsWith('0')) {
+        return phoneNumber.substring(1);
+      }
+      return '$countryCode$phoneNumber';
+    }
+
+    final TextEditingController phoneNumberInputController =
+        TextEditingController();
+    await tester.pumpWidget(MaterialApp(
+      home: Builder(builder: (BuildContext context) {
+        return Scaffold(
+            body: SizedBox(
+          child: SILPhoneInput(
+            autoValidate: true,
+            inputController: phoneNumberInputController,
+            labelText: 'x',
+            labelStyle: TextThemes.boldSize16Text(),
+            onChanged: (String? value) {},
+            phoneNumberFormatter: formatPhoneNumber,
+          ),
+        ));
+      }),
+    ));
+
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('countrySelectedKey')), findsOneWidget);
+
+    expect(find.text('+254'), findsOneWidget);
+
+    // enter a valid KE phone number value
+    await tester.tap(find.byKey(textFormFieldKey));
+    await tester.enterText(find.byKey(textFormFieldKey), '12345678911');
+    await tester.pumpAndSettle();
+
+    expect(find.text(validPhoneNumberText), findsOneWidget);
   });
 
   group('SILFormTextField', () {

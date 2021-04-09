@@ -131,23 +131,6 @@ class ComingSoonCard extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
-          if (!SILResponsiveWidget.isSmallScreenAndOnLandscape(
-              context: context))
-            Container(
-              padding: const EdgeInsets.all(15),
-              height: MediaQuery.of(context).size.longestSide * 0.50,
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: lightPurpleBackgroundColor),
-              child: Image.asset(testDevelopmentIconUrl),
-            ),
-          if (SILResponsiveWidget.isSmallScreenAndOnLandscape(context: context))
-            Container(
-              padding: const EdgeInsets.all(15),
-              height: MediaQuery.of(context).size.shortestSide * 0.50,
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: lightPurpleBackgroundColor),
-              child: Image.asset(testDevelopmentIconUrl),
-            ),
           smallVerticalSizedBox,
           Text.rich(
             TextSpan(

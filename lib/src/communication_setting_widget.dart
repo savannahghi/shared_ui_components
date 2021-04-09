@@ -53,10 +53,10 @@ class _CommunicationSettingItemState extends State<CommunicationSettingItem> {
             isAllowed: !widget.isActive,
             context: context,
           ) as bool;
+          toggleProcessing();
           if (!response) {
             throw 'Error';
           }
-          toggleProcessing();
         } catch (e) {
           toggleProcessing();
           ScaffoldMessenger.of(context).showSnackBar(

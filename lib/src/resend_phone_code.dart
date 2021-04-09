@@ -115,7 +115,7 @@ class _SILResendPhoneCodeState extends State<SILResendPhoneCode>
             if (resending) widget.loader,
             if (!resending) ...<Widget>[
               ListTile(
-                key: const Key('send_via_text_msg'),
+                key: resendViaText,
                 leading: const Icon(Icons.message_outlined),
                 title: Text(
                   viaText,

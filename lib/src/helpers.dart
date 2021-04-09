@@ -110,7 +110,7 @@ Future<String> showResendBottomSheet({
                       child: Text(
                         'Cancel',
                         style: TextThemes.boldSize14Text(),
-                        key: const Key('onCancelResendBottomSheetKey'),
+                        key: cancelResendOtp,
                       ),
                     ),
                   ),
