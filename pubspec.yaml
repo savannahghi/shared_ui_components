@@ -38,6 +38,7 @@ flutter:
   assets:
     - packages/sil_ui_components/assets/ke.png
     - packages/sil_ui_components/assets/try_features.jpg
+    - packages/sil_ui_components/assets/test-development.png
     - packages/sil_ui_components/assets/tz.png
     - packages/sil_ui_components/assets/ug.png
     - packages/sil_ui_components/assets/us.png

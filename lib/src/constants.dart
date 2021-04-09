@@ -99,3 +99,8 @@ enum SnackBarType {
   warning,
   info,
 }
+
+const Color lightPurpleBackgroundColor = Color(0xffE2E0F6);
+const Color greyTextColor = Color(0xff7D8D9C);
+const Color whiteColor = Color(0xFFFFFFFF);
+const String testDevelopmentIconUrl = 'assets/test-development.png';
