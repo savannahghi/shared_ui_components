@@ -210,5 +210,41 @@ void main() {
       expect(find.byType(SILPinCodeTextField), findsOneWidget);
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
+
+    testWidgets(
+        'should call custom callback when change number button is pressed',
+        (WidgetTester tester) async {
+      const SnackBar snackBar =
+          SnackBar(content: Text('Change number clicked'));
+      final Widget testWidget = MaterialApp(
+        home: Builder(
+          builder: (BuildContext context) {
+            return Scaffold(
+              body: SILVerifyPhoneOtp(
+                appWrapperContext: 'appcontext',
+                client: MockHttpClient,
+                generateOtpFunc: () {},
+                loader: const CircularProgressIndicator(),
+                otp: '123456',
+                phoneNo: '0712345678',
+                retrySendOtpEndpoint: () {},
+                successCallBack: testCallback,
+                setValues: () {},
+                changeNumberCallback: () {
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                },
+              ),
+            );
+          },
+        ),
+      );
+      verifyPhoneBehaviorSubject.loading.add(false);
+
+      await tester.pumpWidget(testWidget);
+      expect(find.byType(TextButton), findsOneWidget);
+      await tester.tap(find.byType(TextButton));
+      await tester.pumpAndSettle();
+      expect(find.byType(ScaffoldMessenger), findsOneWidget);
+    });
   });
 }
