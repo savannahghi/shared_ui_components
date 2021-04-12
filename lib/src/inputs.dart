@@ -364,33 +364,77 @@ TextFormField SILFormTextField({
 ///   3. [allowEligibleDate] - allows selection of dates up to the eligible year
 ///      which is defined in [lib/shared/constants/date_time/date_time_constants.dart]
 ///
-GestureDetector SILDatePickerField({
-  required BuildContext? context,
-  required TextEditingController? controller,
-  Key? gestureDateKey,
-  Key? textFieldDateKey,
-  FormFieldSetter<String>? onSaved,
-  String? labelText,
-  String? hintText,
-  String? initialValue,
-  FocusNode? focusNode,
-  TextInputType? keyboardType,
-  FormFieldValidator<String>? validator,
-  FormFieldSetter<String>? onChanged,
-  bool? allowCurrentYear = false,
-  bool? allowFutureYears = false,
-  bool? allowEligibleDate = false,
-  Icon? suffixIcon,
-  bool? enabled,
-}) {
+class SILDatePickerField extends StatelessWidget {
+  const SILDatePickerField({
+    required this.controller,
+    this.gestureDateKey,
+    this.textFieldDateKey,
+    this.onSaved,
+    this.labelText,
+    this.hintText,
+    this.initialValue,
+    this.focusNode,
+    this.keyboardType,
+    this.validator,
+    this.onChanged,
+    this.suffixIcon,
+    this.enabled,
+    this.allowCurrentYear = false,
+    this.allowFutureYears = false,
+    this.allowEligibleDate = false,
+  });
+
+  final TextEditingController controller;
+  final Key? gestureDateKey;
+  final Key? textFieldDateKey;
+  final FormFieldSetter<String>? onSaved;
+  final String? labelText;
+  final String? hintText;
+  final String? initialValue;
+  final FocusNode? focusNode;
+  final TextInputType? keyboardType;
+  final FormFieldValidator<String>? validator;
+  final FormFieldSetter<String>? onChanged;
+  final bool allowCurrentYear;
+  final bool allowFutureYears;
+  final bool allowEligibleDate;
+  final Icon? suffixIcon;
+  final bool? enabled;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      key: gestureDateKey,
+      onTap: () async {
+        await _selectDate(context);
+      },
+      child: AbsorbPointer(
+        child: SILFormTextField(
+          key: textFieldDateKey,
+          suffixIcon: suffixIcon,
+          context: context,
+          labelText: labelText,
+          hintText: hintText,
+          focusNode: focusNode,
+          controller: controller,
+          keyboardType: keyboardType,
+          validator: validator,
+          onChanged: onChanged,
+          onSaved: onSaved,
+          enabled: enabled ?? true,
+        ),
+      ),
+    );
+  }
+
   DateTime getLastDate() {
-    if (allowCurrentYear! && !allowFutureYears!) {
+    if (allowCurrentYear && !allowFutureYears) {
       return DateTime(currentYear, currentMonth, currentDay);
     }
-    if (allowFutureYears!) {
+    if (allowFutureYears) {
       return DateTime(eligibleFutureYear);
     }
-    if (allowEligibleDate!) {
+    if (allowEligibleDate) {
       return eligibleYear;
     }
     return DateTime(eligibleFutureYear);
@@ -407,7 +451,7 @@ GestureDetector SILDatePickerField({
             return SizedBox(
               height: MediaQuery.of(context).copyWith().size.height / 3,
               child: CupertinoDatePicker(
-                initialDateTime: allowCurrentYear!
+                initialDateTime: allowCurrentYear
                     ? DateTime(currentYear, currentMonth, currentDay)
                     : eligibleYear,
                 onDateTimeChanged: (DateTime newDate) {
@@ -426,7 +470,7 @@ GestureDetector SILDatePickerField({
     } else {
       selectedDate = await showDatePicker(
         context: context,
-        initialDate: allowCurrentYear!
+        initialDate: allowCurrentYear
             ? DateTime(currentYear, currentMonth, currentDay)
             : eligibleYear,
         firstDate: allowCurrentYear
@@ -450,43 +494,21 @@ GestureDetector SILDatePickerField({
         },
       );
     }
-    String _convertDateToString(DateTime datePicked) {
-      return DateFormat('yyyy-MM-dd').format(datePicked);
-    }
 
     if (selectedDate == null) return;
 
     final String date = _convertDateToString(selectedDate as DateTime);
 
-    controller!.value = controller.value.copyWith(
+    controller.value = controller.value.copyWith(
       text: date,
     );
 
     onChanged!(date);
   }
 
-  return GestureDetector(
-    key: gestureDateKey,
-    onTap: () async {
-      await _selectDate(context!);
-    },
-    child: AbsorbPointer(
-      child: SILFormTextField(
-        key: textFieldDateKey,
-        suffixIcon: suffixIcon,
-        context: context,
-        labelText: labelText,
-        hintText: hintText,
-        focusNode: focusNode,
-        controller: controller,
-        keyboardType: keyboardType,
-        validator: validator,
-        onChanged: onChanged,
-        onSaved: onSaved,
-        enabled: enabled ?? true,
-      ),
-    ),
-  );
+  String _convertDateToString(DateTime datePicked) {
+    return DateFormat('yyyy-MM-dd').format(datePicked);
+  }
 }
 
 /// [SILSelectOptionField] customized for selection options.

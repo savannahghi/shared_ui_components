@@ -499,7 +499,6 @@ void main() {
                   key: formKey,
                   child: SILDatePickerField(
                       gestureDateKey: silDatePickerField,
-                      context: context,
                       hintText: 'Enter dob',
                       allowEligibleDate: true,
                       controller: datePickerController,
@@ -555,7 +554,6 @@ void main() {
         home: Builder(builder: (BuildContext context) {
           return Material(
               child: SILDatePickerField(
-                  context: context,
                   controller: controller,
                   gestureDateKey: datePickerKey,
                   onChanged: (dynamic val) {}));
@@ -580,7 +578,6 @@ void main() {
         home: Builder(builder: (BuildContext context) {
           return Material(
               child: SILDatePickerField(
-                  context: context,
                   controller: controller,
                   gestureDateKey: datePickerKey,
                   allowCurrentYear: true,
@@ -606,7 +603,6 @@ void main() {
         home: Builder(builder: (BuildContext context) {
           return Material(
               child: SILDatePickerField(
-                  context: context,
                   controller: controller,
                   gestureDateKey: datePickerKey,
                   onChanged: (dynamic val) {}));
@@ -625,7 +621,6 @@ void main() {
         home: Builder(builder: (BuildContext context) {
           return Material(
               child: SILDatePickerField(
-                  context: context,
                   controller: controller,
                   gestureDateKey: datePickerKey,
                   onChanged: (dynamic val) {},
