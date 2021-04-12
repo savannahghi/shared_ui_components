@@ -22,6 +22,7 @@ class SILVerifyPhoneOtp extends StatefulWidget {
     required this.retrySendOtpEndpoint,
     required this.appWrapperContext,
     this.setValues,
+    this.changeNumberCallback,
   }) : super(key: key);
 
   final dynamic appWrapperContext;
@@ -35,6 +36,7 @@ class SILVerifyPhoneOtp extends StatefulWidget {
   final Function retrySendOtpEndpoint;
 
   final Function? setValues;
+  final Function? changeNumberCallback;
   final Function successCallBack;
 
   @override
@@ -169,7 +171,11 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
           if (widget.setValues != null)
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                if (widget.changeNumberCallback != null) {
+                  widget.changeNumberCallback!();
+                } else {
+                  Navigator.pop(context);
+                }
               },
               child: Text(
                 changeNo,
