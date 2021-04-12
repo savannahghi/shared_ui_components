@@ -93,6 +93,7 @@ class SILSecondaryButton extends StatelessWidget {
     return ElevatedButton(
       key: buttonKey,
       style: ElevatedButton.styleFrom(
+        padding: customPadding ?? EdgeInsets.zero,
         elevation: 0,
         primary: Colors.transparent,
         shape: RoundedRectangleBorder(
