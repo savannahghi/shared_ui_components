@@ -18,7 +18,6 @@ class SILPrimaryButton extends StatelessWidget {
       this.customPadding,
       this.customElevation})
       : assert(onPressed != null, text != null || customChild != null);
-
   final Color? borderColor;
   final Color? buttonColor;
   final Key? buttonKey;
@@ -30,7 +29,6 @@ class SILPrimaryButton extends StatelessWidget {
   final Function? onPressed;
   final String? text;
   final Color? textColor;
-
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
@@ -74,7 +72,6 @@ class SILSecondaryButton extends StatelessWidget {
     this.onLongPress,
     this.customElevation,
   }) : assert(onPressed != null, text != null || customChild != null);
-
   final bool? addBorder;
   final Color? borderColor;
   final Color? buttonColor;
@@ -87,13 +84,11 @@ class SILSecondaryButton extends StatelessWidget {
   final Function? onPressed;
   final String? text;
   final Color? textColor;
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       key: buttonKey,
       style: ElevatedButton.styleFrom(
-        padding: customPadding ?? EdgeInsets.zero,
         elevation: 0,
         primary: Colors.transparent,
         shape: RoundedRectangleBorder(
@@ -120,14 +115,12 @@ class SILNoBorderButton extends StatelessWidget {
       this.textColor,
       this.customChild})
       : assert(onPressed != null && text != null);
-
   final Key? buttonKey;
   final Widget? customChild;
   final Function? onLongPress;
   final Function? onPressed;
   final String? text;
   final Color? textColor;
-
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -153,10 +146,8 @@ class SILNoBorderButton extends StatelessWidget {
 class SILIconButton extends StatelessWidget {
   const SILIconButton({Key? key, required this.icon, this.callback})
       : super(key: key);
-
   final Function? callback;
   final IconData? icon;
-
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
