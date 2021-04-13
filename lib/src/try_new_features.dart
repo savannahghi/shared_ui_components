@@ -100,7 +100,7 @@ class _SILTryNewFeaturesWidgetState extends State<SILTryNewFeaturesWidget> {
                       });
 
                       await widget.settingsFunc!(
-                          value: value, context: context);
+                          value: value);
 
                       setState(() {
                         isProcessing = false;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 typedef SettingsFunc = Future<void> Function(
-    {required bool value, required BuildContext context});
+    {required bool value});
 
 /// callback that is passed to a form fields [onChanged] of [onValue]
 typedef FormFieldCallback = String Function(String? value);
