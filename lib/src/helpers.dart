@@ -179,7 +179,7 @@ Future<void> useEndpointResend(
   showErr(val: false);
   try {
     final Response response = await _client.post(
-      retrySendOtpEndpoint(appWrapperContext) as Uri,
+      Uri.parse(retrySendOtpEndpoint(appWrapperContext).toString()),
       body: json.encode(<String, dynamic>{
         'phoneNumber': phoneNumber,
         'retryStep': step,

@@ -103,7 +103,7 @@ enum SnackBarType {
 const Color lightPurpleBackgroundColor = Color(0xffE2E0F6);
 const Color greyTextColor = Color(0xff7D8D9C);
 const Color whiteColor = Color(0xFFFFFFFF);
-const String testDevelopmentIconUrl = 'assets/test-development.png';
+const String testDevelopmentIconUrl = 'lib/assets/test-development.png';
 
 const Key cancelResendOtp = Key('onCancelResendBottomSheetKey');
 const Key resendOtp = Key('resendOtpCode');
