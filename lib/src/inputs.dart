@@ -470,6 +470,7 @@ class SILDatePickerField extends StatelessWidget {
     } else {
       selectedDate = await showDatePicker(
         context: context,
+        initialDatePickerMode: DatePickerMode.year,
         initialDate: allowCurrentYear
             ? DateTime(currentYear, currentMonth, currentDay)
             : eligibleYear,

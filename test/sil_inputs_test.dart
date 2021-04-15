@@ -12,6 +12,7 @@ import 'package:sil_ui_components/src/constants.dart';
 import 'package:sil_ui_components/src/widget_keys.dart';
 
 void main() {
+  final String eligibleYear = (currentYear - 18).toString();
   group('SILPhoneNumberField', () {
     testWidgets('should render SILCheckbox ', (WidgetTester tester) async {
       const Key silCheckBoxKey = Key('sil_checkbox_key');
@@ -513,7 +514,7 @@ void main() {
       await tester.tap(find.byKey(silDatePickerField));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text('12'));
+      await tester.tap(find.text(eligibleYear));
       await tester.tap(find.text('OK'));
       await tester.pumpAndSettle();
     });
@@ -612,7 +613,8 @@ void main() {
       expect(find.byKey(datePickerKey), findsOneWidget);
       await tester.tap(find.byKey(datePickerKey));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('15'));
+
+      await tester.tap(find.text(eligibleYear));
     });
 
     testWidgets('should render android date picker with allowed current year',
@@ -631,7 +633,7 @@ void main() {
       expect(find.byKey(datePickerKey), findsOneWidget);
       await tester.tap(find.byKey(datePickerKey));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('15'));
+      await tester.tap(find.text(currentYear.toString()));
       await tester.pumpAndSettle();
     });
   });
