@@ -131,6 +131,13 @@ class ComingSoonCard extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(15),
+            height: 100,
+            decoration: const BoxDecoration(
+                shape: BoxShape.circle, color: lightPurpleBackgroundColor),
+            child: Image.asset(testDevelopmentIconUrl),
+          ),
           smallVerticalSizedBox,
           Text.rich(
             TextSpan(
