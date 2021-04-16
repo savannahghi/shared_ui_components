@@ -17,19 +17,24 @@ void main() {
     testWidgets('should render SILCheckbox ', (WidgetTester tester) async {
       const Key silCheckBoxKey = Key('sil_checkbox_key');
       bool counter = false;
+      bool onTap = false;
+      const String checkBoxActionText = 'Action';
       final Widget testWidget = MaterialApp(
         home: Builder(builder: (BuildContext context) {
           return Scaffold(
               body: Container(
             child: SILCheckbox(
-              key: silCheckBoxKey,
-              context: context,
-              text: 'x',
-              value: false,
-              onChanged: (dynamic value) {
-                counter = !counter;
-              },
-            ),
+                key: silCheckBoxKey,
+                context: context,
+                text: '',
+                value: false,
+                onChanged: (dynamic value) {
+                  counter = !counter;
+                },
+                onTap: () {
+                  onTap = true;
+                },
+                actionText: checkBoxActionText),
           ));
         }),
       );
@@ -38,7 +43,12 @@ void main() {
       await tester.pumpAndSettle();
 
       // verify SILCheckbox renders correctly
-      expect(find.text('x'), findsOneWidget);
+      expect(find.byType(RichText), findsOneWidget);
+      expect(
+          find.byWidgetPredicate((Widget widget) =>
+              widget is RichText &&
+              widget.text.toPlainText().startsWith(checkBoxActionText)),
+          findsOneWidget);
       expect(find.byType(Checkbox), findsOneWidget);
       expect(find.byKey(silCheckBoxKey), findsOneWidget);
       expect(tester.getSize(find.byType(Checkbox)), const Size(48.0, 48.0));
@@ -52,6 +62,12 @@ void main() {
       await tester.pump();
 
       expect(counter, false);
+
+      await tester.tap(find.byWidgetPredicate((Widget widget) =>
+          widget is RichText &&
+          widget.text.toPlainText().startsWith(checkBoxActionText)));
+      await tester.pumpAndSettle();
+      expect(onTap, true);
     });
 
     testWidgets('should render SILRadio when rightAligned is false',

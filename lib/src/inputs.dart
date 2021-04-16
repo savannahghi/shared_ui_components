@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
@@ -626,6 +627,8 @@ Row SILCheckbox({
   required dynamic value,
   required String? text,
   required ValueChanged<bool?>? onChanged,
+  Function? onTap,
+  String? actionText,
 }) {
   return Row(
     children: <Widget>[
@@ -637,9 +640,20 @@ Row SILCheckbox({
         onChanged: onChanged,
       ),
       Expanded(
-        child: Text(
-          text!,
-          style: Theme.of(context!).textTheme.bodyText1,
+        child: RichText(
+          text: TextSpan(
+              text: text,
+              style: Theme.of(context!).textTheme.bodyText1,
+              children: <TextSpan>[
+                TextSpan(
+                    text: actionText,
+                    style: const TextStyle(color: Colors.white),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        // navigate to desired screen
+                        onTap!();
+                      })
+              ]),
         ),
       )
     ],
