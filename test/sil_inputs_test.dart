@@ -20,23 +20,23 @@ void main() {
       bool onTap = false;
       const String checkBoxActionText = 'Action';
       final Widget testWidget = MaterialApp(
-        home: Builder(builder: (BuildContext context) {
-          return Scaffold(
-              body: Container(
-            child: SILCheckbox(
-                key: silCheckBoxKey,
-                context: context,
-                text: '',
-                value: false,
-                onChanged: (dynamic value) {
-                  counter = !counter;
-                },
-                onTap: () {
-                  onTap = true;
-                },
-                actionText: checkBoxActionText),
-          ));
-        }),
+        home: Builder(
+          builder: (BuildContext context) {
+            return Scaffold(
+              body: SILCheckbox(
+                  key: silCheckBoxKey,
+                  text: '',
+                  value: true,
+                  onChanged: (dynamic value) {
+                    counter = counter;
+                  },
+                  onTap: () {
+                    onTap = true;
+                  },
+                  actionText: checkBoxActionText),
+            );
+          },
+        ),
       );
       await tester.pumpWidget(testWidget);
 
@@ -52,11 +52,6 @@ void main() {
       expect(find.byType(Checkbox), findsOneWidget);
       expect(find.byKey(silCheckBoxKey), findsOneWidget);
       expect(tester.getSize(find.byType(Checkbox)), const Size(48.0, 48.0));
-
-      await tester.tap(find.byKey(silCheckBoxKey));
-      await tester.pump();
-
-      expect(counter, true);
 
       await tester.tap(find.byKey(silCheckBoxKey));
       await tester.pump();
@@ -78,10 +73,8 @@ void main() {
       await tester.pumpWidget(MaterialApp(
         home: Builder(builder: (BuildContext context) {
           return Scaffold(
-              body: Container(
-            child: SILRadio(
+            body: SILRadio(
               radioKey: silRadioKey,
-              context: context,
               text: 'x',
               value: value,
               onChanged: (dynamic value) {
@@ -89,7 +82,7 @@ void main() {
               },
               groupValue: 'null',
             ),
-          ));
+          );
         }),
       ));
 
@@ -101,7 +94,7 @@ void main() {
       expect(find.byType(Radio), findsOneWidget);
 
       // tap checkbox
-      await tester.tap(find.byKey(silRadioKey));
+      await tester.tap(find.byType(Radio));
       await tester.pumpAndSettle();
       expect(counter, 1);
     });
@@ -112,22 +105,22 @@ void main() {
       int counter = 0;
       const Key silRadioKey = Key('sil_radio_key');
       await tester.pumpWidget(MaterialApp(
-        home: Builder(builder: (BuildContext context) {
-          return Scaffold(
-              body: Container(
-            child: SILRadio(
-              radioKey: silRadioKey,
-              context: context,
-              text: 'x',
-              value: value,
-              rightAligned: true,
-              onChanged: (dynamic value) {
-                counter = counter + 1;
-              },
-              groupValue: 'null',
-            ),
-          ));
-        }),
+        home: Builder(
+          builder: (BuildContext context) {
+            return Scaffold(
+              body: SILRadio(
+                radioKey: silRadioKey,
+                text: 'x',
+                value: value,
+                rightAligned: true,
+                onChanged: (dynamic value) {
+                  counter = counter + 1;
+                },
+                groupValue: 'null',
+              ),
+            );
+          },
+        ),
       ));
 
       await tester.pumpAndSettle();
@@ -138,7 +131,7 @@ void main() {
       expect(find.byType(Radio), findsOneWidget);
 
       // tap checkbox
-      await tester.tap(find.byKey(silRadioKey));
+      await tester.tap(find.byType(Radio));
       await tester.pumpAndSettle();
       expect(counter, 1);
     });
@@ -310,7 +303,7 @@ void main() {
     testWidgets('should render correctly', (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: Builder(builder: (BuildContext context) {
-          return Material(child: SILFormTextField(context: context));
+          return const Material(child: SILFormTextField());
         }),
       ));
 
@@ -335,7 +328,6 @@ void main() {
                   key: key,
                   child: SILFormTextField(
                       onChanged: (String _) {},
-                      context: context,
                       validator: (dynamic val) {
                         if (val == '') {
                           return '';
@@ -373,12 +365,9 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         home: Builder(builder: (BuildContext context) {
-          return Material(
-              child: SILFormTextField(
-                  context: context,
-                  onTap: () {
-                    isActionTapped = true;
-                  }));
+          return Material(child: SILFormTextField(onTap: () {
+            isActionTapped = true;
+          }));
         }),
       ));
 

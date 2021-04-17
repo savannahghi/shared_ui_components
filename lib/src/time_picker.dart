@@ -75,7 +75,6 @@ class SILTimePicker extends StatelessWidget {
       child: AbsorbPointer(
         child: SILFormTextField(
           suffixIcon: suffixIcon,
-          context: context,
           labelText: labelText,
           hintText: hintText,
           focusNode: focusNode,

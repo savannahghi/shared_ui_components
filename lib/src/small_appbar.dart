@@ -36,21 +36,23 @@ class SILSmallAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).primaryColor,
       iconTheme: const IconThemeData(color: Colors.white),
       elevation: elevation ?? 5,
-      leading: IconButton(
-        key: backButtonKey,
-        icon: const Icon(Icons.arrow_back),
-        onPressed: () {
-          if (backRoute != null) {
-            if (backRouteNavigationFunction != null) {
-              backRouteNavigationFunction!();
-            } else {
-              Navigator.pushReplacementNamed(context, backRoute!);
-            }
-          } else {
-            Navigator.of(context).pop();
-          }
-        },
-      ),
+      leading: this.backRoute != null
+          ? IconButton(
+              key: backButtonKey,
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                if (backRoute != null) {
+                  if (backRouteNavigationFunction != null) {
+                    backRouteNavigationFunction!();
+                  } else {
+                    Navigator.pushReplacementNamed(context, backRoute!);
+                  }
+                } else {
+                  Navigator.of(context).pop();
+                }
+              },
+            )
+          : Container(),
       centerTitle: true,
       title: Text(formatTitle ? titleCase(title) : title,
           style: TextThemes.boldSize20Text()),

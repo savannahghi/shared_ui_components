@@ -212,118 +212,157 @@ class SILPhoneInput extends FormField<String> {
 ///       focused the moment the UI containing that widget is rendered
 ///   4. [context] is used when applying the active and focused colors depending
 ///       on the provided context. For example getting colors from [Theme.of(context)]
-TextFormField SILFormTextField({
-  required BuildContext? context,
-  Queue<int>? inputController,
-  FormFieldSetter<String>? onSaved,
-  Function? onTap,
-  String? labelText,
-  String? hintText,
-  String? initialValue,
-  FormFieldValidator<String>? validator,
-  ValueChanged<String>? onChanged,
-  ValueChanged<String>? onFieldSubmit,
-  TextEditingController? controller,
-  FocusNode? focusNode,
-  TextInputType? keyboardType,
-  List<TextInputFormatter>? formatters,
-  int? maxLines,
-  int? maxLength,
-  TextStyle? textStyle,
-  bool? enabled,
-  Widget? suffixIcon,
-  bool? isSearchField,
-  bool? obscureText,
-  Key? key,
-  bool? autoValidate = false,
-  bool? isSearchFieldSmall,
-  bool? autoFocus,
-  List<TextInputFormatter>? inputFormatters,
-  Widget? prefixIcon,
-  TextInputAction? textInputAction,
-  Color? customFillColor,
-  Color? hintColor,
-  Color? hintTextColor,
-  Color? borderColor,
-  Color? textFieldBackgroundColor,
-}) {
-  return TextFormField(
-    key: key,
-    maxLines: maxLines,
-    maxLength: maxLength,
-    autovalidateMode: autoValidate == true
-        ? AutovalidateMode.always
-        : AutovalidateMode.disabled,
-    initialValue: controller == null ? initialValue : null,
-    decoration: InputDecoration(
-      filled: true,
-      fillColor: customFillColor ?? white,
-      alignLabelWithHint: alignLabelWithHint(maxLines),
-      contentPadding: isSearchField == true
-          ? const EdgeInsets.all(20)
-          : EdgeInsets.symmetric(
-              vertical: isSearchFieldSmall == true ? 10 : 15, horizontal: 15),
-      labelText: labelText,
-      hintText: hintText,
-      suffix: suffixIcon,
-      prefixIcon: prefixIcon,
-      labelStyle: Theme.of(context!)
-          .textTheme
-          .headline6!
-          .copyWith(color: grey, fontSize: 16),
-      hintStyle: Theme.of(context)
-          .textTheme
-          .headline4!
-          .copyWith(color: hintColor ?? grey, fontSize: 16),
-      enabledBorder: OutlineInputBorder(
-        borderSide:
-            BorderSide(color: customFillColor ?? borderColor ?? Colors.white24),
-        borderRadius:
-            BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
-      ),
-      disabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: grey),
-        borderRadius:
-            BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: healthcloudAccentColor),
-        borderRadius:
-            BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: red),
-        borderRadius:
-            BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: red),
-        borderRadius:
-            BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
-      ),
-      focusColor: healthcloudAccentColor,
-    ),
-    cursorColor: healthcloudAccentColor,
-    autofocus: autoFocus ?? false,
-    enabled: enabled ?? true,
-    style: textStyle ??
-        Theme.of(context)
+class SILFormTextField extends StatelessWidget {
+  const SILFormTextField({
+    Key? key,
+    this.inputController,
+    this.onSaved,
+    this.onTap,
+    this.labelText,
+    this.hintText,
+    this.initialValue,
+    this.validator,
+    this.onChanged,
+    this.onFieldSubmit,
+    this.controller,
+    this.focusNode,
+    this.keyboardType,
+    this.formatters,
+    this.maxLines,
+    this.maxLength,
+    this.textStyle,
+    this.enabled,
+    this.suffixIcon,
+    this.isSearchField,
+    this.obscureText,
+    this.autoValidate = false,
+    this.isSearchFieldSmall,
+    this.autoFocus,
+    this.inputFormatters,
+    this.prefixIcon,
+    this.textInputAction,
+    this.customFillColor,
+    this.hintColor,
+    this.hintTextColor,
+    this.borderColor,
+    this.textFieldBackgroundColor,
+  }) : super(key: key);
+
+  final Queue<int>? inputController;
+  final FormFieldSetter<String>? onSaved;
+  final Function? onTap;
+  final String? labelText;
+  final String? hintText;
+  final String? initialValue;
+  final FormFieldValidator<String>? validator;
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onFieldSubmit;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? formatters;
+  final int? maxLines;
+  final int? maxLength;
+  final TextStyle? textStyle;
+  final bool? enabled;
+  final Widget? suffixIcon;
+  final bool? isSearchField;
+  final bool? obscureText;
+
+  final bool? autoValidate;
+  final bool? isSearchFieldSmall;
+  final bool? autoFocus;
+  final List<TextInputFormatter>? inputFormatters;
+  final Widget? prefixIcon;
+  final TextInputAction? textInputAction;
+  final Color? customFillColor;
+  final Color? hintColor;
+  final Color? hintTextColor;
+  final Color? borderColor;
+  final Color? textFieldBackgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      key: key,
+      maxLines: maxLines,
+      maxLength: maxLength,
+      autovalidateMode: autoValidate == true
+          ? AutovalidateMode.always
+          : AutovalidateMode.disabled,
+      initialValue: controller == null ? initialValue : null,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: customFillColor ?? white,
+        alignLabelWithHint: alignLabelWithHint(maxLines),
+        contentPadding: isSearchField == true
+            ? const EdgeInsets.all(20)
+            : EdgeInsets.symmetric(
+                vertical: isSearchFieldSmall == true ? 10 : 15, horizontal: 15),
+        labelText: labelText,
+        hintText: hintText,
+        suffix: suffixIcon,
+        prefixIcon: prefixIcon,
+        labelStyle: Theme.of(context)
             .textTheme
             .headline6!
-            .copyWith(color: black, fontSize: 16),
-    onFieldSubmitted:
-        onFieldSubmit != null ? (String value) => onFieldSubmit(value) : null,
-    textInputAction: textInputAction ?? TextInputAction.done,
-    textAlignVertical: TextAlignVertical.center,
-    validator: validator != null ? (String? value) => validator(value) : null,
-    onChanged: onChanged != null ? (String value) => onChanged(value) : null,
-    onTap: onTap != null ? () => onTap() : null,
-    controller: initialValue == null ? controller : null,
-    focusNode: focusNode,
-    obscureText: obscureText ?? false,
-    keyboardType: keyboardType ?? TextInputType.text,
-    inputFormatters: inputFormatters,
-  );
+            .copyWith(color: grey, fontSize: 16),
+        hintStyle: Theme.of(context)
+            .textTheme
+            .headline4!
+            .copyWith(color: hintColor ?? grey, fontSize: 16),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: customFillColor ?? borderColor ?? Colors.white24),
+          borderRadius:
+              BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: grey),
+          borderRadius:
+              BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: healthcloudAccentColor),
+          borderRadius:
+              BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: red),
+          borderRadius:
+              BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: red),
+          borderRadius:
+              BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
+        ),
+        focusColor: healthcloudAccentColor,
+      ),
+      cursorColor: healthcloudAccentColor,
+      autofocus: autoFocus ?? false,
+      enabled: enabled ?? true,
+      style: textStyle ??
+          Theme.of(context)
+              .textTheme
+              .headline6!
+              .copyWith(color: black, fontSize: 16),
+      onFieldSubmitted: onFieldSubmit != null
+          ? (String value) => onFieldSubmit!(value)
+          : null,
+      textInputAction: textInputAction ?? TextInputAction.done,
+      textAlignVertical: TextAlignVertical.center,
+      validator:
+          validator != null ? (String? value) => validator!(value) : null,
+      onChanged: onChanged != null ? (String value) => onChanged!(value) : null,
+      onTap: onTap != null ? () => onTap!() : null,
+      controller: initialValue == null ? controller : null,
+      focusNode: focusNode,
+      obscureText: obscureText ?? false,
+      keyboardType: keyboardType ?? TextInputType.text,
+      inputFormatters: inputFormatters,
+    );
+  }
 }
 
 /// [SILDatePickerField] customized for date selection.
@@ -413,7 +452,6 @@ class SILDatePickerField extends StatelessWidget {
         child: SILFormTextField(
           key: textFieldDateKey,
           suffixIcon: suffixIcon,
-          context: context,
           labelText: labelText,
           hintText: hintText,
           focusNode: focusNode,
@@ -589,7 +627,7 @@ class SILSelectOptionField extends StatelessWidget {
             return DropdownMenuItem<String>(
               key: ValueKey<String>(value),
               value: value,
-              child: Text(value),
+              child: Text(titleCase(value)),
             );
           }).toList(),
           onChanged: disabled != true
@@ -606,9 +644,6 @@ class SILSelectOptionField extends StatelessWidget {
   }
 }
 
-//DISCLAIMER : this may not be so unique to SILPhoneInput. However it is placed here while doing clean-up and to avoid breakage. A further refinement
-// should be added to consolidate SILPhoneInput with SILPhoneNumberField
-
 /// [SILCheckbox] customized for checkboxes
 /// Example
 ///   ```dart
@@ -621,43 +656,52 @@ class SILSelectOptionField extends StatelessWidget {
 ///     },
 ///   ),
 ///   ```
-Row SILCheckbox({
-  Key? key,
-  required BuildContext? context,
-  required dynamic value,
-  required String? text,
-  required ValueChanged<bool?>? onChanged,
-  Function? onTap,
-  String? actionText,
-}) {
-  return Row(
-    children: <Widget>[
-      Checkbox(
-        key: key,
-        activeColor: healthcloudAccentColor,
-        materialTapTargetSize: MaterialTapTargetSize.padded,
-        value: value as bool,
-        onChanged: onChanged,
-      ),
-      Expanded(
-        child: RichText(
-          text: TextSpan(
-              text: text,
-              style: Theme.of(context!).textTheme.bodyText1,
-              children: <TextSpan>[
-                TextSpan(
-                    text: actionText,
-                    style: const TextStyle(color: Colors.white),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        // navigate to desired screen
-                        onTap!();
-                      })
-              ]),
+class SILCheckbox extends StatelessWidget {
+  const SILCheckbox(
+      {Key? key,
+      required this.value,
+      required this.text,
+      required this.onChanged,
+      this.onTap,
+      this.actionText})
+      : super(key: key);
+
+  final dynamic? value;
+  final String? text;
+  final ValueChanged<dynamic?>? onChanged;
+  final Function? onTap;
+  final String? actionText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Checkbox(
+          activeColor: healthcloudAccentColor,
+          materialTapTargetSize: MaterialTapTargetSize.padded,
+          value: value as bool,
+          onChanged: onChanged,
         ),
-      )
-    ],
-  );
+        Expanded(
+          child: RichText(
+            text: TextSpan(
+                text: text,
+                style: Theme.of(context).textTheme.bodyText1,
+                children: <TextSpan>[
+                  TextSpan(
+                      text: actionText,
+                      style: const TextStyle(color: Colors.white),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          // navigate to desired screen
+                          onTap!();
+                        })
+                ]),
+          ),
+        )
+      ],
+    );
+  }
 }
 
 /// [SILRadio] customized for radio options
@@ -673,38 +717,49 @@ Row SILCheckbox({
 ///     },
 ///   ),
 /// ```
-Row SILRadio({
-  required BuildContext? context,
-  required dynamic? value,
-  required String? text,
-  required ValueChanged<dynamic?>? onChanged,
-  required dynamic groupValue,
-  Key? radioKey,
-  bool rightAligned = false,
-}) {
-  MainAxisAlignment alignment = MainAxisAlignment.start;
-  if (rightAligned) {
-    alignment = MainAxisAlignment.spaceBetween;
+class SILRadio extends StatelessWidget {
+  const SILRadio({
+    required this.value,
+    required this.text,
+    required this.onChanged,
+    required this.groupValue,
+    this.radioKey,
+    this.rightAligned = false,
+  });
+
+  final dynamic? value;
+  final String? text;
+  final ValueChanged<dynamic?>? onChanged;
+  final dynamic groupValue;
+  final bool rightAligned;
+  final Key? radioKey;
+
+  @override
+  Widget build(BuildContext context) {
+    MainAxisAlignment alignment = MainAxisAlignment.start;
+    if (rightAligned) {
+      alignment = MainAxisAlignment.spaceBetween;
+    }
+    final Widget textWidget = Text(
+      text!,
+      style: TextThemes.boldSize14Text(Colors.black54),
+    );
+    return Row(
+      key: radioKey,
+      mainAxisAlignment: alignment,
+      children: <Widget>[
+        if (rightAligned) textWidget,
+        Radio<dynamic>(
+          groupValue: groupValue,
+          activeColor: Theme.of(context).primaryColor,
+          materialTapTargetSize: MaterialTapTargetSize.padded,
+          value: value,
+          onChanged: onChanged,
+        ),
+        if (!rightAligned) textWidget
+      ],
+    );
   }
-  final Widget textWidget = Text(
-    text!,
-    style: TextThemes.boldSize14Text(Colors.black54),
-  );
-  return Row(
-    mainAxisAlignment: alignment,
-    children: <Widget>[
-      if (rightAligned) textWidget,
-      Radio<dynamic>(
-        key: radioKey,
-        groupValue: groupValue,
-        activeColor: Theme.of(context!).primaryColor,
-        materialTapTargetSize: MaterialTapTargetSize.padded,
-        value: value,
-        onChanged: onChanged,
-      ),
-      if (!rightAligned) textWidget
-    ],
-  );
 }
 
 // ignore: prefer_function_declarations_over_variables
@@ -784,5 +839,3 @@ class SILPinCodeTextField extends StatelessWidget {
     );
   }
 }
-
-// ignore_for_file: non_constant_identifier_names
