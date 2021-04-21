@@ -125,6 +125,7 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
               toggleLoading();
               widget.successCallBack(otp: otp, toggleLoading: toggleLoading);
               toggleLoading();
+              return;
             }
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
