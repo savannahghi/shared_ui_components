@@ -24,7 +24,7 @@ void main() {
           builder: (BuildContext context) {
             return Scaffold(
               body: SILCheckbox(
-                  key: silCheckBoxKey,
+                  checkboxKey: silCheckBoxKey,
                   text: '',
                   value: true,
                   onChanged: (dynamic value) {

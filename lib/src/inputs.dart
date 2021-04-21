@@ -214,7 +214,7 @@ class SILPhoneInput extends FormField<String> {
 ///       on the provided context. For example getting colors from [Theme.of(context)]
 class SILFormTextField extends StatelessWidget {
   const SILFormTextField({
-    Key? key,
+    this.textFieldKey,
     this.inputController,
     this.onSaved,
     this.onTap,
@@ -246,7 +246,7 @@ class SILFormTextField extends StatelessWidget {
     this.hintTextColor,
     this.borderColor,
     this.textFieldBackgroundColor,
-  }) : super(key: key);
+  });
 
   final Queue<int>? inputController;
   final FormFieldSetter<String>? onSaved;
@@ -281,10 +281,12 @@ class SILFormTextField extends StatelessWidget {
   final Color? borderColor;
   final Color? textFieldBackgroundColor;
 
+  final Key? textFieldKey;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      key: key,
+      key: textFormFieldKey,
       maxLines: maxLines,
       maxLength: maxLength,
       autovalidateMode: autoValidate == true
@@ -450,7 +452,7 @@ class SILDatePickerField extends StatelessWidget {
       },
       child: AbsorbPointer(
         child: SILFormTextField(
-          key: textFieldDateKey,
+          textFieldKey: textFieldDateKey,
           suffixIcon: suffixIcon,
           labelText: labelText,
           hintText: hintText,
@@ -657,26 +659,28 @@ class SILSelectOptionField extends StatelessWidget {
 ///   ),
 ///   ```
 class SILCheckbox extends StatelessWidget {
-  const SILCheckbox(
-      {Key? key,
-      required this.value,
-      required this.text,
-      required this.onChanged,
-      this.onTap,
-      this.actionText})
-      : super(key: key);
+  const SILCheckbox({
+    required this.value,
+    required this.text,
+    required this.onChanged,
+    this.onTap,
+    this.actionText,
+    this.checkboxKey,
+  });
 
   final bool? value;
   final String? text;
   final ValueChanged<bool?>? onChanged;
   final Function? onTap;
   final String? actionText;
+  final Key? checkboxKey;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
         Checkbox(
+          key: checkboxKey,
           activeColor: healthcloudAccentColor,
           materialTapTargetSize: MaterialTapTargetSize.padded,
           value: value,
