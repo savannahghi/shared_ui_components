@@ -666,9 +666,9 @@ class SILCheckbox extends StatelessWidget {
       this.actionText})
       : super(key: key);
 
-  final dynamic? value;
+  final bool? value;
   final String? text;
-  final ValueChanged<dynamic?>? onChanged;
+  final ValueChanged<bool?>? onChanged;
   final Function? onTap;
   final String? actionText;
 
@@ -679,7 +679,7 @@ class SILCheckbox extends StatelessWidget {
         Checkbox(
           activeColor: healthcloudAccentColor,
           materialTapTargetSize: MaterialTapTargetSize.padded,
-          value: value as bool,
+          value: value,
           onChanged: onChanged,
         ),
         Expanded(
