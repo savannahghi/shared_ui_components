@@ -581,6 +581,10 @@ class SILSelectOptionField extends StatelessWidget {
   final bool disabled;
   final FormFieldSetter<String>? onChanged;
 
+  /// whether to retain the format of the dropdown options. This will prevent
+  /// options like `National ID` from being formatted to `National id`
+  final bool retainOptionCase;
+
   const SILSelectOptionField({
     required this.onSaved,
     required this.options,
@@ -589,6 +593,7 @@ class SILSelectOptionField extends StatelessWidget {
     required this.hintText,
     required this.onChanged,
     this.color,
+    this.retainOptionCase = true,
     bool? disabled,
   }) : this.disabled = disabled ?? false;
 
@@ -625,7 +630,7 @@ class SILSelectOptionField extends StatelessWidget {
             return DropdownMenuItem<String>(
               key: ValueKey<String>(value),
               value: value,
-              child: Text(titleCase(value)),
+              child: Text(retainOptionCase ? value : titleCase(value)),
             );
           }).toList(),
           onChanged: disabled != true
