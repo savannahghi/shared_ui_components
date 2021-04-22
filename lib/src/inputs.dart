@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
@@ -661,7 +660,7 @@ class SILCheckbox extends StatelessWidget {
     required this.text,
     required this.onChanged,
     this.onTap,
-    this.actionText,
+    this.child,
     this.checkboxKey,
   });
 
@@ -669,8 +668,8 @@ class SILCheckbox extends StatelessWidget {
   final String? text;
   final ValueChanged<bool?>? onChanged;
   final Function? onTap;
-  final String? actionText;
   final Key? checkboxKey;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -684,21 +683,11 @@ class SILCheckbox extends StatelessWidget {
           onChanged: onChanged,
         ),
         Expanded(
-          child: RichText(
-            text: TextSpan(
-                text: text,
+          child: child ??
+              Text(
+                text ?? '',
                 style: Theme.of(context).textTheme.bodyText1,
-                children: <TextSpan>[
-                  TextSpan(
-                      text: actionText,
-                      style: const TextStyle(color: Colors.white),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          // navigate to desired screen
-                          onTap!();
-                        })
-                ]),
-          ),
+              ),
         )
       ],
     );

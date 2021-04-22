@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,7 +15,8 @@ import 'package:sil_ui_components/src/widget_keys.dart';
 void main() {
   final String eligibleYear = (currentYear - 18).toString();
   group('SILPhoneNumberField', () {
-    testWidgets('should render SILCheckbox ', (WidgetTester tester) async {
+    testWidgets('should render SILCheckbox when a child widget is passed',
+        (WidgetTester tester) async {
       const Key silCheckBoxKey = Key('sil_checkbox_key');
 
       bool counter = false;
@@ -25,16 +27,33 @@ void main() {
           builder: (BuildContext context) {
             return Scaffold(
               body: SILCheckbox(
-                  checkboxKey: silCheckBoxKey,
-                  text: '',
-                  value: true,
-                  onChanged: (dynamic value) {
-                    counter = counter;
-                  },
-                  onTap: () {
-                    onTap = true;
-                  },
-                  actionText: checkBoxActionText),
+                checkboxKey: silCheckBoxKey,
+                text: '',
+                value: true,
+                onChanged: (bool? value) {
+                  counter = value!;
+                },
+                onTap: () {
+                  onTap = true;
+                },
+                child: RichText(
+                  text: TextSpan(
+                    text: '',
+                    style: Theme.of(context).textTheme.bodyText1,
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: checkBoxActionText,
+                        style: const TextStyle(color: Colors.white),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            // navigate to desired screen
+                            onTap = true;
+                          },
+                      )
+                    ],
+                  ),
+                ),
+              ),
             );
           },
         ),
@@ -50,6 +69,7 @@ void main() {
               widget is RichText &&
               widget.text.toPlainText().startsWith(checkBoxActionText)),
           findsOneWidget);
+
       expect(find.byType(Checkbox), findsOneWidget);
       expect(find.byKey(silCheckBoxKey), findsOneWidget);
       expect(tester.getSize(find.byType(Checkbox)), const Size(48.0, 48.0));
@@ -63,7 +83,45 @@ void main() {
           widget is RichText &&
           widget.text.toPlainText().startsWith(checkBoxActionText)));
       await tester.pumpAndSettle();
+
       expect(onTap, true);
+    });
+
+    testWidgets('should render SILCheckbox when no child widget is passed',
+        (WidgetTester tester) async {
+      const Key silCheckBoxKey = Key('sil_checkbox_key');
+
+      bool counter = false;
+      const String checkBoxActionText = 'Action';
+      final Widget testWidget = MaterialApp(
+        home: Builder(
+          builder: (BuildContext context) {
+            return Scaffold(
+              body: SILCheckbox(
+                checkboxKey: silCheckBoxKey,
+                text: checkBoxActionText,
+                value: counter,
+                onChanged: (bool? value) {
+                  counter = value!;
+                },
+              ),
+            );
+          },
+        ),
+      );
+      await tester.pumpWidget(testWidget);
+
+      await tester.pumpAndSettle();
+
+      expect(find.byType(Checkbox), findsOneWidget);
+      expect(find.byKey(silCheckBoxKey), findsOneWidget);
+      expect(tester.getSize(find.byType(Checkbox)), const Size(48.0, 48.0));
+      expect(find.text(checkBoxActionText), findsOneWidget);
+
+      await tester.tap(find.byKey(silCheckBoxKey));
+      await tester.pump();
+
+      expect(counter, true);
     });
 
     testWidgets('should render SILRadio when rightAligned is false',
