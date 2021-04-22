@@ -16,6 +16,7 @@ void main() {
   group('SILPhoneNumberField', () {
     testWidgets('should render SILCheckbox ', (WidgetTester tester) async {
       const Key silCheckBoxKey = Key('sil_checkbox_key');
+
       bool counter = false;
       bool onTap = false;
       const String checkBoxActionText = 'Action';
@@ -314,6 +315,31 @@ void main() {
       await tester.showKeyboard(find.byType(TextFormField));
       await tester.enterText(find.byType(TextFormField), 'text');
       await tester.pumpAndSettle();
+    });
+
+    testWidgets(
+        'should render correctly when SILFormTextField is looked up '
+        'using a key', (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Builder(builder: (BuildContext context) {
+          return const Material(
+              child: SILFormTextField(
+            key: Key('some-key'),
+          ));
+        }),
+      ));
+
+      await tester.pump();
+
+      final Finder textFormField = find.byKey(const Key('some-key'));
+
+      expect(textFormField, findsOneWidget);
+
+      await tester.showKeyboard(textFormField);
+      await tester.enterText(textFormField, 'text');
+      await tester.pumpAndSettle();
+
+      expect(find.text('text'), findsOneWidget);
     });
 
     testWidgets('should test SILFormTextField', (WidgetTester tester) async {

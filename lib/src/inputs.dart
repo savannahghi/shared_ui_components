@@ -57,130 +57,130 @@ class SILPhoneInput extends FormField<String> {
     String? initialValue = '',
     bool autoValidate = false,
   }) : super(
-            enabled: enabled ?? true,
-            autovalidateMode: autoValidate
-                ? AutovalidateMode.always
-                : AutovalidateMode.disabled,
-            validator: (String? value) {
-              final RegExp kenyanRegExp = RegExp(r'^[0-9]{9}$');
-              final RegExp usRegExp = RegExp(r'^[0-9]{10}$');
+          enabled: enabled ?? true,
+          autovalidateMode: autoValidate
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
+          validator: (String? value) {
+            final RegExp kenyanRegExp = RegExp(r'^[0-9]{9}$');
+            final RegExp usRegExp = RegExp(r'^[0-9]{10}$');
 
-              if (value != null) {
-                if (value.isEmpty) {
-                  return phoneNumberRequiredText;
-                }
-
-                final List<int> validLengths = <int>[9, 10];
-
-                if (!validLengths.contains(value.length)) {
-                  return validPhoneNumberText;
-                }
-
-                String phone;
-
-                if (value.startsWith('0')) {
-                  phone = value.substring(1);
-                } else {
-                  phone = value;
-                }
-
-                if (!kenyanRegExp.hasMatch(phone) &&
-                    !usRegExp.hasMatch(phone)) {
-                  return validPhoneNumberText;
-                }
+            if (value != null) {
+              if (value.isEmpty) {
+                return phoneNumberRequiredText;
               }
-            },
-            initialValue: inputController != null
-                ? inputController.text
-                : (initialValue ?? ''),
-            builder: (FormFieldState<String> state) {
-              final PhoneInputBehaviorSubject phoneInputBehaviorSubject =
-                  PhoneInputBehaviorSubject();
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey[350]!),
-                        color: Colors.grey.withOpacity(0.08),
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Container(
-                          height: 54,
-                          padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                          decoration: BoxDecoration(
-                            border: Border(
-                                right: BorderSide(color: Colors.grey[350]!)),
-                          ),
-                          child: SILCountryPicker(
-                            onChanged: (String value) {
-                              phoneInputBehaviorSubject.countryCode.add(value);
-                              onChanged(
-                                phoneNumberFormatter(
-                                  countryCode: phoneInputBehaviorSubject
-                                      .countryCode.valueWrapper!.value,
-                                  phoneNumber: phoneInputBehaviorSubject
-                                      .phoneNumber.valueWrapper!.value,
-                                ),
-                              );
-                            },
-                          ),
+
+              final List<int> validLengths = <int>[9, 10];
+
+              if (!validLengths.contains(value.length)) {
+                return validPhoneNumberText;
+              }
+
+              String phone;
+
+              if (value.startsWith('0')) {
+                phone = value.substring(1);
+              } else {
+                phone = value;
+              }
+
+              if (!kenyanRegExp.hasMatch(phone) && !usRegExp.hasMatch(phone)) {
+                return validPhoneNumberText;
+              }
+            }
+          },
+          initialValue: inputController != null
+              ? inputController.text
+              : (initialValue ?? ''),
+          builder: (FormFieldState<String> state) {
+            final PhoneInputBehaviorSubject phoneInputBehaviorSubject =
+                PhoneInputBehaviorSubject();
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey[350]!),
+                      color: Colors.grey.withOpacity(0.08),
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Container(
+                        height: 54,
+                        padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                        decoration: BoxDecoration(
+                          border: Border(
+                              right: BorderSide(color: Colors.grey[350]!)),
                         ),
-                        Flexible(
-                          child: SizedBox(
-                            height: 54,
-                            child: Center(
-                              child: TextFormField(
-                                key: textFormFieldKey,
-                                decoration: InputDecoration(
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.never,
-                                  labelText: labelText,
-                                  labelStyle: labelStyle,
-                                  border: InputBorder.none,
-                                  fillColor: Colors.transparent,
-                                  contentPadding:
-                                      const EdgeInsets.fromLTRB(15, 0, 15, 15),
-                                ),
-                                keyboardType: TextInputType.number,
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                onChanged: (String value) {
-                                  state.didChange(value);
-                                  inputController?.text = value;
-                                  phoneInputBehaviorSubject.phoneNumber
-                                      .add(value);
-                                  onChanged(
-                                    phoneNumberFormatter(
-                                      countryCode: phoneInputBehaviorSubject
-                                          .countryCode.valueWrapper!.value,
-                                      phoneNumber: value,
-                                    ),
-                                  );
-                                },
+                        child: SILCountryPicker(
+                          onChanged: (String value) {
+                            phoneInputBehaviorSubject.countryCode.add(value);
+                            onChanged(
+                              phoneNumberFormatter(
+                                countryCode: phoneInputBehaviorSubject
+                                    .countryCode.valueWrapper!.value,
+                                phoneNumber: phoneInputBehaviorSubject
+                                    .phoneNumber.valueWrapper!.value,
                               ),
+                            );
+                          },
+                        ),
+                      ),
+                      Flexible(
+                        child: SizedBox(
+                          height: 54,
+                          child: Center(
+                            child: TextFormField(
+                              key: textFormFieldKey,
+                              decoration: InputDecoration(
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                labelText: labelText,
+                                labelStyle: labelStyle,
+                                border: InputBorder.none,
+                                fillColor: Colors.transparent,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(15, 0, 15, 15),
+                              ),
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              onChanged: (String value) {
+                                state.didChange(value);
+                                inputController?.text = value;
+                                phoneInputBehaviorSubject.phoneNumber
+                                    .add(value);
+                                onChanged(
+                                  phoneNumberFormatter(
+                                    countryCode: phoneInputBehaviorSubject
+                                        .countryCode.valueWrapper!.value,
+                                    phoneNumber: value,
+                                  ),
+                                );
+                              },
                             ),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
-                  if (state.hasError)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5, left: 10),
-                      child: Text(
-                        state.errorText.toString(),
-                        style: const TextStyle(color: Colors.red),
-                      ),
-                    )
-                  else
-                    Container()
-                ],
-              );
-            });
+                ),
+                if (state.hasError)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5, left: 10),
+                    child: Text(
+                      state.errorText.toString(),
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  )
+                else
+                  Container()
+              ],
+            );
+          },
+        );
 }
 
 /// [SILFormTextField] customized [TextFormField]
@@ -214,7 +214,7 @@ class SILPhoneInput extends FormField<String> {
 ///       on the provided context. For example getting colors from [Theme.of(context)]
 class SILFormTextField extends StatelessWidget {
   const SILFormTextField({
-    this.textFieldKey,
+    Key? key,
     this.inputController,
     this.onSaved,
     this.onTap,
@@ -246,7 +246,7 @@ class SILFormTextField extends StatelessWidget {
     this.hintTextColor,
     this.borderColor,
     this.textFieldBackgroundColor,
-  });
+  }) : super(key: key);
 
   final Queue<int>? inputController;
   final FormFieldSetter<String>? onSaved;
@@ -281,12 +281,9 @@ class SILFormTextField extends StatelessWidget {
   final Color? borderColor;
   final Color? textFieldBackgroundColor;
 
-  final Key? textFieldKey;
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      key: textFormFieldKey,
       maxLines: maxLines,
       maxLength: maxLength,
       autovalidateMode: autoValidate == true
@@ -452,7 +449,7 @@ class SILDatePickerField extends StatelessWidget {
       },
       child: AbsorbPointer(
         child: SILFormTextField(
-          textFieldKey: textFieldDateKey,
+          key: textFieldDateKey,
           suffixIcon: suffixIcon,
           labelText: labelText,
           hintText: hintText,
