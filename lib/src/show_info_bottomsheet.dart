@@ -67,7 +67,7 @@ Future<dynamic> showFeedbackBottomSheet({
                     child: GestureDetector(
                       onTap: () => Navigator.pop(context),
                       child: const Image(
-                        key: Key('pop_bottomsheet'),
+                        key: closeBottomSheetKey,
                         image: AssetImage(closeIconUrl),
                         color: Colors.black54,
                         height: 16.0,
