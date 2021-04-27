@@ -8,7 +8,7 @@ const String successconUrl = 'packages/sil_ui_components/assets/success.svg';
 
 // IN-APP STRINGS
 const String wrongPINText =
-    'You entered an incorrect PIN, please try again or resend';
+    'You entered an incorrect code, please check your code or resend a new one';
 
 // KEY STRINGS
 const Key infoBottomSheetKey = Key('info-bottomsheet');
