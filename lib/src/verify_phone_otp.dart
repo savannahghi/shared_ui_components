@@ -7,8 +7,10 @@ import 'package:sil_themes/text_themes.dart';
 import 'package:sil_ui_components/sil_buttons.dart';
 import 'package:sil_ui_components/sil_inputs.dart';
 import 'package:sil_ui_components/src/animated_count.dart';
+import 'package:sil_ui_components/src/app_strings.dart';
 import 'package:sil_ui_components/src/constants.dart';
 import 'package:sil_ui_components/src/helpers.dart';
+import 'package:sil_ui_components/src/show_info_bottomsheet.dart';
 
 class SILVerifyPhoneOtp extends StatefulWidget {
   const SILVerifyPhoneOtp({
@@ -127,10 +129,10 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
               toggleLoading();
               return;
             }
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Invalid Code'),
-              ),
+            showFeedbackBottomSheet(
+              context: context,
+              modalContent: wrongPINText,
+              imageAssetPath: errorIconUrl,
             );
             textEditingController.clear();
             await HapticFeedback.vibrate();

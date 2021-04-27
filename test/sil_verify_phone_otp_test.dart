@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sil_ui_components/sil_inputs.dart';
 import 'package:sil_ui_components/sil_resend_phone_code.dart';
 import 'package:sil_ui_components/sil_verify_phone_otp.dart';
+import 'package:sil_ui_components/src/app_strings.dart';
 import 'package:sil_ui_components/src/constants.dart';
 
 import 'mocks.dart';
@@ -136,8 +137,8 @@ void main() {
       await tester.tap(find.byType(SILPinCodeTextField));
 
       await tester.enterText(find.byType(SILPinCodeTextField), '123457');
-      await tester.pump(const Duration(seconds: 10));
-      expect(find.byType(ScaffoldMessenger), findsOneWidget);
+      await tester.pumpAndSettle();
+      expect(find.byKey(infoBottomSheetKey), findsOneWidget);
     });
 
     Future<String> testFunc({
@@ -171,7 +172,6 @@ void main() {
 
       expect(find.byKey(resendOtp), findsOneWidget);
       await tester.tap(find.byKey(resendOtp));
-      await tester.pumpAndSettle();
       await tester.pumpAndSettle();
 
       expect(find.byKey(cancelResendOtp), findsOneWidget);

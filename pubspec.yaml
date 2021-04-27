@@ -43,3 +43,7 @@ flutter:
     - packages/sil_ui_components/assets/tz.png
     - packages/sil_ui_components/assets/ug.png
     - packages/sil_ui_components/assets/us.png
+    - packages/sil_ui_components/assets/close.png
+    - packages/sil_ui_components/assets/error.svg
+    - packages/sil_ui_components/assets/info.svg
+    - packages/sil_ui_components/assets/success.svg

@@ -14,7 +14,7 @@ packages:
       name: async_redux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.0.5"
+    version: "9.0.8"
   boolean_selector:
     dependency: transitive
     description:
@@ -84,7 +84,7 @@ packages:
       name: dotted_border
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety.0"
+    version: "2.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -98,7 +98,7 @@ packages:
       name: fast_immutable_collections
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.5"
+    version: "4.0.6"
   ffi:
     dependency: transitive
     description:
@@ -239,7 +239,7 @@ packages:
       name: local_auth
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.4"
+    version: "1.1.5"
   logging:
     dependency: transitive
     description:
@@ -323,7 +323,7 @@ packages:
       name: path_provider_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   pedantic:
     dependency: transitive
     description:
@@ -553,7 +553,7 @@ packages:
       name: weak_map
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   win32:
     dependency: transitive
     description:
