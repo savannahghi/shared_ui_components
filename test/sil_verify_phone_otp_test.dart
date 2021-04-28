@@ -107,7 +107,7 @@ void main() {
       expect(find.byType(TextButton), findsOneWidget);
       await tester.tap(find.byType(TextButton));
       await tester.pumpAndSettle();
-      expect(find.byType(TextButton), findsNothing);
+      expect(find.byType(TextButton), findsOneWidget);
     });
 
     testWidgets('should render SILVerifyPhoneOtp when otp is wrong ',

@@ -7,7 +7,9 @@ import 'package:intl/intl.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
 import 'package:sil_ui_components/sil_resend_phone_code.dart';
+import 'package:sil_ui_components/src/app_strings.dart';
 import 'package:sil_ui_components/src/constants.dart';
+import 'package:sil_ui_components/src/show_info_bottomsheet.dart';
 import 'package:sil_ui_components/src/type_defs.dart';
 
 bool alignLabelWithHint(int? maxLines) => maxLines != null && maxLines > 1;
@@ -135,17 +137,18 @@ Future<String> showResendBottomSheet({
     },
   );
   if (res.runtimeType == String) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('$codeSent $phoneNo'),
-      ),
+    await showFeedbackBottomSheet(
+      context: context,
+      modalContent: '$codeSent $phoneNo',
+      imageAssetPath: infoIconUrl,
     );
     return res as Future<String>;
   }
-  ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(
-      content: Text(resendCancel),
-    ),
+
+  await showFeedbackBottomSheet(
+    context: context,
+    modalContent: resendCancel,
+    imageAssetPath: errorIconUrl,
   );
   return 'err';
 }

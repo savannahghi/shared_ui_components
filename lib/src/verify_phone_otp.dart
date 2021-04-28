@@ -53,7 +53,7 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
   VerifyPhoneBehaviorSubject verifyPhoneBehaviorSubject =
       VerifyPhoneBehaviorSubject();
   String? otp;
-  int resendTimeout = 30;
+  int resendTimeout = 60;
   TextEditingController textEditingController = TextEditingController();
 
   late AnimationController _controller;
@@ -95,7 +95,8 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
   }
 
   void restartTimer() {
-    resendTimeout = 30;
+    // explicitly set it to 90 to allow the user to cancel the bottomsheet then enter th otp
+    resendTimeout = 90;
     _controller.value = 0;
     _controller.forward();
     canResendOtp.add(false);
