@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:sil_ui_components/sil_country_picker.dart';
 import 'package:sil_ui_components/sil_fancy_loading.dart';
@@ -13,7 +14,10 @@ import 'package:sil_ui_components/src/constants.dart';
 import 'package:sil_ui_components/src/widget_keys.dart';
 
 void main() {
-  final String eligibleYear = (currentYear - 18).toString();
+  final DateTime now = DateTime.now();
+  final int thisYear = now.year;
+  final int nextFourYears = thisYear + 4;
+  final int eligibleYear = thisYear - 18;
   group('SILPhoneNumberField', () {
     testWidgets('should render SILCheckbox when a child widget is passed',
         (WidgetTester tester) async {
@@ -593,7 +597,9 @@ void main() {
                       allowEligibleDate: true,
                       controller: datePickerController,
                       keyboardType: TextInputType.datetime,
-                      onChanged: (dynamic val) {})));
+                      onChanged: (dynamic val) {
+                        datePickerController.text;
+                      })));
         })),
       );
 
@@ -603,9 +609,21 @@ void main() {
       await tester.tap(find.byKey(silDatePickerField));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text(eligibleYear));
+      expect(find.text(eligibleYear.toString()), findsOneWidget);
+
+      await tester.tap(find.text(eligibleYear.toString()));
+      await tester.pumpAndSettle();
+
+      expect(find.text(currentDay.toString()), findsOneWidget);
+      await tester.tap(find.text(currentDay.toString()));
+
       await tester.tap(find.text('OK'));
       await tester.pumpAndSettle();
+
+      expect(
+          datePickerController.text,
+          DateFormat('yyyy-MM-dd')
+              .format(DateTime(eligibleYear, currentMonth, currentDay)));
     });
   });
 
@@ -646,7 +664,9 @@ void main() {
               child: SILDatePickerField(
                   controller: controller,
                   gestureDateKey: datePickerKey,
-                  onChanged: (dynamic val) {}));
+                  onChanged: (dynamic val) {
+                    controller.text;
+                  }));
         }),
       ));
 
@@ -657,13 +677,13 @@ void main() {
       expect(find.byType(CupertinoDatePicker), findsWidgets);
       await tester.tap(find.text('January'));
       await tester.pumpAndSettle();
-
       debugDefaultTargetPlatformOverride = null;
     });
 
     testWidgets('should render ios date picker with allowed current year',
         (WidgetTester tester) async {
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+
       await tester.pumpWidget(MaterialApp(
         home: Builder(builder: (BuildContext context) {
           return Material(
@@ -671,9 +691,9 @@ void main() {
                   controller: controller,
                   gestureDateKey: datePickerKey,
                   allowCurrentYear: true,
-                  allowEligibleDate: true,
-                  allowFutureYears: true,
-                  onChanged: (dynamic val) {}));
+                  onChanged: (dynamic val) {
+                    controller.text;
+                  }));
         }),
       ));
 
@@ -683,7 +703,9 @@ void main() {
       expect(find.byType(Container), findsWidgets);
       expect(find.byType(CupertinoDatePicker), findsWidgets);
 
-      await tester.tap(find.text('January'));
+      expect(find.text(thisYear.toString()), findsOneWidget);
+      expect(find.text(nextFourYears.toString()), findsNothing);
+
       debugDefaultTargetPlatformOverride = null;
     });
 
@@ -703,10 +725,11 @@ void main() {
       await tester.tap(find.byKey(datePickerKey));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text(eligibleYear));
+      await tester.tap(find.text(eligibleYear.toString()));
+      expect(find.text(eligibleYear.toString()), findsOneWidget);
     });
 
-    testWidgets('should render android date picker with allowed current year',
+    testWidgets('should render android date picker with allowed Future years',
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: Builder(builder: (BuildContext context) {
@@ -714,7 +737,46 @@ void main() {
               child: SILDatePickerField(
                   controller: controller,
                   gestureDateKey: datePickerKey,
-                  onChanged: (dynamic val) {},
+                  onChanged: (dynamic val) {
+                    controller.text;
+                  },
+                  allowFutureYears: true));
+        }),
+      ));
+
+      expect(find.byKey(datePickerKey), findsOneWidget);
+      await tester.tap(find.byKey(datePickerKey));
+      await tester.pumpAndSettle();
+
+      expect(find.text(eligibleYear.toString()), findsOneWidget);
+
+      await tester.tap(find.text(eligibleYear.toString()));
+      await tester.pumpAndSettle();
+
+      expect(find.text('3'), findsOneWidget);
+      await tester.tap(find.text('3'));
+
+      expect(find.text('OK'), findsOneWidget);
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+
+      expect(
+          controller.text,
+          DateFormat('yyyy-MM-dd')
+              .format(DateTime(eligibleYear, currentMonth, 3)));
+    });
+
+    testWidgets('should render android date picker with allowed current years',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Builder(builder: (BuildContext context) {
+          return Material(
+              child: SILDatePickerField(
+                  controller: controller,
+                  gestureDateKey: datePickerKey,
+                  onChanged: (dynamic val) {
+                    controller.text;
+                  },
                   allowCurrentYear: true));
         }),
       ));
@@ -722,8 +784,23 @@ void main() {
       expect(find.byKey(datePickerKey), findsOneWidget);
       await tester.tap(find.byKey(datePickerKey));
       await tester.pumpAndSettle();
-      await tester.tap(find.text(currentYear.toString()));
+
+      expect(find.text(thisYear.toString()), findsOneWidget);
+
+      await tester.tap(find.text(thisYear.toString()));
       await tester.pumpAndSettle();
+
+      expect(find.text(currentDay.toString()), findsOneWidget);
+      await tester.tap(find.text(currentDay.toString()));
+
+      expect(find.text('OK'), findsOneWidget);
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+
+      expect(
+          controller.text,
+          DateFormat('yyyy-MM-dd')
+              .format(DateTime(thisYear, currentMonth, currentDay)));
     });
   });
 }

@@ -494,10 +494,8 @@ class SILDatePickerField extends StatelessWidget {
                 onDateTimeChanged: (DateTime newDate) {
                   selectedDate = newDate;
                 },
-                minimumDate: allowCurrentYear
-                    ? DateTime(currentYear, currentMonth, currentDay)
-                    : DateTime(oldestYear, currentMonth, currentDay),
-                minimumYear: allowCurrentYear ? currentYear : oldestYear,
+                minimumDate: DateTime(oldestYear, currentMonth, currentDay),
+                minimumYear: oldestYear,
                 maximumDate: getLastDate(),
                 maximumYear: getLastDate().year,
                 mode: CupertinoDatePickerMode.date,
@@ -511,9 +509,7 @@ class SILDatePickerField extends StatelessWidget {
         initialDate: allowCurrentYear
             ? DateTime(currentYear, currentMonth, currentDay)
             : eligibleYear,
-        firstDate: allowCurrentYear
-            ? DateTime(currentYear, currentMonth, currentDay)
-            : DateTime(oldestYear),
+        firstDate: DateTime(oldestYear),
         lastDate: getLastDate(),
         builder: (BuildContext? context, Widget? child) {
           return Theme(

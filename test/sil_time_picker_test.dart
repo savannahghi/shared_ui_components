@@ -45,10 +45,10 @@ void main() {
                   labelText: 'time',
                   controller: controller,
                   onChanged: (String? _) {
-                    return '';
+                    return controller.text;
                   },
                   onSaved: (String? _) {
-                    return '';
+                    return controller.text;
                   }));
         }),
       ));
@@ -89,10 +89,10 @@ void main() {
                     labelText: 'time',
                     controller: controller,
                     onChanged: (String? _) {
-                      return '';
+                      return controller.text;
                     },
                     onSaved: (String? _) {
-                      return '';
+                      return controller.text;
                     }));
           }),
         ),
@@ -152,6 +152,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text(currentHour), findsOneWidget);
     });
+
     testWidgets('should render android time picker changed',
         (WidgetTester tester) async {
       String currentHour = TimeOfDay.now().hour.toString();
@@ -168,10 +169,10 @@ void main() {
             labelText: 'time',
             controller: controller,
             onChanged: (String? _) {
-              return '';
+              return controller.text;
             },
             onSaved: (String? _) {
-              return '';
+              return controller.text;
             },
           ));
         }),
@@ -181,13 +182,19 @@ void main() {
       expect(find.text('time'), findsOneWidget);
       await tester.tap(find.text('time'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text(currentHour).first);
-      await tester.pumpAndSettle();
       expect(find.text(currentHour), findsOneWidget);
+      expect(find.byType(Directionality), findsOneWidget);
 
       final Offset center = tester
           .getCenter(find.byKey(const ValueKey<String>('time-picker-dial')));
-      await tester.tapAt(Offset(center.dx - 10, center.dy));
+      await tester.tapAt(Offset(center.dx - 10.0, center.dy));
+
+      expect(find.text('OK'), findsOneWidget);
+
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+
+      expect(find.text(currentHour), findsNothing);
     });
   });
 }
