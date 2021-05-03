@@ -70,6 +70,11 @@ void main() {
 
   testWidgets('resend phone code via text message with error',
       (WidgetTester tester) async {
+    bool isRestart = false;
+    void restartTimer() {
+      isRestart = true;
+    }
+
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: SILResendPhoneCode(
@@ -78,7 +83,7 @@ void main() {
           generateOtpFunc: testFunc,
           loader: const CircularProgressIndicator(key: Key('loader_indicator')),
           phoneNumber: '',
-          resetTimer: () {},
+          resetTimer: restartTimer,
           retrySendOtpEndpoint: (dynamic val) {
             return Uri.parse('http://example.com');
           },
@@ -102,6 +107,8 @@ void main() {
     await tester.tap(find.byKey(const Key('has_error_resend_btn')));
     expect(find.byKey(const Key('has_error')), findsNWidgets(1));
     expect(find.byKey(const Key('has_error_resend_btn')), findsNWidgets(1));
+
+    expect(isRestart, true);
   });
 
   testWidgets('resend phone code via whatsapp message',

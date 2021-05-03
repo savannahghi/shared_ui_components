@@ -142,7 +142,7 @@ Future<String> showResendBottomSheet({
       modalContent: '$codeSent $phoneNo',
       imageAssetPath: infoIconUrl,
     );
-    return res as Future<String>;
+    return res as String;
   }
 
   await showFeedbackBottomSheet(

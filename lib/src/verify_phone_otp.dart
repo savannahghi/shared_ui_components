@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:sil_themes/spaces.dart';
@@ -25,10 +26,12 @@ class SILVerifyPhoneOtp extends StatefulWidget {
     required this.appWrapperContext,
     this.setValues,
     this.changeNumberCallback,
+    this.httpClient,
   }) : super(key: key);
 
   final dynamic appWrapperContext;
   final dynamic client;
+  final Client? httpClient;
   final Function generateOtpFunc;
   final Widget loader;
   final String otp;
@@ -162,6 +165,7 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
                   resetTimer: restartTimer,
                   generateOtpFunc: widget.generateOtpFunc,
                   client: widget.client,
+                  httpClient: widget.httpClient,
                   retrySendOtpEndpoint: widget.retrySendOtpEndpoint,
                   appWrapperContext: widget.appWrapperContext,
                 );

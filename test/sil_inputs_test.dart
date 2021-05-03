@@ -407,6 +407,7 @@ void main() {
     testWidgets('should test SILFormTextField', (WidgetTester tester) async {
       final GlobalKey<FormState> key = GlobalKey<FormState>();
       bool valid = false;
+      bool _called = false;
       await tester.pumpWidget(MaterialApp(
         home: Builder(builder: (BuildContext context) {
           return Material(
@@ -415,13 +416,17 @@ void main() {
                 Form(
                   key: key,
                   child: SILFormTextField(
-                      onChanged: (String _) {},
-                      validator: (dynamic val) {
-                        if (val == '') {
-                          return '';
-                        }
-                        return null;
-                      }),
+                    onChanged: (String value) {},
+                    validator: (dynamic val) {
+                      if (val == '') {
+                        return '';
+                      }
+                      return null;
+                    },
+                    onFieldSubmit: (String value) {
+                      _called = true;
+                    },
+                  ),
                 ),
                 MaterialButton(onPressed: () {
                   if (key.currentState!.validate()) {
@@ -445,6 +450,11 @@ void main() {
       await tester.tap(find.byType(MaterialButton));
       await tester.pumpAndSettle();
       expect(valid, true);
+
+      await tester.showKeyboard(find.byType(TextField));
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pump();
+      expect(_called, true);
     });
 
     testWidgets('should render correctly with tap action',
@@ -580,51 +590,55 @@ void main() {
       expect(find.byKey(silSelectOptionField), findsOneWidget);
       expect(find.byType(DropdownButtonHideUnderline), findsOneWidget);
       expect(find.byType(typeOf<DropdownButton<String>>()), findsOneWidget);
+
+      await tester.tap(find.text('Select gender'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Female').last);
+      await tester.pumpAndSettle();
     });
+  });
 
-    testWidgets('SILDatePicker', (WidgetTester tester) async {
-      const Key formKey = Key('select_option_field');
-      final TextEditingController datePickerController =
-          TextEditingController();
-      await tester.pumpWidget(
-        MaterialApp(home: Builder(builder: (BuildContext context) {
-          return Scaffold(
-              body: Form(
-                  key: formKey,
-                  child: SILDatePickerField(
-                      gestureDateKey: silDatePickerField,
-                      hintText: 'Enter dob',
-                      allowEligibleDate: true,
-                      controller: datePickerController,
-                      keyboardType: TextInputType.datetime,
-                      onChanged: (dynamic val) {
-                        datePickerController.text;
-                      })));
-        })),
-      );
+  testWidgets('SILDatePicker', (WidgetTester tester) async {
+    const Key formKey = Key('select_option_field');
+    final TextEditingController datePickerController = TextEditingController();
+    await tester.pumpWidget(
+      MaterialApp(home: Builder(builder: (BuildContext context) {
+        return Scaffold(
+            body: Form(
+                key: formKey,
+                child: SILDatePickerField(
+                    gestureDateKey: silDatePickerField,
+                    hintText: 'Enter dob',
+                    allowEligibleDate: true,
+                    controller: datePickerController,
+                    keyboardType: TextInputType.datetime,
+                    onChanged: (dynamic val) {
+                      datePickerController.text;
+                    })));
+      })),
+    );
 
-      expect(find.byKey(formKey), findsOneWidget);
-      expect(find.byKey(silDatePickerField), findsOneWidget);
+    expect(find.byKey(formKey), findsOneWidget);
+    expect(find.byKey(silDatePickerField), findsOneWidget);
 
-      await tester.tap(find.byKey(silDatePickerField));
-      await tester.pumpAndSettle();
+    await tester.tap(find.byKey(silDatePickerField));
+    await tester.pumpAndSettle();
 
-      expect(find.text(eligibleYear.toString()), findsOneWidget);
+    expect(find.text(eligibleYear.toString()), findsOneWidget);
 
-      await tester.tap(find.text(eligibleYear.toString()));
-      await tester.pumpAndSettle();
+    await tester.tap(find.text(eligibleYear.toString()));
+    await tester.pumpAndSettle();
 
-      expect(find.text(currentDay.toString()), findsOneWidget);
-      await tester.tap(find.text(currentDay.toString()));
+    expect(find.text(currentDay.toString()), findsOneWidget);
+    await tester.tap(find.text(currentDay.toString()));
 
-      await tester.tap(find.text('OK'));
-      await tester.pumpAndSettle();
+    await tester.tap(find.text('OK'));
+    await tester.pumpAndSettle();
 
-      expect(
-          datePickerController.text,
-          DateFormat('yyyy-MM-dd')
-              .format(DateTime(eligibleYear, currentMonth, currentDay)));
-    });
+    expect(
+        datePickerController.text,
+        DateFormat('yyyy-MM-dd')
+            .format(DateTime(eligibleYear, currentMonth, currentDay)));
   });
 
   group('SILPinCodeTextField', () {
@@ -658,9 +672,14 @@ void main() {
 
     testWidgets('should render ios date picker', (WidgetTester tester) async {
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+      final DateFormat formatter = DateFormat('MMM');
+      final String _month = formatter.format(now);
+      const Key materialKey = Key('material_key');
+
       await tester.pumpWidget(MaterialApp(
         home: Builder(builder: (BuildContext context) {
           return Material(
+              key: materialKey,
               child: SILDatePickerField(
                   controller: controller,
                   gestureDateKey: datePickerKey,
@@ -674,9 +693,16 @@ void main() {
       await tester.tap(find.byKey(datePickerKey));
       await tester.pumpAndSettle();
       expect(find.byType(Container), findsWidgets);
-      expect(find.byType(CupertinoDatePicker), findsWidgets);
-      await tester.tap(find.text('January'));
+      expect(find.byType(CupertinoDatePicker), findsOneWidget);
+
+      expect(find.text(_month), findsOneWidget);
+      await tester.drag(find.text(_month), const Offset(0, 70.0));
+
       await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(datePickerKey));
+      await tester.pumpAndSettle();
+
       debugDefaultTargetPlatformOverride = null;
     });
 

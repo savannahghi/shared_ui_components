@@ -139,6 +139,11 @@ void main() {
       await tester.enterText(find.byType(SILPinCodeTextField), '123457');
       await tester.pumpAndSettle();
       expect(find.byKey(infoBottomSheetKey), findsOneWidget);
+      expect(find.byType(Image), findsOneWidget);
+
+      await tester.tap(find.byType(Image));
+      await tester.pumpAndSettle();
+      expect(find.byKey(infoBottomSheetKey), findsNothing);
     });
 
     Future<String> testFunc({
@@ -245,6 +250,95 @@ void main() {
       await tester.tap(find.byType(TextButton));
       await tester.pumpAndSettle();
       expect(find.byType(ScaffoldMessenger), findsOneWidget);
+    });
+
+    testWidgets(
+        'should navigate when change number button is pressed and custom callback is null',
+        (WidgetTester tester) async {
+      final Widget testWidget = MaterialApp(
+        home: Builder(
+          builder: (BuildContext context) {
+            return Scaffold(
+              body: SILVerifyPhoneOtp(
+                appWrapperContext: 'appcontext',
+                client: MockHttpClient,
+                generateOtpFunc: () {},
+                loader: const CircularProgressIndicator(),
+                otp: '123456',
+                phoneNo: '0712345678',
+                retrySendOtpEndpoint: () {},
+                successCallBack: testCallback,
+                setValues: () {},
+              ),
+            );
+          },
+        ),
+      );
+      verifyPhoneBehaviorSubject.loading.add(false);
+
+      await tester.pumpWidget(testWidget);
+      expect(find.byType(TextButton), findsOneWidget);
+      await tester.tap(find.byType(TextButton));
+      await tester.pumpAndSettle();
+      expect(find.byType(TextButton), findsNothing);
+    });
+
+    testWidgets('should resend OTP sucessfully', (WidgetTester tester) async {
+      await tester.runAsync(() async {
+        Future<String> testFunc({
+          required String phoneNumber,
+          required int step,
+          required dynamic client,
+        }) {
+          return Future<String>.value('1234');
+        }
+
+        final Widget testWidget = MaterialApp(
+          home: Builder(
+            builder: (BuildContext context) {
+              return Scaffold(
+                body: SILVerifyPhoneOtp(
+                  appWrapperContext: 'appcontext',
+                  client: MockHttpClient(),
+                  httpClient: MockHttpClient(),
+                  generateOtpFunc: testFunc,
+                  loader: const CircularProgressIndicator(),
+                  otp: '123456',
+                  phoneNo: '+0712345678',
+                  retrySendOtpEndpoint: (dynamic val) {
+                    return Uri.parse('http://example.com');
+                  },
+                  successCallBack: testCallback,
+                  setValues: () {},
+                ),
+              );
+            },
+          ),
+        );
+
+        await tester.pumpWidget(testWidget);
+
+        expect(find.byType(SILPinCodeTextField), findsOneWidget);
+        await tester.tap(find.byType(SILPinCodeTextField));
+        await tester.enterText(find.byType(SILPinCodeTextField), '123456');
+
+        await tester.pumpAndSettle();
+
+        expect(find.byKey(resendOtp), findsOneWidget);
+        await tester.tap(find.byKey(resendOtp));
+        await tester.pumpAndSettle();
+
+        expect(find.byKey(resendViaText), findsOneWidget);
+        await tester.tap(find.byKey(resendViaText));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(Image), findsOneWidget);
+        await tester.tap(find.byType(Image));
+
+        await tester.pumpAndSettle();
+
+        expect(find.byKey(cancelResendOtp), findsNothing);
+      });
     });
   });
 }
