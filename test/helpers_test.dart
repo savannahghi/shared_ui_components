@@ -63,14 +63,14 @@ void main() {
               key: const Key('button'),
               onPressed: () {
                 showResendBottomSheet(
-                  appWrapperContext: 'text',
+                  appWrapperContext: 'appwrapper',
                   client: MockHttpClient(),
                   context: context,
                   generateOtpFunc: testFunc,
                   loader: const CircularProgressIndicator(
                       key: Key('loader_indicator')),
                   phoneNo: '+254700123456',
-                  resetTimer: () {},
+                  resetTimer: null,
                   retrySendOtpEndpoint: (dynamic val) {
                     return Uri.parse('http://example.com');
                   },
@@ -85,7 +85,9 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('button')), findsNWidgets(1));
-    // todo : fix this
-    // await tester.tap(find.byKey(const Key('button')));
+    await tester.tap(find.byKey(const Key('button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(resendViaText));
+    await tester.pumpAndSettle();
   });
 }
