@@ -541,7 +541,7 @@ class SILDatePickerField extends StatelessWidget {
   }
 
   String _convertDateToString(DateTime datePicked) {
-    return DateFormat('yyyy-MM-dd').format(datePicked);
+    return DateFormat('d MMM, yyyy').format(datePicked);
   }
 }
 
@@ -582,7 +582,7 @@ class SILSelectOptionField extends StatelessWidget {
   final bool retainOptionCase;
 
   const SILSelectOptionField({
-    required this.onSaved,
+    this.onSaved,
     required this.options,
     required this.value,
     required this.dropDownInputKey,
