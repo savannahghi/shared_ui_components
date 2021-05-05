@@ -637,7 +637,7 @@ void main() {
 
     expect(
         datePickerController.text,
-        DateFormat('d MMM, yyyy')
+        DateFormat('d MMM yyyy')
             .format(DateTime(eligibleYear, currentMonth, currentDay)));
   });
 
@@ -788,7 +788,7 @@ void main() {
 
       expect(
           controller.text,
-          DateFormat('d MMM, yyyy')
+          DateFormat('d MMM yyyy')
               .format(DateTime(eligibleYear, currentMonth, 3)));
     });
 
@@ -825,7 +825,7 @@ void main() {
 
       expect(
           controller.text,
-          DateFormat('d MMM, yyyy')
+          DateFormat('d MMM yyyy')
               .format(DateTime(thisYear, currentMonth, currentDay)));
     });
   });

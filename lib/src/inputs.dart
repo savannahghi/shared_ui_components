@@ -543,7 +543,7 @@ class SILDatePickerField extends StatelessWidget {
   }
 
   String _convertDateToString(DateTime datePicked) {
-    return DateFormat('d MMM, yyyy').format(datePicked);
+    return DateFormat('d MMM yyyy').format(datePicked);
   }
 }
 
