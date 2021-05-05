@@ -53,6 +53,7 @@ class SILPhoneInput extends FormField<String> {
     required TextStyle? labelStyle,
     required PhoneNumberFormatterFunc phoneNumberFormatter,
     bool? enabled,
+    bool? autoFocus,
     String? initialValue = '',
     bool autoValidate = false,
   }) : super(
@@ -131,6 +132,7 @@ class SILPhoneInput extends FormField<String> {
                           height: 54,
                           child: Center(
                             child: TextFormField(
+                              autofocus: autoFocus ?? false,
                               key: textFormFieldKey,
                               decoration: InputDecoration(
                                 floatingLabelBehavior:

@@ -72,7 +72,7 @@ class SILSmallAppBar extends StatelessWidget implements PreferredSizeWidget {
                           (String tabTitle) => Tab(
                             child: Text(
                               tabTitle,
-                              style: TextThemes.heavySize16Text(
+                              style: TextThemes.boldSize16Text(
                                   Theme.of(context).backgroundColor),
                             ),
                           ),
