@@ -36,7 +36,6 @@ void main() {
                     return Uri.parse('http://example.com');
                   },
                   successCallBack: testCallback,
-                  setValues: () {},
                 ),
               );
             },
@@ -81,7 +80,6 @@ void main() {
                 phoneNo: '0712345678',
                 retrySendOtpEndpoint: () {},
                 successCallBack: testCallback,
-                setValues: () {},
               ),
             );
           },
@@ -125,7 +123,6 @@ void main() {
                 phoneNo: '0712345678',
                 retrySendOtpEndpoint: () {},
                 successCallBack: testCallback,
-                setValues: () {},
               ),
             );
           },
@@ -167,7 +164,6 @@ void main() {
             retrySendOtpEndpoint: () {},
             successCallBack: testCallback,
             generateOtpFunc: testFunc,
-            setValues: () {},
           ),
         ),
       ));
@@ -202,7 +198,6 @@ void main() {
                 phoneNo: '0712345678',
                 retrySendOtpEndpoint: () {},
                 successCallBack: testCallback,
-                setValues: () {},
               ),
             );
           },
@@ -234,7 +229,6 @@ void main() {
                 phoneNo: '0712345678',
                 retrySendOtpEndpoint: () {},
                 successCallBack: testCallback,
-                setValues: () {},
                 changeNumberCallback: () {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
@@ -268,7 +262,6 @@ void main() {
                 phoneNo: '0712345678',
                 retrySendOtpEndpoint: () {},
                 successCallBack: testCallback,
-                setValues: () {},
               ),
             );
           },
@@ -309,7 +302,6 @@ void main() {
                     return Uri.parse('http://example.com');
                   },
                   successCallBack: testCallback,
-                  setValues: () {},
                 ),
               );
             },
