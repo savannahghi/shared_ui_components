@@ -63,6 +63,12 @@ class SILPhoneInput extends FormField<String> {
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
           validator: (String? value) {
+            final PhoneInputBehaviorSubject phoneInputBehaviorSubject =
+                PhoneInputBehaviorSubject();
+
+            final String countryCode =
+                phoneInputBehaviorSubject.countryCode.valueWrapper!.value;
+
             if (value != null) {
               if (value.isEmpty) {
                 return phoneNumberRequiredText;
@@ -82,7 +88,7 @@ class SILPhoneInput extends FormField<String> {
                 phone = value;
               }
 
-              if (!validatePhoneNumber(phone)) {
+              if (!validatePhoneNumber('$countryCode$phone')) {
                 return validPhoneNumberText;
               }
             }
@@ -93,6 +99,7 @@ class SILPhoneInput extends FormField<String> {
           builder: (FormFieldState<String> state) {
             final PhoneInputBehaviorSubject phoneInputBehaviorSubject =
                 PhoneInputBehaviorSubject();
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
