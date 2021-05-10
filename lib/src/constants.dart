@@ -54,7 +54,7 @@ final Map<String, String> requestHeaders = <String, String>{
 const String bewellLogoNetworkUrl =
     'https://assets.healthcloud.co.ke/bewell_logo.png';
 
-enum Country { kenya, uganda, tanzania, us }
+enum Country { kenya, uganda, tanzania, us, uk, belgium }
 
 Map<String, Map<String, String>> supportedCountries =
     <String, Map<String, String>>{
@@ -81,6 +81,18 @@ Map<String, Map<String, String>> supportedCountries =
     'initial': 'USA',
     'name': 'United States',
     'flag': 'packages/sil_ui_components/assets/us.png',
+  },
+  'uk': <String, String>{
+    'code': '+44',
+    'initial': 'UK',
+    'name': 'United Kingdom',
+    'flag': 'packages/sil_ui_components/assets/uk.png',
+  },
+  'belgium': <String, String>{
+    'code': '+32',
+    'initial': 'BEL',
+    'name': 'Belgium',
+    'flag': 'packages/sil_ui_components/assets/bel.png',
   },
 };
 

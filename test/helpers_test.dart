@@ -40,6 +40,8 @@ void main() {
     expect(popValue('Uganda'), Country.uganda);
     expect(popValue('Tanzania'), Country.tanzania);
     expect(popValue('United States'), Country.us);
+    expect(popValue('Belgium'), Country.belgium);
+    expect(popValue('United Kingdom'), Country.uk);
   });
 
   test('should test getCountry', () {
@@ -47,10 +49,8 @@ void main() {
     expect(getCountry(Country.uganda), supportedCountries['uganda']);
     expect(getCountry(Country.tanzania), supportedCountries['tanzania']);
     expect(getCountry(Country.us), supportedCountries['usa']);
-  });
-
-  test('should titlecase ', () {
-    expect(titleCase('this is awesome'), 'This Is Awesome');
+    expect(getCountry(Country.belgium), supportedCountries['belgium']);
+    expect(getCountry(Country.uk), supportedCountries['uk']);
   });
 
   testWidgets('resend phone code renders correctly',

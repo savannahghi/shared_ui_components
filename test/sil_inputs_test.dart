@@ -246,7 +246,7 @@ void main() {
       await tester.tap(find.byType(SILCountryPicker));
       await tester.pumpAndSettle();
 
-      expect(find.byType(ListTile), findsNWidgets(4));
+      expect(find.byType(ListTile), findsNWidgets(6));
       await tester.tap(find.byType(ListTile).first);
       await tester.pumpAndSettle();
 

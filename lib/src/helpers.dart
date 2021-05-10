@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
 import 'package:sil_ui_components/sil_resend_phone_code.dart';
@@ -22,6 +21,10 @@ Country popValue(String name) {
       return Country.uganda;
     case 'Tanzania':
       return Country.tanzania;
+    case 'Belgium':
+      return Country.belgium;
+    case 'United Kingdom':
+      return Country.uk;
     default:
       return Country.us;
   }
@@ -35,6 +38,10 @@ Map<String, String>? getCountry(Country country) {
       return supportedCountries['uganda'];
     case Country.tanzania:
       return supportedCountries['tanzania'];
+    case Country.belgium:
+      return supportedCountries['belgium'];
+    case Country.uk:
+      return supportedCountries['uk'];
     default:
       return supportedCountries['usa'];
   }
@@ -151,16 +158,6 @@ Future<String> showResendBottomSheet({
     imageAssetPath: errorIconUrl,
   );
   return 'err';
-}
-
-/// [titleCase] returns a title cased sentence
-String titleCase(String sentence) {
-  return sentence
-      .toLowerCase()
-      .split(' ')
-      .map((String e) => e.trim())
-      .map((String word) => toBeginningOfSentenceCase(word))
-      .join(' ');
 }
 
 /// [useEndpointResend] send a resend otp request via REST endpoint. This function should only be used in the context

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
+import 'package:sil_misc/sil_misc.dart';
 
 import 'package:sil_themes/colors.dart';
 import 'package:sil_themes/text_themes.dart';
@@ -62,9 +63,6 @@ class SILPhoneInput extends FormField<String> {
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
           validator: (String? value) {
-            final RegExp kenyanRegExp = RegExp(r'^[0-9]{9}$');
-            final RegExp usRegExp = RegExp(r'^[0-9]{10}$');
-
             if (value != null) {
               if (value.isEmpty) {
                 return phoneNumberRequiredText;
@@ -84,7 +82,7 @@ class SILPhoneInput extends FormField<String> {
                 phone = value;
               }
 
-              if (!kenyanRegExp.hasMatch(phone) && !usRegExp.hasMatch(phone)) {
+              if (!validatePhoneNumber(phone)) {
                 return validPhoneNumberText;
               }
             }
