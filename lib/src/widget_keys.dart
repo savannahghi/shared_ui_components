@@ -18,3 +18,6 @@ const Key silDatePickerField = Key('sil_date_picker_field');
 const Key dangerBadgeContainerKey = Key('badge_danger_container_key');
 const Key infoBadgeContainerKey = Key('badge_info_container_key');
 const Key iosLoaderThemeKey = Key('InboxCupertinoThemeKey');
+
+const Key selectInputDropdownKey = Key('select_input_dropdown_key');
+
