@@ -778,7 +778,6 @@ PinBoxDecoration customRoundedPinBoxDecoration = (
 
 class SILPinCodeTextField extends StatelessWidget {
   final int? maxLength;
-  final Function onTextChanged;
   final Function onDone;
   final double? pinBoxWidth;
   final double? pinBoxHeight;
@@ -791,7 +790,6 @@ class SILPinCodeTextField extends StatelessWidget {
   const SILPinCodeTextField({
     Key? key,
     required this.maxLength,
-    required this.onTextChanged,
     required this.onDone,
     this.autoFocus = false,
     this.wrapAlignment = WrapAlignment.spaceBetween,
@@ -828,9 +826,6 @@ class SILPinCodeTextField extends StatelessWidget {
       highlightAnimationBeginColor: Colors.black,
       highlightAnimationEndColor: Colors.white12,
       keyboardType: keyboardType,
-      onTextChanged: (String val) {
-        onTextChanged(val);
-      },
       onDone: (String val) {
         onDone(val);
       },

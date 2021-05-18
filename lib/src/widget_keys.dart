@@ -20,4 +20,3 @@ const Key infoBadgeContainerKey = Key('badge_info_container_key');
 const Key iosLoaderThemeKey = Key('InboxCupertinoThemeKey');
 
 const Key selectInputDropdownKey = Key('select_input_dropdown_key');
-

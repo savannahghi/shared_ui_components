@@ -123,7 +123,6 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
           pinBoxWidth: 40,
           pinBoxHeight: 48,
           wrapAlignment: WrapAlignment.spaceAround,
-          onTextChanged: (dynamic val) {},
           onDone: (String v) async {
             if (v == otp) {
               toggleLoading();
@@ -174,19 +173,19 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
               text: sendCodeAgain,
             ),
           size15VerticalSizedBox,
-            TextButton(
-              onPressed: () {
-                if (widget.changeNumberCallback != null) {
-                  widget.changeNumberCallback!();
-                } else {
-                  Navigator.pop(context);
-                }
-              },
-              child: Text(
-                changeNo,
-                style: TextThemes.normalSize16Text(Colors.blue),
-              ),
+          TextButton(
+            onPressed: () {
+              if (widget.changeNumberCallback != null) {
+                widget.changeNumberCallback!();
+              } else {
+                Navigator.pop(context);
+              }
+            },
+            child: Text(
+              changeNo,
+              style: TextThemes.normalSize16Text(Colors.blue),
             ),
+          ),
         ],
         largeVerticalSizedBox
       ],
