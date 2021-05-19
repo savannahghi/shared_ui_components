@@ -32,6 +32,8 @@ const String viaText = 'via Text Message';
 const String viaWhatsApp = 'via WhatsApp';
 const String noAccount =
     'That phone number does not exist, please enter the number you registered with';
+const String errorOccurredText = 'An error occurred';
+const String retryText = ' Retry ';
 
 const String tryFeaturesPageTitle = 'Try New Features settings';
 
@@ -117,7 +119,3 @@ const Color greyTextColor = Color(0xff7D8D9C);
 const Color whiteColor = Color(0xFFFFFFFF);
 const String testDevelopmentIconUrl =
     'packages/sil_ui_components/assets/test-development.png';
-
-const Key cancelResendOtp = Key('onCancelResendBottomSheetKey');
-const Key resendOtp = Key('resendOtpCode');
-const Key resendViaText = Key('send_via_text_msg');

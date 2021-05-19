@@ -5,14 +5,16 @@ import 'package:http/http.dart';
 import 'package:sil_themes/spaces.dart';
 import 'package:sil_themes/text_themes.dart';
 import 'package:sil_ui_components/src/helpers.dart';
+import 'package:sil_ui_components/src/widget_keys.dart';
 
 import 'buttons.dart';
 import 'constants.dart';
 
-/// this is a phone otp resend widget
-/// tell it to resend via authenticated(graph) or unauthenticated endpoint
+/// This is a phone otp resend widget
+/// Resend via authenticated(graph) or unauthenticated endpoint
 enum ResendVia { graph, endpoint }
 
+/// Used to resend a verification code
 class SILResendPhoneCode extends StatefulWidget {
   const SILResendPhoneCode(
       {required this.phoneNumber,
@@ -29,14 +31,20 @@ class SILResendPhoneCode extends StatefulWidget {
   final dynamic appWrapperContext;
   final dynamic client;
   final Function generateOtpFunc;
+
+  /// Widget used on loading state
   final Widget loader;
+
+  /// Phone number to send otp to
   final String phoneNumber;
+
+  /// Resend via option (graph or endpoint)
   final ResendVia resendVia;
   final Function resetTimer;
   final Function onOtpCallback;
   final Client? httpClient;
 
-  /// endpoint
+  /// Endpoint
   final Function retrySendOtpEndpoint;
 
   @override
@@ -57,6 +65,7 @@ class _SILResendPhoneCodeState extends State<SILResendPhoneCode>
     super.initState();
   }
 
+  /// Resend Verfification code using endpoint
   Future<void> endpointResend(BuildContext context) async {
     return useEndpointResend(
       appWrapperContext: widget.appWrapperContext,
@@ -74,6 +83,7 @@ class _SILResendPhoneCodeState extends State<SILResendPhoneCode>
     );
   }
 
+  /// Resend Verfification code using graph
   Future<void> graphResend(BuildContext context) async {
     return useGraphResend(
       appWrapperContext: widget.appWrapperContext,
@@ -114,6 +124,7 @@ class _SILResendPhoneCodeState extends State<SILResendPhoneCode>
           children: <Widget>[
             if (resending) widget.loader,
             if (!resending) ...<Widget>[
+              /// Resend via Text
               ListTile(
                 key: resendViaText,
                 leading: const Icon(Icons.message_outlined),
@@ -126,8 +137,10 @@ class _SILResendPhoneCodeState extends State<SILResendPhoneCode>
                   resendCode(context);
                 },
               ),
+
+              /// Resend via Whatsapp
               ListTile(
-                key: const Key('send_via_whatsapp_msg'),
+                key: sendViaWhatsappKey,
                 leading: const Icon(Icons.chat),
                 title: Text(
                   viaWhatsApp,
@@ -141,16 +154,16 @@ class _SILResendPhoneCodeState extends State<SILResendPhoneCode>
             ],
             if (hasErr) ...<Widget>[
               const Text(
-                'An error occurred',
-                key: Key('has_error'),
+                errorOccurredText,
+                key: errorOccurred,
               ),
               size15VerticalSizedBox,
               SILSecondaryButton(
-                buttonKey: const Key('has_error_resend_btn'),
+                buttonKey: hasErrorResendBtnKey,
                 onPressed: () {
                   resendCode(context);
                 },
-                text: ' Retry ',
+                text: retryText,
               ),
             ]
           ],

@@ -20,3 +20,11 @@ const Key infoBadgeContainerKey = Key('badge_info_container_key');
 const Key iosLoaderThemeKey = Key('InboxCupertinoThemeKey');
 
 const Key selectInputDropdownKey = Key('select_input_dropdown_key');
+
+/// Resend OTP keys
+const Key sendViaWhatsappKey = Key('send_via_whatsapp_msg');
+const Key cancelResendOtp = Key('onCancelResendBottomSheetKey');
+const Key resendOtp = Key('resendOtpCode');
+const Key resendViaText = Key('send_via_text_msg');
+const Key errorOccurred = Key('has_error');
+const Key hasErrorResendBtnKey = Key('has_error_resend_btn');
