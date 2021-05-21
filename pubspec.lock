@@ -125,13 +125,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_image_compress:
-    dependency: transitive
-    description:
-      name: flutter_image_compress
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -402,8 +395,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "0.0.39"
-      resolved-ref: "3149b65a178a3086f55935316d2b06e92c346215"
+      ref: "0.1.0"
+      resolved-ref: fdc2d52e75bd623c3bfdffdab16dc1091b4ef675
       url: "https://sil_dart_utils:xiFnpjLHssG76bpWxUb9@gitlab.slade360emr.com/optimalhealth/dart_utils/sil_misc.git"
     source: git
     version: "0.0.1"
