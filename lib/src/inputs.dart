@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -219,9 +217,12 @@ class SILPhoneInput extends FormField<String> {
 ///   4. [context] is used when applying the active and focused colors depending
 ///       on the provided context. For example getting colors from [Theme.of(context)]
 class SILFormTextField extends StatelessWidget {
+  /// When a [controller] is specified, [initialValue] must be null (the
+  /// default).
   const SILFormTextField({
     Key? key,
-    this.inputController,
+    this.enabled,
+    this.controller,
     this.onSaved,
     this.onTap,
     this.labelText,
@@ -230,14 +231,12 @@ class SILFormTextField extends StatelessWidget {
     this.validator,
     this.onChanged,
     this.onFieldSubmit,
-    this.controller,
     this.focusNode,
     this.keyboardType,
     this.formatters,
     this.maxLines,
     this.maxLength,
     this.textStyle,
-    this.enabled,
     this.suffixIcon,
     this.isSearchField,
     this.obscureText,
@@ -252,9 +251,15 @@ class SILFormTextField extends StatelessWidget {
     this.hintTextColor,
     this.borderColor,
     this.textFieldBackgroundColor,
-  }) : super(key: key);
+    this.decoration,
+    this.fieldKey,
+  })  : assert(initialValue == null || controller == null,
+            'When a controller is specified, initialValue must be null'),
+        super(key: key);
 
-  final Queue<int>? inputController;
+  final Key? fieldKey;
+  final bool? enabled;
+  final TextEditingController? controller;
   final FormFieldSetter<String>? onSaved;
   final Function? onTap;
   final String? labelText;
@@ -263,14 +268,12 @@ class SILFormTextField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onFieldSubmit;
-  final TextEditingController? controller;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? formatters;
   final int? maxLines;
   final int? maxLength;
   final TextStyle? textStyle;
-  final bool? enabled;
   final Widget? suffixIcon;
   final bool? isSearchField;
   final bool? obscureText;
@@ -286,82 +289,87 @@ class SILFormTextField extends StatelessWidget {
   final Color? hintTextColor;
   final Color? borderColor;
   final Color? textFieldBackgroundColor;
+  final InputDecoration? decoration;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      key: fieldKey,
+      enabled: enabled ?? true,
       maxLines: maxLines,
       maxLength: maxLength,
       autovalidateMode: autoValidate == true
           ? AutovalidateMode.always
           : AutovalidateMode.disabled,
-      initialValue: controller == null ? initialValue : null,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: customFillColor ?? white,
-        alignLabelWithHint: alignLabelWithHint(maxLines),
-        contentPadding: isSearchField == true
-            ? const EdgeInsets.all(20)
-            : EdgeInsets.symmetric(
-                vertical: isSearchFieldSmall == true ? 10 : 15, horizontal: 15),
-        labelText: labelText,
-        hintText: hintText,
-        suffix: suffixIcon,
-        prefixIcon: prefixIcon,
-        labelStyle: Theme.of(context)
-            .textTheme
-            .headline6!
-            .copyWith(color: grey, fontSize: 16),
-        hintStyle: Theme.of(context)
-            .textTheme
-            .headline4!
-            .copyWith(color: hintColor ?? grey, fontSize: 16),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-              color: customFillColor ?? borderColor ?? Colors.white24),
-          borderRadius:
-              BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: grey),
-          borderRadius:
-              BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: healthcloudAccentColor),
-          borderRadius:
-              BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: red),
-          borderRadius:
-              BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: red),
-          borderRadius:
-              BorderRadius.all(Radius.circular(isSearchField == true ? 1 : 5)),
-        ),
-        focusColor: healthcloudAccentColor,
-      ),
+      initialValue: initialValue,
+      decoration: decoration ??
+          InputDecoration(
+            filled: true,
+            fillColor: (enabled != null && !enabled!)
+                ? Colors.grey[200]
+                : customFillColor ?? white,
+            alignLabelWithHint: alignLabelWithHint(maxLines),
+            contentPadding: isSearchField == true
+                ? const EdgeInsets.all(20)
+                : EdgeInsets.symmetric(
+                    vertical: isSearchFieldSmall == true ? 10 : 15,
+                    horizontal: 15),
+            labelText: labelText,
+            hintText: hintText,
+            hintStyle: Theme.of(context)
+                .textTheme
+                .headline4!
+                .copyWith(color: hintColor ?? grey, fontSize: 16),
+            suffix: suffixIcon,
+            prefixIcon: prefixIcon,
+            labelStyle: Theme.of(context)
+                .textTheme
+                .headline6!
+                .copyWith(color: grey, fontSize: 16),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: customFillColor ?? borderColor ?? Colors.white24),
+              borderRadius: BorderRadius.all(
+                  Radius.circular(isSearchField == true ? 1 : 5)),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: grey),
+              borderRadius: BorderRadius.all(
+                  Radius.circular(isSearchField == true ? 1 : 5)),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: healthcloudAccentColor),
+              borderRadius: BorderRadius.all(
+                  Radius.circular(isSearchField == true ? 1 : 5)),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: red),
+              borderRadius: BorderRadius.all(
+                  Radius.circular(isSearchField == true ? 1 : 5)),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: red),
+              borderRadius: BorderRadius.all(
+                  Radius.circular(isSearchField == true ? 1 : 5)),
+            ),
+            focusColor: healthcloudAccentColor,
+          ),
       cursorColor: healthcloudAccentColor,
       autofocus: autoFocus ?? false,
-      enabled: enabled ?? true,
       style: textStyle ??
           Theme.of(context)
               .textTheme
               .headline6!
               .copyWith(color: black, fontSize: 16),
-      onFieldSubmitted: onFieldSubmit != null
-          ? (String value) => onFieldSubmit!(value)
-          : null,
+      onFieldSubmitted: onFieldSubmit,
       textInputAction: textInputAction ?? TextInputAction.done,
       textAlignVertical: TextAlignVertical.center,
       validator:
           validator != null ? (String? value) => validator!(value) : null,
-      onChanged: onChanged != null ? (String value) => onChanged!(value) : null,
+      onChanged: onChanged,
+      onSaved: onSaved,
       onTap: onTap != null ? () => onTap!() : null,
-      controller: initialValue == null ? controller : null,
+      controller: controller,
       focusNode: focusNode,
       obscureText: obscureText ?? false,
       keyboardType: keyboardType ?? TextInputType.text,

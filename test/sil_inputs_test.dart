@@ -478,6 +478,47 @@ void main() {
       await tester.pumpAndSettle();
       expect(isActionTapped, true);
     });
+
+    testWidgets(
+        'should throw assertion error if both controller and initalValue'
+        ' are not null', (WidgetTester tester) async {
+      final TextEditingController controller = TextEditingController();
+
+      Future<void> pump() async {
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: SILFormTextField(
+                controller: controller,
+                initialValue: '',
+              ),
+            ),
+          ),
+        );
+      }
+
+      expect(pump(), throwsAssertionError);
+    });
+
+    testWidgets('should have grey fill color if form is not enabled',
+        (WidgetTester tester) async {
+      const Key fieldKey = Key('field-key');
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: SILFormTextField(
+              enabled: false,
+              fieldKey: fieldKey,
+              initialValue: '',
+            ),
+          ),
+        ),
+      );
+
+      final TextField formField =
+          tester.widget<TextField>(find.byType(TextField));
+      expect(formField.decoration?.fillColor, Colors.grey[200]);
+    });
   });
 
   group('SILFancyLoading', () {
