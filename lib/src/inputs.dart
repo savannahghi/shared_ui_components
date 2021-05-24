@@ -594,9 +594,9 @@ class SILSelectOptionField extends StatelessWidget {
   final Key dropDownInputKey;
   final FormFieldSetter<String>? onSaved;
   final List<String> options;
-  final String hintText;
+  final String? hintText;
   final Color? color;
-  final String value;
+  final String? value;
   final bool disabled;
   final FormFieldSetter<String>? onChanged;
 
@@ -607,10 +607,10 @@ class SILSelectOptionField extends StatelessWidget {
   const SILSelectOptionField({
     this.onSaved,
     required this.options,
-    required this.value,
+    this.value,
     required this.dropDownInputKey,
-    required this.hintText,
-    required this.onChanged,
+    this.hintText,
+    this.onChanged,
     this.color,
     this.retainOptionCase = true,
     bool? disabled,
@@ -618,48 +618,53 @@ class SILSelectOptionField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InputDecorator(
-      decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: color ?? grey),
-          borderRadius: const BorderRadius.all(Radius.circular(5)),
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: healthcloudAccentColor),
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-        ),
-        focusColor: healthcloudAccentColor,
-        fillColor: white,
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          key: dropDownInputKey,
-          dropdownColor: white,
-          hint: Text(
-            hintText,
-            style: Theme.of(context)
-                .textTheme
-                .headline6!
-                .copyWith(color: Colors.grey, fontSize: 16),
+    return Container(
+      decoration: BoxDecoration(color: disabled ? Colors.grey[200] : white),
+      child: InputDecorator(
+        decoration: InputDecoration(
+          fillColor: white,
+          focusColor: healthcloudAccentColor,
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          enabledBorder: disabled
+              ? null
+              : OutlineInputBorder(
+                  borderSide: BorderSide(color: color ?? grey),
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                ),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: healthcloudAccentColor),
+            borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
-          value: value,
-          items: options.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              key: ValueKey<String>(value),
-              value: value,
-              child: Text(retainOptionCase ? value : titleCase(value)),
-            );
-          }).toList(),
-          onChanged: disabled != true
-              ? (dynamic value) {
-                  if (onChanged != null) {
-                    onChanged!(value.toString());
-                  }
-                }
-              : null,
-          isDense: true,
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey[200]!),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          ),
+        ),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            key: dropDownInputKey,
+            dropdownColor: white,
+            hint: hintText != null
+                ? Text(
+                    hintText!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(color: Colors.grey, fontSize: 16),
+                  )
+                : null,
+            value: value,
+            items: options.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                key: ValueKey<String>(value),
+                value: value,
+                child: Text(retainOptionCase ? value : titleCase(value)),
+              );
+            }).toList(),
+            onChanged: disabled ? null : onChanged,
+            isDense: true,
+          ),
         ),
       ),
     );
