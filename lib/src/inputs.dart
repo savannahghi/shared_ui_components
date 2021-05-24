@@ -418,18 +418,28 @@ class SILFormTextField extends StatelessWidget {
 ///      which is defined in [lib/shared/constants/date_time/date_time_constants.dart]
 ///
 class SILDatePickerField extends StatelessWidget {
+  /// To set the initial value of the field, set the text property of the
+  /// [controller]. E.g:
+  ///
+  /// ```dart
+  /// TextEditingController controller = TextEditingController();
+  /// controller.text = '11 May 2012';
+  ///
+  /// SILDatePickerField(
+  ///   controller: controller,
+  /// )
+  /// ```
   const SILDatePickerField({
     required this.controller,
+    this.onChanged,
     this.gestureDateKey,
     this.textFieldDateKey,
     this.onSaved,
     this.labelText,
     this.hintText,
-    this.initialValue,
     this.focusNode,
     this.keyboardType,
     this.validator,
-    this.onChanged,
     this.suffixIcon,
     this.enabled,
     this.allowCurrentYear = false,
@@ -443,7 +453,6 @@ class SILDatePickerField extends StatelessWidget {
   final FormFieldSetter<String>? onSaved;
   final String? labelText;
   final String? hintText;
-  final String? initialValue;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
   final FormFieldValidator<String>? validator;
@@ -494,7 +503,7 @@ class SILDatePickerField extends StatelessWidget {
 
   // a material design date picker
   Future<void> _selectDate(BuildContext context) async {
-    dynamic selectedDate;
+    DateTime? selectedDate;
     final TargetPlatform platform = Theme.of(context).platform;
     if (platform == TargetPlatform.iOS) {
       await showModalBottomSheet(
@@ -544,15 +553,14 @@ class SILDatePickerField extends StatelessWidget {
       );
     }
 
-    if (selectedDate == null) return;
+    if (selectedDate != null) {
+      final String date = _convertDateToString(selectedDate!);
+      controller.value = controller.value.copyWith(
+        text: date,
+      );
 
-    final String date = _convertDateToString(selectedDate as DateTime);
-
-    controller.value = controller.value.copyWith(
-      text: date,
-    );
-
-    onChanged!(date);
+      if (onChanged != null) onChanged!(date);
+    }
   }
 
   String _convertDateToString(DateTime datePicked) {
