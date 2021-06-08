@@ -65,7 +65,7 @@ class SILPhoneInput extends FormField<String> {
                 PhoneInputBehaviorSubject();
 
             final String countryCode =
-                phoneInputBehaviorSubject.countryCode.valueWrapper!.value;
+                phoneInputBehaviorSubject.countryCode.valueOrNull!;
 
             if (value != null) {
               if (value.isEmpty) {
@@ -122,9 +122,9 @@ class SILPhoneInput extends FormField<String> {
                             onChanged(
                               phoneNumberFormatter(
                                 countryCode: phoneInputBehaviorSubject
-                                    .countryCode.valueWrapper!.value,
+                                    .countryCode.valueOrNull!,
                                 phoneNumber: phoneInputBehaviorSubject
-                                    .phoneNumber.valueWrapper!.value,
+                                    .phoneNumber.valueOrNull!,
                               ),
                             );
                           },
@@ -159,7 +159,7 @@ class SILPhoneInput extends FormField<String> {
                                 onChanged(
                                   phoneNumberFormatter(
                                     countryCode: phoneInputBehaviorSubject
-                                        .countryCode.valueWrapper!.value,
+                                        .countryCode.valueOrNull!,
                                     phoneNumber: value,
                                   ),
                                 );

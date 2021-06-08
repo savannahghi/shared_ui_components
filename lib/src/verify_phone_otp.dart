@@ -105,14 +105,14 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
   }
 
   void toggleLoading() {
-    final bool loading = verifyPhoneBehaviorSubject.loading.valueWrapper!.value;
+    final bool loading = verifyPhoneBehaviorSubject.loading.valueOrNull!;
     verifyPhoneBehaviorSubject.loading.add(!loading);
   }
 
   @override
   Widget build(BuildContext context) {
     final bool isloading =
-        verifyPhoneBehaviorSubject.loading.valueWrapper!.value;
+        verifyPhoneBehaviorSubject.loading.valueOrNull!;
 
     return Column(
       children: <Widget>[
