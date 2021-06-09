@@ -1,12 +1,5 @@
 # sil_ui_components
 
-A package that contains all dumb widgets in our apps
+`sil_ui_components` is an open source project &mdash; it's one among many other shared libraries that make up the wider ecosystem of software made and open sourced by `Savannah Informatics Limited`.
 
-## How to make a change in this package
-
-When you make a change in this package, you have to update 2 other packages.
-
-This involves changing value of the current tag in the following packages
-
-1. [sil_user_profile](https://gitlab.slade360emr.com/optimalhealth/dart_utils/sil_user_profile)
-2. [sil_feed](https://gitlab.slade360emr.com/optimalhealth/dart_utils/sil_feed)
+A shared library for `BeWell-Consumer` and `BeWell-Professional` that is responsible for rendering and exposing dumb widgets and ui components 

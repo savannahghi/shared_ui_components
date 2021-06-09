@@ -26,7 +26,7 @@ void main() {
             builder: (BuildContext context) {
               return Scaffold(
                 body: SILVerifyPhoneOtp(
-                  appWrapperContext: 'appcontext',
+                  appWrapperContext: 'AppContext',
                   client: MockHttpClient,
                   generateOtpFunc: () {},
                   loader: const CircularProgressIndicator(),
@@ -72,7 +72,7 @@ void main() {
           builder: (BuildContext context) {
             return Scaffold(
               body: SILVerifyPhoneOtp(
-                appWrapperContext: 'appcontext',
+                appWrapperContext: 'AppContext',
                 client: MockHttpClient,
                 generateOtpFunc: () {},
                 loader: const CircularProgressIndicator(),
@@ -115,7 +115,7 @@ void main() {
           builder: (BuildContext context) {
             return Scaffold(
               body: SILVerifyPhoneOtp(
-                appWrapperContext: 'appcontext',
+                appWrapperContext: 'AppContext',
                 client: MockHttpClient,
                 generateOtpFunc: () {},
                 loader: const CircularProgressIndicator(),
@@ -190,7 +190,7 @@ void main() {
           builder: (BuildContext context) {
             return Scaffold(
               body: SILVerifyPhoneOtp(
-                appWrapperContext: 'appcontext',
+                appWrapperContext: 'AppContext',
                 client: MockHttpClient,
                 generateOtpFunc: () {},
                 loader: const CircularProgressIndicator(),
@@ -221,7 +221,7 @@ void main() {
           builder: (BuildContext context) {
             return Scaffold(
               body: SILVerifyPhoneOtp(
-                appWrapperContext: 'appcontext',
+                appWrapperContext: 'AppContext',
                 client: MockHttpClient,
                 generateOtpFunc: () {},
                 loader: const CircularProgressIndicator(),
@@ -254,7 +254,7 @@ void main() {
           builder: (BuildContext context) {
             return Scaffold(
               body: SILVerifyPhoneOtp(
-                appWrapperContext: 'appcontext',
+                appWrapperContext: 'AppContext',
                 client: MockHttpClient,
                 generateOtpFunc: () {},
                 loader: const CircularProgressIndicator(),
@@ -276,7 +276,7 @@ void main() {
       expect(find.byType(TextButton), findsNothing);
     });
 
-    testWidgets('should resend OTP sucessfully', (WidgetTester tester) async {
+    testWidgets('should resend OTP successfully', (WidgetTester tester) async {
       await tester.runAsync(() async {
         Future<String> testFunc({
           required String phoneNumber,
@@ -291,7 +291,7 @@ void main() {
             builder: (BuildContext context) {
               return Scaffold(
                 body: SILVerifyPhoneOtp(
-                  appWrapperContext: 'appcontext',
+                  appWrapperContext: 'AppContext',
                   client: MockHttpClient(),
                   httpClient: MockHttpClient(),
                   generateOtpFunc: testFunc,

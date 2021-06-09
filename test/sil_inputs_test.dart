@@ -480,7 +480,7 @@ void main() {
     });
 
     testWidgets(
-        'should throw assertion error if both controller and initalValue'
+        'should throw assertion error if both controller and initialValue'
         ' are not null', (WidgetTester tester) async {
       final TextEditingController controller = TextEditingController();
 

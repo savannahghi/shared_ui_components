@@ -64,7 +64,7 @@ void main() {
               key: const Key('button'),
               onPressed: () {
                 showResendBottomSheet(
-                  appWrapperContext: 'appwrapper',
+                  appWrapperContext: 'AppWrapper',
                   client: MockHttpClient(),
                   context: context,
                   generateOtpFunc: testFunc,

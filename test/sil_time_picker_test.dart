@@ -33,8 +33,8 @@ void main() {
     testWidgets('should render ios time picker', (WidgetTester tester) async {
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
       String currentHour = TimeOfDay.now().hour.toString();
-      // check if current time in [hour] is > than 12 then return [hour]
-      // in am/pm formart
+      /// Check if current time in [hour] is > than 12 then return [hour]
+      /// In am/pm format
       if (TimeOfDay.now().hour > 12) {
         currentHour = TimeOfDay.now().hourOfPeriod.toString();
       }
@@ -77,8 +77,8 @@ void main() {
         (WidgetTester tester) async {
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
       String currentHour = TimeOfDay.now().hour.toString();
-      // check if current time in [hour] is > than 12 then return [hour]
-      // in am/pm formart
+      /// Check if current time in [hour] is > than 12 then return [hour]
+      /// In am/pm format
       if (TimeOfDay.now().hour > 12) {
         currentHour = TimeOfDay.now().hourOfPeriod.toString();
       }
@@ -124,8 +124,8 @@ void main() {
     testWidgets('should render android time picker',
         (WidgetTester tester) async {
       String currentHour = TimeOfDay.now().hour.toString();
-      // check if current time in [hour] is > than 12 then return [hour]
-      // in am/pm formart
+      /// Check if current time in [hour] is > than 12 then return [hour]
+      /// In am/pm format
       if (TimeOfDay.now().hour > 12) {
         currentHour = TimeOfDay.now().hourOfPeriod.toString();
       }
@@ -158,8 +158,8 @@ void main() {
     testWidgets('should render android time picker changed',
         (WidgetTester tester) async {
       String currentHour = TimeOfDay.now().hour.toString();
-      // check if current time in [hour] is > than 12 then return [hour]
-      // in am/pm formart
+      /// check if current time in [hour] is > than 12 then return [hour]
+      /// in am/pm format
       if (TimeOfDay.now().hour > 12) {
         currentHour = TimeOfDay.now().hourOfPeriod.toString();
       }
