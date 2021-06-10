@@ -750,7 +750,7 @@ void main() {
 
     testWidgets('should render ios date picker', (WidgetTester tester) async {
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
-      final DateFormat formatter = DateFormat('M');
+      final DateFormat formatter = DateFormat('MMMM');
       final String _month = formatter.format(now);
       const Key materialKey = Key('material_key');
 
