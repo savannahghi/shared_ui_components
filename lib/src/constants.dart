@@ -46,7 +46,7 @@ const String tryFeaturesNotice =
     'You can always switch back anytime you want to';
 
 const String tryFeaturesImgUrl =
-    'packages/sil_ui_components/assets/try_features.jpg';
+    'packages/shared_ui_components/assets/try_features.jpg';
 
 final Map<String, String> requestHeaders = <String, String>{
   'Accept': 'application/json',
@@ -64,37 +64,37 @@ Map<String, Map<String, String>> supportedCountries =
     'code': '+254',
     'initial': 'KE',
     'name': 'Kenya',
-    'flag': 'packages/sil_ui_components/assets/ke.png',
+    'flag': 'packages/shared_ui_components/assets/ke.png',
   },
   'uganda': <String, String>{
     'code': '+255',
     'initial': 'UG',
     'name': 'Uganda',
-    'flag': 'packages/sil_ui_components/assets/ug.png',
+    'flag': 'packages/shared_ui_components/assets/ug.png',
   },
   'tanzania': <String, String>{
     'code': '+256',
     'initial': 'TZ',
     'name': 'Tanzania',
-    'flag': 'packages/sil_ui_components/assets/tz.png',
+    'flag': 'packages/shared_ui_components/assets/tz.png',
   },
   'usa': <String, String>{
     'code': '+1',
     'initial': 'USA',
     'name': 'United States',
-    'flag': 'packages/sil_ui_components/assets/us.png',
+    'flag': 'packages/shared_ui_components/assets/us.png',
   },
   'uk': <String, String>{
     'code': '+44',
     'initial': 'UK',
     'name': 'United Kingdom',
-    'flag': 'packages/sil_ui_components/assets/uk.png',
+    'flag': 'packages/shared_ui_components/assets/uk.png',
   },
   'belgium': <String, String>{
     'code': '+32',
     'initial': 'BEL',
     'name': 'Belgium',
-    'flag': 'packages/sil_ui_components/assets/bel.png',
+    'flag': 'packages/shared_ui_components/assets/bel.png',
   },
 };
 
@@ -118,4 +118,4 @@ const Color lightPurpleBackgroundColor = Color(0xffE2E0F6);
 const Color greyTextColor = Color(0xff7D8D9C);
 const Color whiteColor = Color(0xFFFFFFFF);
 const String testDevelopmentIconUrl =
-    'packages/sil_ui_components/assets/test-development.png';
+    'packages/shared_ui_components/assets/test-development.png';

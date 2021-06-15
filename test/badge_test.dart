@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sil_ui_components/sil_badge.dart';
+import 'package:shared_ui_components/badge.dart';
 
 void main() {
   group('sil badge', () {

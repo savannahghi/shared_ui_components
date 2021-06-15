@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sil_misc/sil_misc.dart';
 
-import 'package:sil_themes/text_themes.dart';
+import 'package:shared_themes/text_themes.dart';
 
 class SILSmallAppBar extends StatelessWidget implements PreferredSizeWidget {
   const SILSmallAppBar({

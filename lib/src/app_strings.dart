@@ -1,10 +1,10 @@
 // ASSETS PATHS
 import 'package:flutter/material.dart';
 
-const String closeIconUrl = 'packages/sil_ui_components/assets/close.png';
-const String errorIconUrl = 'packages/sil_ui_components/assets/error.svg';
-const String infoIconUrl = 'packages/sil_ui_components/assets/info.svg';
-const String successconUrl = 'packages/sil_ui_components/assets/success.svg';
+const String closeIconUrl = 'packages/shared_ui_components/assets/close.png';
+const String errorIconUrl = 'packages/shared_ui_components/assets/error.svg';
+const String infoIconUrl = 'packages/shared_ui_components/assets/info.svg';
+const String successconUrl = 'packages/shared_ui_components/assets/success.svg';
 
 // IN-APP STRINGS
 const String wrongPINText =

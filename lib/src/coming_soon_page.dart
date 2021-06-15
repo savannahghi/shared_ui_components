@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sil_misc/sil_responsive_widget.dart';
-import 'package:sil_themes/spaces.dart';
-import 'package:sil_themes/text_themes.dart';
-import 'package:sil_ui_components/src/constants.dart';
+import 'package:shared_themes/spaces.dart';
+import 'package:shared_themes/text_themes.dart';
+import 'package:shared_ui_components/src/constants.dart';
 
 class SILComingSoonPage extends StatelessWidget {
   final String title;

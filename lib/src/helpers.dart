@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:http/http.dart';
 
 import 'package:flutter/material.dart';
-import 'package:sil_themes/spaces.dart';
-import 'package:sil_themes/text_themes.dart';
-import 'package:sil_ui_components/sil_resend_phone_code.dart';
-import 'package:sil_ui_components/src/app_strings.dart';
-import 'package:sil_ui_components/src/constants.dart';
-import 'package:sil_ui_components/src/show_info_bottomsheet.dart';
-import 'package:sil_ui_components/src/type_defs.dart';
-import 'package:sil_ui_components/src/widget_keys.dart';
+import 'package:shared_themes/spaces.dart';
+import 'package:shared_themes/text_themes.dart';
+import 'package:shared_ui_components/resend_phone_code.dart';
+import 'package:shared_ui_components/src/app_strings.dart';
+import 'package:shared_ui_components/src/constants.dart';
+import 'package:shared_ui_components/src/show_info_bottomsheet.dart';
+import 'package:shared_ui_components/src/type_defs.dart';
+import 'package:shared_ui_components/src/widget_keys.dart';
 
 bool alignLabelWithHint(int? maxLines) => maxLines != null && maxLines > 1;
 

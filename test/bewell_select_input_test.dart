@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sil_ui_components/src/bewell_select_input.dart';
-import 'package:sil_ui_components/src/widget_keys.dart';
+import 'package:shared_ui_components/src/bewell_select_input.dart';
+import 'package:shared_ui_components/src/widget_keys.dart';
 
 void main() {
   testWidgets('should render correctly', (WidgetTester tester) async {

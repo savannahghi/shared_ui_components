@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sil_ui_components/src/constants.dart';
-import 'package:sil_ui_components/src/helpers.dart';
-import 'package:sil_ui_components/src/widget_keys.dart';
+import 'package:shared_ui_components/src/constants.dart';
+import 'package:shared_ui_components/src/helpers.dart';
+import 'package:shared_ui_components/src/widget_keys.dart';
 
 import 'mocks.dart';
 

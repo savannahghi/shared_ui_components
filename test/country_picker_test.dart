@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sil_ui_components/sil_country_picker.dart';
+import 'package:shared_ui_components/country_picker.dart';
 
 void main() {
   group('SilCountryPicker', () {

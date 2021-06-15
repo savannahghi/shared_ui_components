@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sil_themes/colors.dart';
-import 'package:sil_ui_components/src/constants.dart';
-import 'package:sil_ui_components/src/inputs.dart';
-import 'package:sil_ui_components/src/type_defs.dart';
+import 'package:shared_themes/colors.dart';
+import 'package:shared_ui_components/src/constants.dart';
+import 'package:shared_ui_components/src/inputs.dart';
+import 'package:shared_ui_components/src/type_defs.dart';
 
 /// [SILTimePicker] customized for selection time
 /// Example

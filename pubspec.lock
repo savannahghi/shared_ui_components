@@ -28,7 +28,7 @@ packages:
       name: camera
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.1+2"
+    version: "0.8.1+3"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -105,14 +105,14 @@ packages:
       name: ffi
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.2"
   file:
     dependency: transitive
     description:
       name: file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.0"
+    version: "6.1.1"
   file_picker:
     dependency: transitive
     description:
@@ -138,7 +138,7 @@ packages:
       name: flutter_plugin_android_lifecycle
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -197,7 +197,7 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.0+1"
+    version: "0.8.0+3"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -380,6 +380,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.27.1"
+  shared_themes:
+    dependency: "direct main"
+    description:
+      name: shared_themes
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.9"
   sil_app_wrapper:
     dependency: transitive
     description:
@@ -408,7 +415,7 @@ packages:
     source: git
     version: "0.0.1"
   sil_themes:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "."
       ref: "0.1.00"
@@ -532,7 +539,7 @@ packages:
       name: url_launcher_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   url_launcher_windows:
     dependency: transitive
     description:
@@ -574,7 +581,7 @@ packages:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.1.0"
+    version: "5.1.2"
 sdks:
   dart: ">=2.12.0 <3.0.0"
   flutter: ">=2.0.0"

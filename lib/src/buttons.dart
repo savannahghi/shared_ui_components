@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sil_themes/colors.dart';
-import 'package:sil_themes/text_themes.dart';
+import 'package:shared_themes/colors.dart';
+import 'package:shared_themes/text_themes.dart';
 
 typedef OnPressed = Function(String val);
 

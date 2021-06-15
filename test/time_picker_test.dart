@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sil_ui_components/src/time_picker.dart';
+import 'package:shared_ui_components/src/time_picker.dart';
 
 void main() {
   testWidgets('sil time picker renders correctly', (WidgetTester tester) async {
