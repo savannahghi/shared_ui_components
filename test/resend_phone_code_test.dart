@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:sil_ui_components/sil_resend_phone_code.dart';
-import 'package:sil_ui_components/src/widget_keys.dart';
+import 'package:shared_ui_components/resend_phone_code.dart';
+import 'package:shared_ui_components/src/widget_keys.dart';
 
 import 'mocks.dart';
 

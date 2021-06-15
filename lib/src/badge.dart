@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sil_themes/colors.dart';
-import 'package:sil_themes/spaces.dart';
-import 'package:sil_themes/text_themes.dart';
-import 'package:sil_ui_components/src/widget_keys.dart';
+import 'package:shared_themes/colors.dart';
+import 'package:shared_themes/spaces.dart';
+import 'package:shared_themes/text_themes.dart';
+import 'package:shared_ui_components/src/widget_keys.dart';
 
 enum BadgeType { info, danger }
 

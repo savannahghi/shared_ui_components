@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sil_ui_components/sil_comms_setting.dart';
+import 'package:shared_ui_components/communications_settings.dart';
 
 void main() {
   bool response() {

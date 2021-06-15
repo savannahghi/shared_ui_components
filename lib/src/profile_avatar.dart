@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sil_ui_components/src/constants.dart';
+import 'package:shared_ui_components/src/constants.dart';
 
 class SILProfileAvatar extends StatelessWidget {
   const SILProfileAvatar({required this.photoUrl});

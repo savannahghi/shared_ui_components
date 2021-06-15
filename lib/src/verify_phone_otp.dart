@@ -3,16 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:sil_themes/spaces.dart';
-import 'package:sil_themes/text_themes.dart';
-import 'package:sil_ui_components/sil_buttons.dart';
-import 'package:sil_ui_components/sil_inputs.dart';
-import 'package:sil_ui_components/src/animated_count.dart';
-import 'package:sil_ui_components/src/app_strings.dart';
-import 'package:sil_ui_components/src/constants.dart';
-import 'package:sil_ui_components/src/helpers.dart';
-import 'package:sil_ui_components/src/show_info_bottomsheet.dart';
-import 'package:sil_ui_components/src/widget_keys.dart';
+import 'package:shared_themes/spaces.dart';
+import 'package:shared_themes/text_themes.dart';
+import 'package:shared_ui_components/buttons.dart';
+import 'package:shared_ui_components/inputs.dart';
+import 'package:shared_ui_components/src/animated_count.dart';
+import 'package:shared_ui_components/src/app_strings.dart';
+import 'package:shared_ui_components/src/constants.dart';
+import 'package:shared_ui_components/src/helpers.dart';
+import 'package:shared_ui_components/src/show_info_bottomsheet.dart';
+import 'package:shared_ui_components/src/widget_keys.dart';
 
 class SILVerifyPhoneOtp extends StatefulWidget {
   const SILVerifyPhoneOtp({

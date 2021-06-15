@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:sil_ui_components/src/constants.dart';
-import 'package:sil_ui_components/src/helpers.dart';
+import 'package:shared_ui_components/src/constants.dart';
+import 'package:shared_ui_components/src/helpers.dart';
 
 class SILCountryPicker extends StatefulWidget {
   const SILCountryPicker({Key? key, required this.onChanged}) : super(key: key);
