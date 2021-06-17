@@ -1,4 +1,4 @@
-### 0.1.23
+### 0.1.23-nullsafety
 
 - chore: update dependencies (flutter_svg, http, rxdart, misc_utilities, shared_themes, lint, )
 - refactor: behavior subject values (`lib/src/inputs.dart`, `lib/src/verify_phone_otp.dart`)

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sil_misc/sil_misc.dart';
+import 'package:misc_utilities/misc.dart';
 
 import 'package:shared_themes/text_themes.dart';
 

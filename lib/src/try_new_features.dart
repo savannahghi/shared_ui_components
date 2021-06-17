@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sil_misc/sil_enums.dart';
-import 'package:sil_misc/sil_number_constants.dart';
-import 'package:sil_misc/sil_responsive_widget.dart';
+import 'package:misc_utilities/enums.dart';
+import 'package:misc_utilities/number_constants.dart';
+import 'package:misc_utilities/responsive_widget.dart';
 
 import 'package:shared_themes/colors.dart';
 import 'package:shared_themes/spaces.dart';
