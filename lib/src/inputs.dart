@@ -89,6 +89,10 @@ class SILPhoneInput extends FormField<String> {
               if (!validatePhoneNumber('$countryCode$phone')) {
                 return validPhoneNumberText;
               }
+              if (countryCode == '+254' &&
+                  !validateKenyanNumber('$countryCode$phone')) {
+                return validPhoneNumberText;
+              }
             }
           },
           initialValue: inputController != null
