@@ -1,3 +1,8 @@
+### 0.1.24-nullsafety
+
+- chore: check for correct prefix in kenyan phone numbers
+- chore: update dependencies (misc_utilities, shared_themes)
+
 ### 0.1.23-nullsafety
 
 - chore: update dependencies (flutter_svg, http, rxdart, misc_utilities, shared_themes, lint, )
