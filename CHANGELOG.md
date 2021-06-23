@@ -1,3 +1,7 @@
+### 0.1.25-nullsafety
+
+- chore: change SILPrimaryButton for easier testability
+
 ### 0.1.24-nullsafety
 
 - chore: check for correct prefix in kenyan phone numbers
