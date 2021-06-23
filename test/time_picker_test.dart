@@ -32,12 +32,8 @@ void main() {
 
     testWidgets('should render ios time picker', (WidgetTester tester) async {
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
-      String currentHour = TimeOfDay.now().hour.toString();
-      /// Check if current time in [hour] is > than 12 then return [hour]
-      /// In am/pm format
-      if (TimeOfDay.now().hour > 12) {
-        currentHour = TimeOfDay.now().hourOfPeriod.toString();
-      }
+      final String currentHour = TimeOfDay.now().hourOfPeriod.toString();
+
       await tester.pumpWidget(MaterialApp(
         home: Builder(builder: (BuildContext context) {
           return Material(
@@ -77,6 +73,7 @@ void main() {
         (WidgetTester tester) async {
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
       String currentHour = TimeOfDay.now().hour.toString();
+
       /// Check if current time in [hour] is > than 12 then return [hour]
       /// In am/pm format
       if (TimeOfDay.now().hour > 12) {
@@ -124,6 +121,7 @@ void main() {
     testWidgets('should render android time picker',
         (WidgetTester tester) async {
       String currentHour = TimeOfDay.now().hour.toString();
+
       /// Check if current time in [hour] is > than 12 then return [hour]
       /// In am/pm format
       if (TimeOfDay.now().hour > 12) {
@@ -158,6 +156,7 @@ void main() {
     testWidgets('should render android time picker changed',
         (WidgetTester tester) async {
       String currentHour = TimeOfDay.now().hour.toString();
+
       /// check if current time in [hour] is > than 12 then return [hour]
       /// in am/pm format
       if (TimeOfDay.now().hour > 12) {

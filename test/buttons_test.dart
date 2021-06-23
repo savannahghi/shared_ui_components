@@ -36,10 +36,6 @@ void main() {
       await tester.pumpAndSettle();
       expect(isLongPressed, true);
     });
-
-    testWidgets('should show assertion error', (WidgetTester tester) async {
-      expect(() => SILPrimaryButton(onPressed: null), throwsAssertionError);
-    });
   });
 
   group('SILSecondaryButton', () {
