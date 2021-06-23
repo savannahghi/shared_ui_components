@@ -288,7 +288,7 @@ packages:
       name: misc_utilities
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.14-nullsafety"
+    version: "0.1.15-nullsafety"
   path:
     dependency: transitive
     description:
