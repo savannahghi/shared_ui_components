@@ -5,19 +5,20 @@ import 'package:shared_themes/text_themes.dart';
 typedef OnPressed = Function(String val);
 
 class SILPrimaryButton extends StatelessWidget {
-  const SILPrimaryButton(
-      {this.buttonKey,
-      required this.onPressed,
-      this.onLongPress,
-      this.text,
-      this.buttonColor,
-      this.borderColor,
-      this.textColor,
-      this.customChild,
-      this.customRadius,
-      this.customPadding,
-      this.customElevation})
-      : assert(onPressed != null, text != null || customChild != null);
+  const SILPrimaryButton({
+    this.buttonKey,
+    this.onPressed,
+    this.onLongPress,
+    this.text,
+    this.buttonColor,
+    this.borderColor,
+    this.textColor,
+    this.customChild,
+    this.customRadius,
+    this.customPadding,
+    this.customElevation,
+  });
+
   final Color? borderColor;
   final Color? buttonColor;
   final Key? buttonKey;
@@ -26,7 +27,7 @@ class SILPrimaryButton extends StatelessWidget {
   final EdgeInsets? customPadding;
   final double? customRadius;
   final Function? onLongPress;
-  final Function? onPressed;
+  final void Function()? onPressed;
   final String? text;
   final Color? textColor;
   @override
@@ -36,9 +37,7 @@ class SILPrimaryButton extends StatelessWidget {
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       elevation: customElevation ?? 0,
-      onPressed: () {
-        onPressed!();
-      },
+      onPressed: onPressed,
       onLongPress: () {
         onLongPress!();
       },
