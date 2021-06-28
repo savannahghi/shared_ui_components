@@ -261,39 +261,38 @@ class SILFormTextField extends StatelessWidget {
             'When a controller is specified, initialValue must be null'),
         super(key: key);
 
-  final Key? fieldKey;
-  final bool? enabled;
+  final bool? autoFocus;
+  final bool? autoValidate;
+  final Color? borderColor;
   final TextEditingController? controller;
-  final FormFieldSetter<String>? onSaved;
-  final Function? onTap;
-  final String? labelText;
+  final Color? customFillColor;
+  final InputDecoration? decoration;
+  final bool? enabled;
+  final Key? fieldKey;
+  final FocusNode? focusNode;
+  final List<TextInputFormatter>? formatters;
+  final Color? hintColor;
   final String? hintText;
+  final Color? hintTextColor;
   final String? initialValue;
-  final FormFieldValidator<String>? validator;
+  final List<TextInputFormatter>? inputFormatters;
+  final bool? isSearchField;
+  final bool? isSearchFieldSmall;
+  final TextInputType? keyboardType;
+  final String? labelText;
+  final int? maxLength;
+  final int? maxLines;
+  final bool? obscureText;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onFieldSubmit;
-  final FocusNode? focusNode;
-  final TextInputType? keyboardType;
-  final List<TextInputFormatter>? formatters;
-  final int? maxLines;
-  final int? maxLength;
-  final TextStyle? textStyle;
-  final Widget? suffixIcon;
-  final bool? isSearchField;
-  final bool? obscureText;
-
-  final bool? autoValidate;
-  final bool? isSearchFieldSmall;
-  final bool? autoFocus;
-  final List<TextInputFormatter>? inputFormatters;
+  final FormFieldSetter<String>? onSaved;
+  final Function? onTap;
   final Widget? prefixIcon;
-  final TextInputAction? textInputAction;
-  final Color? customFillColor;
-  final Color? hintColor;
-  final Color? hintTextColor;
-  final Color? borderColor;
+  final Widget? suffixIcon;
   final Color? textFieldBackgroundColor;
-  final InputDecoration? decoration;
+  final TextInputAction? textInputAction;
+  final TextStyle? textStyle;
+  final FormFieldValidator<String>? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -451,46 +450,21 @@ class SILDatePickerField extends StatelessWidget {
     this.allowEligibleDate = false,
   });
 
-  final TextEditingController controller;
-  final Key? gestureDateKey;
-  final Key? textFieldDateKey;
-  final FormFieldSetter<String>? onSaved;
-  final String? labelText;
-  final String? hintText;
-  final FocusNode? focusNode;
-  final TextInputType? keyboardType;
-  final FormFieldValidator<String>? validator;
-  final FormFieldSetter<String>? onChanged;
   final bool allowCurrentYear;
-  final bool allowFutureYears;
   final bool allowEligibleDate;
-  final Icon? suffixIcon;
+  final bool allowFutureYears;
+  final TextEditingController controller;
   final bool? enabled;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      key: gestureDateKey,
-      onTap: () async {
-        await _selectDate(context);
-      },
-      child: AbsorbPointer(
-        child: SILFormTextField(
-          key: textFieldDateKey,
-          suffixIcon: suffixIcon,
-          labelText: labelText,
-          hintText: hintText,
-          focusNode: focusNode,
-          controller: controller,
-          keyboardType: keyboardType,
-          validator: validator,
-          onChanged: onChanged,
-          onSaved: onSaved,
-          enabled: enabled ?? true,
-        ),
-      ),
-    );
-  }
+  final FocusNode? focusNode;
+  final Key? gestureDateKey;
+  final String? hintText;
+  final TextInputType? keyboardType;
+  final String? labelText;
+  final FormFieldSetter<String>? onChanged;
+  final FormFieldSetter<String>? onSaved;
+  final Icon? suffixIcon;
+  final Key? textFieldDateKey;
+  final FormFieldValidator<String>? validator;
 
   DateTime getLastDate() {
     if (allowCurrentYear && !allowFutureYears) {
@@ -570,6 +544,31 @@ class SILDatePickerField extends StatelessWidget {
   String _convertDateToString(DateTime datePicked) {
     return DateFormat('d MMM yyyy').format(datePicked);
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      key: gestureDateKey,
+      onTap: () async {
+        await _selectDate(context);
+      },
+      child: AbsorbPointer(
+        child: SILFormTextField(
+          key: textFieldDateKey,
+          suffixIcon: suffixIcon,
+          labelText: labelText,
+          hintText: hintText,
+          focusNode: focusNode,
+          controller: controller,
+          keyboardType: keyboardType,
+          validator: validator,
+          onChanged: onChanged,
+          onSaved: onSaved,
+          enabled: enabled ?? true,
+        ),
+      ),
+    );
+  }
 }
 
 /// [SILSelectOptionField] customized for selection options.
@@ -595,19 +594,6 @@ class SILDatePickerField extends StatelessWidget {
 ///  ),
 /// ```
 class SILSelectOptionField extends StatelessWidget {
-  final Key dropDownInputKey;
-  final FormFieldSetter<String>? onSaved;
-  final List<String> options;
-  final String? hintText;
-  final Color? color;
-  final String? value;
-  final bool disabled;
-  final FormFieldSetter<String>? onChanged;
-
-  /// whether to retain the format of the dropdown options. This will prevent
-  /// options like `National ID` from being formatted to `National id`
-  final bool retainOptionCase;
-
   const SILSelectOptionField({
     this.onSaved,
     required this.options,
@@ -619,6 +605,20 @@ class SILSelectOptionField extends StatelessWidget {
     this.retainOptionCase = true,
     bool? disabled,
   }) : this.disabled = disabled ?? false;
+
+  final Color? color;
+  final bool disabled;
+  final Key dropDownInputKey;
+  final String? hintText;
+  final FormFieldSetter<String>? onChanged;
+  final FormFieldSetter<String>? onSaved;
+  final List<String> options;
+
+  /// whether to retain the format of the dropdown options. This will prevent
+  /// options like `National ID` from being formatted to `National id`
+  final bool retainOptionCase;
+
+  final String? value;
 
   @override
   Widget build(BuildContext context) {
@@ -697,12 +697,12 @@ class SILCheckbox extends StatelessWidget {
     this.checkboxKey,
   });
 
-  final bool? value;
-  final String? text;
-  final ValueChanged<bool?>? onChanged;
-  final Function? onTap;
   final Key? checkboxKey;
   final Widget? child;
+  final ValueChanged<bool?>? onChanged;
+  final Function? onTap;
+  final String? text;
+  final bool? value;
 
   @override
   Widget build(BuildContext context) {
@@ -728,34 +728,70 @@ class SILCheckbox extends StatelessWidget {
 }
 
 /// [SILRadio] customized for radio options
+///
+/// For easier readability and uniformity of the widget behavior,
+/// a type **MUST** be provided
+///
 /// Example:
 /// ```dart
-///   SILRadio(
+///   SILRadio<bool>(
 ///     context: context,
-///     value: dataPayload['Section'][4]['Text']['Div'] =='1'? 'Gain': 'Loss',
+///     value: true,
 ///     text: 'Weight Gain',
 ///     groupValue: 'Gain',
-///     onChanged: (dynamic v) {
+///     onChanged: (bool value) {
 ///       <do-something-awesome-here>
 ///     },
 ///   ),
 /// ```
-class SILRadio extends StatelessWidget {
+class SILRadio<T> extends StatelessWidget {
   const SILRadio({
     required this.value,
     required this.text,
     required this.onChanged,
     required this.groupValue,
-    this.radioKey,
+    this.radioButtonKey,
     this.rightAligned = false,
+    this.radioContainerKey,
   });
 
-  final dynamic? value;
-  final String? text;
-  final ValueChanged<dynamic?>? onChanged;
-  final dynamic groupValue;
+  /// The currently selected value for a group of radio buttons.
+  ///
+  /// This radio button is considered selected if its [value] matches the
+  /// [groupValue].
+  final T? groupValue;
+
+  /// Called when the user selects this radio button.
+  ///
+  /// The radio button passes [value] as a parameter to this callback. The radio
+  /// button does not actually change state until the parent widget rebuilds the
+  /// radio button with the new [groupValue].
+  ///
+  /// If null, the radio button will be displayed as disabled.
+  ///
+  /// The provided callback will not be invoked if this radio button is already
+  /// selected.
+  final ValueChanged<T?>? onChanged;
+
+  /// The key that will be assigned to the radio button
+  ///
+  /// This will be useful in interactions when testing
+  final Key? radioButtonKey;
+
+  /// The key of the encompassing Row widget
+  final Key? radioContainerKey;
+
+  /// Whether to align the radio button to the right
+  ///
+  /// If true, the widget will place the text before the [Radio] button
+  ///
+  /// If false, it will place the [Radio] button before the text
   final bool rightAligned;
-  final Key? radioKey;
+
+  final String? text;
+
+  /// The value represented by this radio button.
+  final T value;
 
   @override
   Widget build(BuildContext context) {
@@ -767,12 +803,14 @@ class SILRadio extends StatelessWidget {
       text!,
       style: TextThemes.boldSize14Text(Colors.black54),
     );
+
     return Row(
-      key: radioKey,
+      key: radioContainerKey,
       mainAxisAlignment: alignment,
       children: <Widget>[
         if (rightAligned) textWidget,
-        Radio<dynamic>(
+        Radio<T>(
+          key: radioButtonKey,
           groupValue: groupValue,
           activeColor: Theme.of(context).primaryColor,
           materialTapTargetSize: MaterialTapTargetSize.padded,
@@ -802,16 +840,6 @@ PinBoxDecoration customRoundedPinBoxDecoration = (
 };
 
 class SILPinCodeTextField extends StatelessWidget {
-  final int? maxLength;
-  final Function onDone;
-  final double? pinBoxWidth;
-  final double? pinBoxHeight;
-  final bool? autoFocus;
-  final WrapAlignment? wrapAlignment;
-  final TextEditingController? controller;
-  final TextInputType keyboardType;
-  final FocusNode? focusNode;
-
   const SILPinCodeTextField({
     Key? key,
     required this.maxLength,
@@ -824,6 +852,16 @@ class SILPinCodeTextField extends StatelessWidget {
     this.keyboardType = TextInputType.number,
     this.focusNode,
   }) : super(key: key);
+
+  final bool? autoFocus;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final TextInputType keyboardType;
+  final int? maxLength;
+  final Function onDone;
+  final double? pinBoxHeight;
+  final double? pinBoxWidth;
+  final WrapAlignment? wrapAlignment;
 
   @override
   Widget build(BuildContext context) {
