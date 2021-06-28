@@ -130,56 +130,53 @@ void main() {
 
     testWidgets('should render SILRadio when rightAligned is false',
         (WidgetTester tester) async {
-      int counter = 0;
-      const bool value = false;
+      bool isSelected = false;
+
       const Key silRadioKey = Key('sil_radio_key');
+
       await tester.pumpWidget(MaterialApp(
         home: Builder(builder: (BuildContext context) {
           return Scaffold(
-            body: SILRadio(
-              radioKey: silRadioKey,
+            body: SILRadio<bool>(
+              radioButtonKey: silRadioKey,
               text: 'x',
-              value: value,
-              onChanged: (dynamic value) {
-                counter = counter + 1;
+              value: true,
+              onChanged: (bool? value) {
+                isSelected = value!;
               },
-              groupValue: 'null',
+              groupValue: null,
             ),
           );
         }),
       ));
 
-      await tester.pumpAndSettle();
-
       // verify SILRadio renders correctly
       expect(find.byKey(silRadioKey), findsOneWidget);
       expect(find.text('x'), findsOneWidget);
-      expect(find.byType(Radio), findsOneWidget);
 
       // tap checkbox
-      await tester.tap(find.byType(Radio));
-      await tester.pumpAndSettle();
-      expect(counter, 1);
+      await tester.tap(find.byKey(silRadioKey));
+      await tester.pump();
+
+      expect(isSelected, true);
     });
 
     testWidgets('should render SILRadio when rightAligned is true',
         (WidgetTester tester) async {
-      const bool value = false;
-      int counter = 0;
+      bool value = false;
+
       const Key silRadioKey = Key('sil_radio_key');
       await tester.pumpWidget(MaterialApp(
         home: Builder(
           builder: (BuildContext context) {
             return Scaffold(
-              body: SILRadio(
-                radioKey: silRadioKey,
+              body: SILRadio<bool>(
+                radioButtonKey: silRadioKey,
                 text: 'x',
-                value: value,
+                value: true,
                 rightAligned: true,
-                onChanged: (dynamic value) {
-                  counter = counter + 1;
-                },
-                groupValue: 'null',
+                onChanged: (bool? v) => value = v!,
+                groupValue: null,
               ),
             );
           },
@@ -191,12 +188,11 @@ void main() {
       // verify SILRadio renders correctly
       expect(find.byKey(silRadioKey), findsOneWidget);
       expect(find.text('x'), findsOneWidget);
-      expect(find.byType(Radio), findsOneWidget);
 
       // tap checkbox
-      await tester.tap(find.byType(Radio));
+      await tester.tap(find.byKey(silRadioKey));
       await tester.pumpAndSettle();
-      expect(counter, 1);
+      expect(value, true);
     });
 
     testWidgets('should render SILPhoneInput ', (WidgetTester tester) async {
