@@ -1,4 +1,4 @@
-[![Release](https://img.shields.io/badge/PreRelease-^0.1.26-red.svg?style=for-the-badge)](https://shields.io/)
+[![Release](https://img.shields.io/badge/PreRelease-^0.1.27-red.svg?style=for-the-badge)](https://shields.io/)
 [![Maintained](https://img.shields.io/badge/Maintained-Actively-informational.svg?style=for-the-badge)](https://shields.io/)
 
 # shared_ui_components
@@ -21,9 +21,9 @@ $ flutter pub add shared_ui_components
 
 This will add a line like this to your package's pubspec.yaml (and run an implicit dart pub get):
 
-```dart
+```dar
 dependencies:
-  shared_ui_components: ^0.1.26-nullsafety
+  shared_ui_components: ^0.1.27-nullsafety
 ```
 
 Alternatively, your editor might support flutter pub get. Check the docs for your editor to learn more.

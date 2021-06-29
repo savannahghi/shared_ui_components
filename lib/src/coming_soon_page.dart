@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:misc_utilities/number_constants.dart';
 import 'package:misc_utilities/responsive_widget.dart';
 import 'package:shared_themes/spaces.dart';
 import 'package:shared_themes/text_themes.dart';
@@ -15,6 +16,7 @@ class SILComingSoonPage extends StatelessWidget {
   final PreferredSizeWidget? appBar;
   final bool showBottomNavigationBar;
   final Widget? bottomNavigationBar;
+  final bool? isTabletWithDrawer;
 
   SILComingSoonPage(
       {Key? key,
@@ -26,7 +28,8 @@ class SILComingSoonPage extends StatelessWidget {
       this.showAppbar = false,
       this.appBar,
       this.showBottomNavigationBar = false,
-      this.bottomNavigationBar})
+      this.bottomNavigationBar,
+      this.isTabletWithDrawer = false})
       : assert(() {
           if (showAppbar && appBar == null) {
             throw Exception('appBar should not be null if showAppBar is true');
@@ -47,60 +50,64 @@ class SILComingSoonPage extends StatelessWidget {
     return Scaffold(
       appBar: this.appBar,
       bottomNavigationBar: this.bottomNavigationBar,
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: SILResponsiveWidget.preferredPaddingOnStretchedScreens(
-                context: context)),
-        child: ListView(
-          shrinkWrap: true,
-          physics: const BouncingScrollPhysics(),
-          children: <Widget>[
-            if (!SILResponsiveWidget.isSmallScreenAndOnLandscape(
-                context: context))
-              if (svgPath != null)
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SvgPicture.asset(
-                    svgPath!,
-                    height: 200,
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: (isTabletWithDrawer!)
+                  ? number20
+                  : SILResponsiveWidget.preferredPaddingOnStretchedScreens(
+                      context: context)),
+          child: ListView(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            children: <Widget>[
+              if (!SILResponsiveWidget.isSmallScreenAndOnLandscape(
+                  context: context))
+                if (svgPath != null)
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: SvgPicture.asset(
+                      svgPath!,
+                      height: 200,
+                    ),
                   ),
-                ),
-            if (!SILResponsiveWidget.isSmallScreenAndOnLandscape(
-                context: context))
-              if (imagePath != null)
-                Padding(
-                  padding: SILResponsiveWidget.isLargeScreen(context)
-                      ? const EdgeInsets.all(20.0)
-                      : const EdgeInsets.all(10.0),
-                  child: Image(
-                    image: AssetImage(imagePath!),
+              if (!SILResponsiveWidget.isSmallScreenAndOnLandscape(
+                  context: context))
+                if (imagePath != null)
+                  Padding(
+                    padding: SILResponsiveWidget.isLargeScreen(context)
+                        ? const EdgeInsets.all(20.0)
+                        : const EdgeInsets.all(10.0),
+                    child: Image(
+                      image: AssetImage(imagePath!),
+                    ),
                   ),
-                ),
-            size15VerticalSizedBox,
-            Column(
-              children: <Widget>[
-                if (!SILResponsiveWidget.isSmallScreenAndOnLandscape(
-                    context: context))
-                  Text(
-                    title,
-                    style: TextThemes.heavySize20Text(),
+              size15VerticalSizedBox,
+              Column(
+                children: <Widget>[
+                  if (!SILResponsiveWidget.isSmallScreenAndOnLandscape(
+                      context: context))
+                    Text(
+                      title,
+                      style: TextThemes.heavySize20Text(),
+                    ),
+                  smallVerticalSizedBox,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      description,
+                      textAlign: TextAlign.center,
+                      style: TextThemes.normalSize16Text(Colors.grey),
+                    ),
                   ),
-                smallVerticalSizedBox,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Text(
-                    description,
-                    textAlign: TextAlign.center,
-                    style: TextThemes.normalSize16Text(Colors.grey),
-                  ),
-                ),
-                smallVerticalSizedBox,
-              ],
-            ),
-            smallVerticalSizedBox,
-            ComingSoonCard(feature: this.title),
-            mediumVerticalSizedBox,
-          ],
+                  smallVerticalSizedBox,
+                ],
+              ),
+              smallVerticalSizedBox,
+              ComingSoonCard(feature: this.title),
+              mediumVerticalSizedBox,
+            ],
+          ),
         ),
       ),
     );
