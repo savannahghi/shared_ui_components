@@ -1,3 +1,7 @@
+### 0.1.27-nullsafety
+
+- fix: coming soon page responsiveness
+
 ### 0.1.26-nullsafety
 
 - refactor: add concrete type to SILRadio
