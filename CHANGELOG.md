@@ -1,3 +1,7 @@
+### 0.1.28-nullsafety
+
+- chore: update package
+
 ### 0.1.27-nullsafety
 
 - fix: coming soon page responsiveness
