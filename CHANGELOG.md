@@ -1,3 +1,7 @@
+### 0.1.29-nullsafety
+
+- feat: auto detect sms code
+
 ### 0.1.28-nullsafety
 
 - chore: update package

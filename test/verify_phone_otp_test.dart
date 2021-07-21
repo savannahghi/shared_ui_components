@@ -12,7 +12,7 @@ import 'package:shared_ui_components/src/widget_keys.dart';
 import 'mocks.dart';
 
 void main() {
-  group('SILVerifyPhoneOtp', () {
+  group('VerifyPhoneOtp', () {
     final VerifyPhoneBehaviorSubject verifyPhoneBehaviorSubject =
         VerifyPhoneBehaviorSubject();
     bool testCallback({required String otp, required Function toggleLoading}) {
@@ -25,7 +25,7 @@ void main() {
           home: Builder(
             builder: (BuildContext context) {
               return Scaffold(
-                body: SILVerifyPhoneOtp(
+                body: VerifyPhoneOtp(
                   appWrapperContext: 'AppContext',
                   client: MockHttpClient,
                   generateOtpFunc: () {},
@@ -61,17 +61,33 @@ void main() {
         await tester.tap(find.byKey(resendViaText));
         await tester.pumpAndSettle();
 
+        // get the state
+        final State<StatefulWidget> testState = tester.allStates.singleWhere(
+            (State<StatefulWidget> element) =>
+                element.toString() == verifyOTPState);
+
+        // check if it is null
+        expect(testState, isNotNull);
+
+        // call the method
+        final VerifyPhoneOtpState verifyPhoneOtpState =
+            testState as VerifyPhoneOtpState;
+        verifyPhoneOtpState.codeUpdated();
+
+        // assert that is was called
+        expect(() => verifyPhoneOtpState.codeUpdated(), returnsNormally);
+
         // expect(find.text('$codeSent 0712345678'), findsOneWidget);
       });
     });
 
-    testWidgets('should render SILVerifyPhoneOtp when otp is correct ',
+    testWidgets('should render VerifyPhoneOtp when otp is correct ',
         (WidgetTester tester) async {
       final Widget testWidget = MaterialApp(
         home: Builder(
           builder: (BuildContext context) {
             return Scaffold(
-              body: SILVerifyPhoneOtp(
+              body: VerifyPhoneOtp(
                 appWrapperContext: 'AppContext',
                 client: MockHttpClient,
                 generateOtpFunc: () {},
@@ -108,13 +124,13 @@ void main() {
       expect(find.byType(TextButton), findsOneWidget);
     });
 
-    testWidgets('should render SILVerifyPhoneOtp when otp is wrong ',
+    testWidgets('should render VerifyPhoneOtp when otp is wrong ',
         (WidgetTester tester) async {
       final Widget testWidget = MaterialApp(
         home: Builder(
           builder: (BuildContext context) {
             return Scaffold(
-              body: SILVerifyPhoneOtp(
+              body: VerifyPhoneOtp(
                 appWrapperContext: 'AppContext',
                 client: MockHttpClient,
                 generateOtpFunc: () {},
@@ -155,7 +171,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-          body: SILVerifyPhoneOtp(
+          body: VerifyPhoneOtp(
             appWrapperContext: '',
             client: MockHttpClient,
             loader: Container(),
@@ -189,7 +205,7 @@ void main() {
         home: Builder(
           builder: (BuildContext context) {
             return Scaffold(
-              body: SILVerifyPhoneOtp(
+              body: VerifyPhoneOtp(
                 appWrapperContext: 'AppContext',
                 client: MockHttpClient,
                 generateOtpFunc: () {},
@@ -220,7 +236,7 @@ void main() {
         home: Builder(
           builder: (BuildContext context) {
             return Scaffold(
-              body: SILVerifyPhoneOtp(
+              body: VerifyPhoneOtp(
                 appWrapperContext: 'AppContext',
                 client: MockHttpClient,
                 generateOtpFunc: () {},
@@ -253,7 +269,7 @@ void main() {
         home: Builder(
           builder: (BuildContext context) {
             return Scaffold(
-              body: SILVerifyPhoneOtp(
+              body: VerifyPhoneOtp(
                 appWrapperContext: 'AppContext',
                 client: MockHttpClient,
                 generateOtpFunc: () {},
@@ -290,7 +306,7 @@ void main() {
           home: Builder(
             builder: (BuildContext context) {
               return Scaffold(
-                body: SILVerifyPhoneOtp(
+                body: VerifyPhoneOtp(
                   appWrapperContext: 'AppContext',
                   client: MockHttpClient(),
                   httpClient: MockHttpClient(),
