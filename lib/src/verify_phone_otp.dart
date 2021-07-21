@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 import 'package:shared_themes/spaces.dart';
 import 'package:shared_themes/text_themes.dart';
@@ -14,8 +15,8 @@ import 'package:shared_ui_components/src/helpers.dart';
 import 'package:shared_ui_components/src/show_info_bottomsheet.dart';
 import 'package:shared_ui_components/src/widget_keys.dart';
 
-class SILVerifyPhoneOtp extends StatefulWidget {
-  const SILVerifyPhoneOtp({
+class VerifyPhoneOtp extends StatefulWidget {
+  const VerifyPhoneOtp({
     Key? key,
     required this.phoneNo,
     required this.otp,
@@ -44,21 +45,35 @@ class SILVerifyPhoneOtp extends StatefulWidget {
   final Function successCallBack;
 
   @override
-  _SILVerifyPhoneOtpState createState() => _SILVerifyPhoneOtpState();
+  VerifyPhoneOtpState createState() => VerifyPhoneOtpState();
 }
 
-class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
-    with SingleTickerProviderStateMixin {
+class VerifyPhoneOtpState extends State<VerifyPhoneOtp>
+    with SingleTickerProviderStateMixin, CodeAutoFill {
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return verifyOTPState;
+  }
+
   Animation<double>? animation;
   bool canResend = false;
   BehaviorSubject<bool> canResendOtp = BehaviorSubject<bool>.seeded(false);
   VerifyPhoneBehaviorSubject verifyPhoneBehaviorSubject =
       VerifyPhoneBehaviorSubject();
   String? otp;
+  String testCode = '123456';
   int resendTimeout = 60;
   TextEditingController textEditingController = TextEditingController();
 
   late AnimationController _controller;
+
+  @override
+  void codeUpdated() {
+    setState(() {
+      // update the controller with the detected code
+      textEditingController.text = code ?? testCode;
+    });
+  }
 
   @override
   void didChangeDependencies() {
@@ -80,6 +95,8 @@ class _SILVerifyPhoneOtpState extends State<SILVerifyPhoneOtp>
   void initState() {
     otp = widget.otp;
 
+    // listen for otp code sent via sms
+    listenForCode();
     _controller =
         AnimationController(duration: const Duration(seconds: 30), vsync: this);
     animation = Tween<double>(begin: resendTimeout.toDouble(), end: 0)
