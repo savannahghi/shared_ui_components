@@ -58,7 +58,7 @@ void main() {
       expect(find.byType(CupertinoDatePicker), findsOneWidget);
 
       await tester.drag(
-        find.text(currentHour).first,
+        find.text(currentHour),
         const Offset(0.0, 70.0),
       );
       expect(find.text(currentHour), findsWidgets);
