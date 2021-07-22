@@ -1,3 +1,7 @@
+### 0.1.30-nullsafety
+
+- fix: auto fill sms code
+
 ### 0.1.29-nullsafety
 
 - feat: auto detect sms code

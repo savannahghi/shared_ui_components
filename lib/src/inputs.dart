@@ -844,6 +844,7 @@ class SILPinCodeTextField extends StatelessWidget {
     Key? key,
     required this.maxLength,
     required this.onDone,
+    this.onTextChanged,
     this.autoFocus = false,
     this.wrapAlignment = WrapAlignment.spaceBetween,
     this.pinBoxHeight = 50.0,
@@ -859,6 +860,7 @@ class SILPinCodeTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final int? maxLength;
   final Function onDone;
+  final Function? onTextChanged;
   final double? pinBoxHeight;
   final double? pinBoxWidth;
   final WrapAlignment? wrapAlignment;
@@ -891,6 +893,9 @@ class SILPinCodeTextField extends StatelessWidget {
       keyboardType: keyboardType,
       onDone: (String val) {
         onDone(val);
+      },
+      onTextChanged: (String val) {
+        onTextChanged!(val);
       },
     );
   }

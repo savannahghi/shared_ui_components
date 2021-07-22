@@ -724,6 +724,7 @@ void main() {
               child: SILPinCodeTextField(
             maxLength: null,
             onDone: (String val) {},
+            onTextChanged: (String val) {},
           ));
         }),
       ));

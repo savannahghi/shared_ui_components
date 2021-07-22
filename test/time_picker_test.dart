@@ -61,6 +61,7 @@ void main() {
         find.text(currentHour),
         const Offset(0.0, 70.0),
       );
+
       expect(find.text(currentHour), findsWidgets);
 
       await tester.tap(find.text(currentHour));
