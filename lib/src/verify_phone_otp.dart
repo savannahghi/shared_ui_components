@@ -134,28 +134,38 @@ class VerifyPhoneOtpState extends State<VerifyPhoneOtp>
       children: <Widget>[
         smallVerticalSizedBox,
         SILPinCodeTextField(
-          controller: textEditingController,
-          autoFocus: true,
-          maxLength: 6,
-          pinBoxWidth: 40,
-          pinBoxHeight: 48,
-          wrapAlignment: WrapAlignment.spaceAround,
-          onDone: (String v) async {
-            if (v == otp) {
-              toggleLoading();
-              widget.successCallBack(otp: otp, toggleLoading: toggleLoading);
-              toggleLoading();
-              return;
-            }
-            showFeedbackBottomSheet(
-              context: context,
-              modalContent: wrongPINText,
-              imageAssetPath: errorIconUrl,
-            );
-            textEditingController.clear();
-            await HapticFeedback.vibrate();
-          },
-        ),
+            controller: textEditingController,
+            autoFocus: true,
+            maxLength: 6,
+            pinBoxWidth: 40,
+            pinBoxHeight: 48,
+            wrapAlignment: WrapAlignment.spaceAround,
+            onDone: (String v) async {
+              if (v == otp) {
+                toggleLoading();
+                widget.successCallBack(otp: otp, toggleLoading: toggleLoading);
+                toggleLoading();
+                return;
+              }
+              showFeedbackBottomSheet(
+                context: context,
+                modalContent: wrongPINText,
+                imageAssetPath: errorIconUrl,
+              );
+              textEditingController.clear();
+              await HapticFeedback.vibrate();
+            },
+            onTextChanged: (String v) async {
+              if (v.length == 6) {
+                if (v == otp) {
+                  toggleLoading();
+                  widget.successCallBack(
+                      otp: otp, toggleLoading: toggleLoading);
+                  toggleLoading();
+                  return;
+                }
+              }
+            }),
         largeVerticalSizedBox,
         if (isloading == true) ...<Widget>[
           mediumVerticalSizedBox,
