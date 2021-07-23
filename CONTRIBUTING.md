@@ -38,10 +38,7 @@ This project and everyone participating in it is governed by the [SIL Code of Co
 
 > **Note:** Please don't file an issue to ask a question. You'll get faster results by using the resources below.
 
-We have an official message board (Help/Support center) through which we can interact with community members incase you have questions.
-
-> - [ ] todo: Add Help center contact info (whatsapp and telephone number for chat/support)
-
+We have an official message board [Support center](mailto:feedback@bewell.co.ke) through which we can interact with community members incase you have questions.
 
 ## What should I know before I get started?
 
@@ -50,7 +47,7 @@ We have an official message board (Help/Support center) through which we can int
 `shared_ui_components` is an open source project &mdash; it's one among many other shared libraries that make up the wider ecosystem of software made and open sourced by `Savannah Informatics Limited`.
 When you initially consider contributing to `shared_ui_components`, you might be unsure about which of those repositories implements the functionality you want to change or report a bug for. This section should help you with that.
 
-Here's a list of the big ones:
+Here's a list of some of the projects:
 
 - [app_wrapper](https://github.com/savannahghi/app_wrapper) -  A shared library for `BeWell-Consumer` and `BeWell-Professional` Responsible for putting together everything that the app needs in order to run safely. Similar to a pre-flight checklist that brings together app requirements and exposes them to app's element tree.
 - [domain_objects](https://github.com/savannahghi/domain_objects) - A shared library for `BeWell-Consumer` and `BeWell-Professional` Responsible for aggregating core domain objects.
@@ -73,19 +70,19 @@ When we make a significant decision in how we maintain the project and what we c
 
 This section guides you through submitting a bug report for `shared_ui_components`. Following these guidelines helps maintainers and the community understand your report :pencil:, reproduce the behavior :computer:, and find related reports :mag_right:.
 
-Before creating bug reports, please check the project's list of open issues/bug reports as you might find out that you don't need to create one. When you are creating a bug report, please [include as many details as possible](#how-do-i-submit-a-good-bug-report). Fill out [the required template](https://github.com/atom/.github/blob/master/.github/ISSUE_TEMPLATE/bug_report.md), the information it asks for helps us resolve issues faster.
+Before creating bug reports, please check the project's list of open issues/bug reports as you might find out that you don't need to create one. When you are creating a bug report, please [include as many details as possible](#how-do-i-submit-a-good-bug-report). Fill out [the required template](https://github.com/savannahghi/shared_ui_components/blob/main/.github/feature_request.md) and the information it asks for helps us resolve issues faster.
 
 > **Note:** If you find a **Closed** issue that seems like it is the same thing that you're experiencing, open a new issue and include a link to the original issue in the body of your new one.
 
 #### Before Submitting A Bug Report
 
-- **Check the [flutter & dart documentation](https://flutter.dev/docs).** You might be able to find the cause of the problem and fix things yourself. Most importantly, check if you can reproduce the problem [in the latest version of this project](https://github.com/).
-- **Check the [Project's issue list and known bug reports](https://github.com/)** for a list of known and (or) bugs that have already been reported, common questions and problems.
-- **Perform a [cursory search](https://github.com/search?q=org%3Asavannahghi+)** to see if the problem has already been reported. If it has **and the issue is still open**, add a comment to the existing issue instead of opening a new one.
+- **Check the [flutter & dart documentation](https://flutter.dev/docs).** You might be able to find the cause of the problem and fix things yourself. Most importantly, check if you can reproduce the problem [in the latest version of this project](https://github.com/savannahghi/shared_ui_components).
+- **Check the [Project's issue list and known bug reports](https://github.com/savannahghi/shared_ui_components/issues)** for a list of known and (or) bugs that have already been reported, common questions and problems.
+- **Perform a [cursory search](https://github.com/search?q=org:savannahghi+shared_ui_components)** to see if the problem has already been reported. If it has **and the issue is still open**, add a comment to the existing issue instead of opening a new one.
 
 #### How Do I Submit A (Good) Bug Report?
 
-Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). After you've determined [which repository](#ail-software-and-packages) your bug is related to, create an issue on that repository and provide the following information by filling in [the template](https://github.com/search?q=org%3Asavannahghi+).
+Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). After you've determined [which repository](#sil-software-and-packages) your bug is related to, create an issue on that repository and provide the following information by filling in [the template](https://github.com/savannahghi/shared_ui_components/issues).
 
 Explain the problem and include additional details to help maintainers reproduce the problem:
 
@@ -102,7 +99,7 @@ Provide more context by answering these questions:
 
 - **Can you reproduce the problem?**
 - **Did the problem start happening recently** (e.g. after updating to a new version of the project in question) or was this always a problem?
-- If the problem started happening recently, **can you reproduce the problem in an older version of the project?** What's the most recent version in which the problem doesn't happen? You can download older versions of this project in its [release](https://github.com/) page on github.
+- If the problem started happening recently, **can you reproduce the problem in an older version of the project?** What's the most recent version in which the problem doesn't happen? You can download older versions of this project in its [release](https://pub.dev/packages/shared_ui_components/versions) page on pub.
 - **Can you reliably reproduce the issue?** If not, provide details about how often the problem happens and under which conditions it normally happens.
 - If the problem is related to working with files, **does the problem happen for all files and projects or only some?** Does the problem happen only when working with local or remote files. Is there anything else special about the files you are using?
 
@@ -116,13 +113,12 @@ Include details about your configuration and environment:
 
 This section guides you through submitting an enhancement suggestion for this project, including completely new features and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion :pencil: and find related suggestions :mag_right:.
 
-Before creating enhancement suggestions, please check [the list of already proposed enhancements](#before-submitting-an-enhancement-suggestion) as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please [include as many details as possible](#how-do-i-submit-a-good-enhancement-suggestion). Fill in [the template](https://github.com/), including the steps that you imagine you would take if the feature you're requesting existed.
+Before creating enhancement suggestions, please check [the list of already proposed enhancements](#before-submitting-an-enhancement-suggestion) as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please [include as many details as possible](#how-do-i-submit-a-good-enhancement-suggestion). Fill in [the template](https://github.com/savannahghi/shared_ui_components/blob/main/.github/feature_request.md), including the steps that you imagine you would take if the feature you're requesting existed.
 
 #### Before Submitting An Enhancement Suggestion
 
 - **Check the [project changelog](https://github.com/)** for tips — you might discover that the enhancement is already in the works and(or) is available in this or a previous version. Most importantly, check if you're using [the latest version of this project](https://github.com/#update-to-the-latest-version).
-- **Check if there's already [a package](https://atom.io/packages) which provides that enhancement among the list of related projects.**
-- **Perform a [cursory search](https://github.com/search?q=+is%3Aissue+user%3)** to see if the enhancement has already been suggested. If it has, add a comment to the existing issue instead of opening a new one.
+- **Perform a [cursory search](https://github.com/search?q=org:savannahghi+shared_ui_components)** to see if the enhancement has already been suggested. If it has, add a comment to the existing issue instead of opening a new one.
 
 #### How Do I Submit A (Good) Enhancement Suggestion?
 
@@ -132,7 +128,7 @@ Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com
 - **Provide a step-by-step description of the suggested enhancement** in as many details as possible.
 - **Provide specific examples to demonstrate the steps**. Include copy/pasteable snippets which you use in those examples, as [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
 - **Describe the current behavior** and **explain which behavior you expected to see instead** and why.
-- **Include screenshots and animated GIFs** which help you demonstrate the steps or point out the part of the project which the suggestion is related to.
+- **Include screenshots** which help you demonstrate the steps or point out the part of the project which the suggestion is related to.
 - **Explain why this enhancement would be useful** to most of our users and isn't something that can or should be implemented as a [community package](#sil-software-and-packages).
 - **List some other packages or applications where this enhancement exists.**
 - **Specify which version of the project you're using.** You can get the exact version by running `flutter doctor -v` in your terminal.
@@ -143,8 +139,8 @@ Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com
 
 Unsure where to begin contributing to SIL Software? You can start by looking through these `beginner` and `help-wanted` issues:
 
-- [Beginner issues](https://github.com/) - issues which should only require a few lines of code, and a test or two.
-- [Help wanted issues](https://github.com/) - issues which should be a bit more involved.
+- [Beginner issues](https://github.com/savannahghi) - issues which should only require a few lines of code, and a test or two.
+- [Help wanted issues](https://github.com/savannahghi) - issues which should be a bit more involved.
 
 Both issue lists are sorted by total number of comments. While not perfect, number of comments is a reasonable proxy for impact a given change will have.
 
@@ -163,7 +159,7 @@ The process described here has several goals:
 
 Please follow these steps to have your contribution considered by the maintainers:
 
-1. Follow all instructions in [the template](PULL_REQUEST_TEMPLATE.md)
+1. Follow all instructions in [the template](https://github.com/savannahghi/shared_ui_components/blob/main/.github/merge_request_review_template.md)
 2. Follow the [styleguides](#styleguides)
 
 While the prerequisites above must be satisfied prior to having your pull request reviewed, the reviewer(s) may ask you to complete additional design work, tests, or other changes before your pull request can be ultimately accepted.
