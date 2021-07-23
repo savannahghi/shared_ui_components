@@ -30,7 +30,7 @@ class _SILTryNewFeaturesWidgetState extends State<SILTryNewFeaturesWidget> {
     return Column(
       children: <Widget>[
         // back button
-        if (SILResponsiveWidget.deviceType(context) == DeviceScreensType.Mobile)
+        if (ResponsiveWidget.deviceType(context) == DeviceScreensType.Mobile)
           SafeArea(
             child: Row(
               children: <Widget>[
@@ -46,25 +46,25 @@ class _SILTryNewFeaturesWidgetState extends State<SILTryNewFeaturesWidget> {
 
         Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: SILResponsiveWidget.deviceType(context) !=
-                    DeviceScreensType.Mobile
-                ? number30
-                : SILResponsiveWidget.preferredPaddingOnStretchedScreens(
-                    context: context),
+            horizontal:
+                ResponsiveWidget.deviceType(context) != DeviceScreensType.Mobile
+                    ? number30
+                    : ResponsiveWidget.preferredPaddingOnStretchedScreens(
+                        context: context),
           ),
           child: Column(
             children: <Widget>[
               smallVerticalSizedBox,
-              if (!SILResponsiveWidget.isSmallScreenAndOnLandscape(
+              if (!ResponsiveWidget.isSmallScreenAndOnLandscape(
                   context: context))
                 Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Image(
-                      height: (SILResponsiveWidget.deviceType(context) !=
+                      height: (ResponsiveWidget.deviceType(context) !=
                               DeviceScreensType.Mobile)
                           ? number250
                           : number200,
-                      width: (SILResponsiveWidget.deviceType(context) !=
+                      width: (ResponsiveWidget.deviceType(context) !=
                               DeviceScreensType.Mobile)
                           ? number250
                           : number200,

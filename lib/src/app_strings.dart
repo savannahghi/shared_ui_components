@@ -1,6 +1,6 @@
-// ASSETS PATHS
 import 'package:flutter/material.dart';
 
+// ASSETS PATHS
 const String closeIconUrl = 'packages/shared_ui_components/assets/close.png';
 const String errorIconUrl = 'packages/shared_ui_components/assets/error.svg';
 const String infoIconUrl = 'packages/shared_ui_components/assets/info.svg';
@@ -12,6 +12,6 @@ const String verifyOTPState = 'verifyOTPState';
 const String wrongPINText =
     'You entered an incorrect code, kindly check your code or resend a new one';
 
-// KEY STRINGS
+// KEYS
 const Key infoBottomSheetKey = Key('info-bottomsheet');
 const Key closeBottomSheetKey = Key('close_bottom-sheet');

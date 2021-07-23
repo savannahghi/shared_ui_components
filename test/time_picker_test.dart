@@ -27,6 +27,7 @@ void main() {
 
     await tester.tap(find.text(''));
   });
+
   group('SILTimePicker', () {
     final TextEditingController controller = TextEditingController();
 
@@ -34,20 +35,22 @@ void main() {
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
       final String currentHour = TimeOfDay.now().hourOfPeriod.toString();
 
-      await tester.pumpWidget(MaterialApp(
-        home: Builder(builder: (BuildContext context) {
-          return Material(
-              child: SILTimePicker(
-                  labelText: 'time',
-                  controller: controller,
-                  onChanged: (String? _) {
-                    return controller.text;
-                  },
-                  onSaved: (String? _) {
-                    return controller.text;
-                  }));
-        }),
-      ));
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(builder: (BuildContext context) {
+            return Material(
+                child: SILTimePicker(
+                    labelText: 'time',
+                    controller: controller,
+                    onChanged: (String? _) {
+                      return controller.text;
+                    },
+                    onSaved: (String? _) {
+                      return controller.text;
+                    }));
+          }),
+        ),
+      );
 
       expect(find.byType(TextFormField), findsOneWidget);
       expect(find.text('time'), findsOneWidget);

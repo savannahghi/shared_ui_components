@@ -55,13 +55,13 @@ class SILComingSoonPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: (isTabletWithDrawer!)
                   ? number20
-                  : SILResponsiveWidget.preferredPaddingOnStretchedScreens(
+                  : ResponsiveWidget.preferredPaddingOnStretchedScreens(
                       context: context)),
           child: ListView(
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             children: <Widget>[
-              if (!SILResponsiveWidget.isSmallScreenAndOnLandscape(
+              if (!ResponsiveWidget.isSmallScreenAndOnLandscape(
                   context: context))
                 if (svgPath != null)
                   Padding(
@@ -71,11 +71,11 @@ class SILComingSoonPage extends StatelessWidget {
                       height: 200,
                     ),
                   ),
-              if (!SILResponsiveWidget.isSmallScreenAndOnLandscape(
+              if (!ResponsiveWidget.isSmallScreenAndOnLandscape(
                   context: context))
                 if (imagePath != null)
                   Padding(
-                    padding: SILResponsiveWidget.isLargeScreen(context)
+                    padding: ResponsiveWidget.isLargeScreen(context)
                         ? const EdgeInsets.all(20.0)
                         : const EdgeInsets.all(10.0),
                     child: Image(
@@ -85,7 +85,7 @@ class SILComingSoonPage extends StatelessWidget {
               size15VerticalSizedBox,
               Column(
                 children: <Widget>[
-                  if (!SILResponsiveWidget.isSmallScreenAndOnLandscape(
+                  if (!ResponsiveWidget.isSmallScreenAndOnLandscape(
                       context: context))
                     Text(
                       title,

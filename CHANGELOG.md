@@ -1,3 +1,6 @@
+### 0.1.31-nullsafety
+
+- doc: project documentation fixes
 ### 0.1.30-nullsafety
 
 - fix: auto fill sms code
