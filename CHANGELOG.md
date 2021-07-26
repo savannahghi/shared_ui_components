@@ -1,3 +1,6 @@
+### 0.1.32-nullsafety
+
+- chore: update lib
 ### 0.1.31-nullsafety
 
 - doc: project documentation fixes
