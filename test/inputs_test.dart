@@ -729,12 +729,12 @@ void main() {
         }),
       ));
 
-      await tester.pumpAndSettle();
+      await tester.pump();
       expect(find.byType(SILPinCodeTextField), findsOneWidget);
 
       await tester.showKeyboard(find.byType(SILPinCodeTextField));
       await tester.enterText(find.byType(SILPinCodeTextField), '1234');
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       final Finder pinCodeTextField = find.byType(PinCodeTextField);
       expect(pinCodeTextField, findsOneWidget);
