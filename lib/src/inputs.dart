@@ -868,35 +868,33 @@ class SILPinCodeTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PinCodeTextField(
-      controller: controller,
-      autofocus: autoFocus!,
-      hideCharacter: true,
-      highlight: true,
-      focusNode: focusNode,
-      highlightColor: Colors.blue,
-      defaultBorderColor: Theme.of(context).primaryColor,
-      hasTextBorderColor: Theme.of(context).accentColor,
-      maxLength: maxLength ?? 4,
-      maskCharacter: '⚫',
-      pinBoxWidth: pinBoxWidth!,
-      pinBoxHeight: pinBoxHeight!,
-      wrapAlignment: wrapAlignment!,
-      pinBoxDecoration: customRoundedPinBoxDecoration,
-      pinTextStyle: const TextStyle(fontSize: 10.0),
-      pinTextAnimatedSwitcherTransition:
-          ProvidedPinBoxTextAnimation.scalingTransition,
-      pinBoxColor: Theme.of(context).backgroundColor,
-      pinTextAnimatedSwitcherDuration: const Duration(milliseconds: 300),
-      //highlightAnimation: true,
-      highlightAnimationBeginColor: Colors.black,
-      highlightAnimationEndColor: Colors.white12,
-      keyboardType: keyboardType,
-      onDone: (String val) {
-        onDone(val);
-      },
-      onTextChanged: (String val) {
-        onTextChanged!(val);
-      },
-    );
+        controller: controller,
+        autofocus: autoFocus!,
+        hideCharacter: true,
+        highlight: true,
+        focusNode: focusNode,
+        highlightColor: Colors.blue,
+        defaultBorderColor: Theme.of(context).primaryColor,
+        hasTextBorderColor: Theme.of(context).accentColor,
+        maxLength: maxLength ?? 4,
+        maskCharacter: '⚫',
+        pinBoxWidth: pinBoxWidth!,
+        pinBoxHeight: pinBoxHeight!,
+        wrapAlignment: wrapAlignment!,
+        pinBoxDecoration: customRoundedPinBoxDecoration,
+        pinTextStyle: const TextStyle(fontSize: 10.0),
+        pinTextAnimatedSwitcherTransition:
+            ProvidedPinBoxTextAnimation.scalingTransition,
+        pinBoxColor: Theme.of(context).backgroundColor,
+        pinTextAnimatedSwitcherDuration: const Duration(milliseconds: 300),
+        //highlightAnimation: true,
+        highlightAnimationBeginColor: Colors.black,
+        highlightAnimationEndColor: Colors.white12,
+        keyboardType: keyboardType,
+        onDone: (String val) {
+          onDone(val);
+        },
+        onTextChanged: (String val) =>
+            (onTextChanged == null) ? <dynamic>{} : onTextChanged!(val));
   }
 }

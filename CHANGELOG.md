@@ -1,3 +1,6 @@
+### 0.1.33-nullsafety
+
+- chore: add null check to on PinCodeTextField
 ### 0.1.32-nullsafety
 
 - chore: update lib
