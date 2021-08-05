@@ -159,9 +159,11 @@ class VerifyPhoneOtpState extends State<VerifyPhoneOtp>
               if (v.length == 6) {
                 if (v == otp) {
                   toggleLoading();
-                  widget.successCallBack(
-                      otp: otp, toggleLoading: toggleLoading);
-                  toggleLoading();
+                  Future<void>.delayed(const Duration(seconds: 3), () {
+                    widget.successCallBack(
+                        otp: otp, toggleLoading: toggleLoading);
+                    toggleLoading();
+                  });
                   return;
                 }
               }
