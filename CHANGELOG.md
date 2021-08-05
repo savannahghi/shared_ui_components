@@ -1,3 +1,6 @@
+### 0.1.34-nullsafety
+
+- feat: add delay to show loading indicator
 ### 0.1.33-nullsafety
 
 - chore: add null check to on PinCodeTextField

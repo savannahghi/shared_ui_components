@@ -19,68 +19,6 @@ void main() {
       return true;
     }
 
-    testWidgets('should render resend otp ', (WidgetTester tester) async {
-      await tester.runAsync(() async {
-        final Widget testWidget = MaterialApp(
-          home: Builder(
-            builder: (BuildContext context) {
-              return Scaffold(
-                body: VerifyPhoneOtp(
-                  appWrapperContext: 'AppContext',
-                  client: MockHttpClient,
-                  generateOtpFunc: () {},
-                  loader: const CircularProgressIndicator(),
-                  otp: '123456',
-                  phoneNo: '0712345678',
-                  retrySendOtpEndpoint: (dynamic val) {
-                    return Uri.parse('http://example.com');
-                  },
-                  successCallBack: testCallback,
-                ),
-              );
-            },
-          ),
-        );
-        await tester.pumpWidget(testWidget);
-
-        await tester.pump();
-        expect(find.byType(SILPinCodeTextField), findsOneWidget);
-        await tester.tap(find.byType(SILPinCodeTextField));
-        await tester.enterText(find.byType(SILPinCodeTextField), '123456');
-        await tester.pumpAndSettle();
-
-        expect(find.byKey(resendOtp), findsOneWidget);
-        await tester.tap(find.byKey(resendOtp));
-        await tester.pumpAndSettle();
-
-        expect(find.text('Resend code'), findsOneWidget);
-        expect(find.byKey(cancelResendOtp), findsOneWidget);
-        expect(find.byType(SILResendPhoneCode), findsOneWidget);
-        expect(find.byKey(resendViaText), findsOneWidget);
-
-        await tester.tap(find.byKey(resendViaText));
-        await tester.pumpAndSettle();
-
-        // get the state
-        final State<StatefulWidget> testState = tester.allStates.singleWhere(
-            (State<StatefulWidget> element) =>
-                element.toString() == verifyOTPState);
-
-        // check if it is null
-        expect(testState, isNotNull);
-
-        // call the method
-        final VerifyPhoneOtpState verifyPhoneOtpState =
-            testState as VerifyPhoneOtpState;
-        verifyPhoneOtpState.codeUpdated();
-
-        // assert that is was called
-        expect(() => verifyPhoneOtpState.codeUpdated(), returnsNormally);
-
-        // expect(find.text('$codeSent 0712345678'), findsOneWidget);
-      });
-    });
-
     testWidgets('should render VerifyPhoneOtp when otp is correct ',
         (WidgetTester tester) async {
       final Widget testWidget = MaterialApp(
@@ -108,20 +46,6 @@ void main() {
       await tester.enterText(find.byType(SILPinCodeTextField), '123456');
 
       await tester.pumpAndSettle();
-
-      expect(find.byKey(resendOtp), findsOneWidget);
-      await tester.tap(find.byKey(resendOtp));
-      await tester.pumpAndSettle();
-
-      expect(find.byKey(cancelResendOtp), findsOneWidget);
-      await tester.tap(find.byKey(cancelResendOtp));
-
-      await tester.pumpAndSettle();
-
-      expect(find.byType(TextButton), findsOneWidget);
-      await tester.tap(find.byType(TextButton));
-      await tester.pumpAndSettle();
-      expect(find.byType(TextButton), findsOneWidget);
     });
 
     testWidgets('should render VerifyPhoneOtp when otp is wrong ',
@@ -150,7 +74,8 @@ void main() {
       await tester.tap(find.byType(SILPinCodeTextField));
 
       await tester.enterText(find.byType(SILPinCodeTextField), '123457');
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 10));
       expect(find.byKey(infoBottomSheetKey), findsOneWidget);
       expect(find.byType(Image), findsOneWidget);
 
@@ -328,7 +253,6 @@ void main() {
 
         expect(find.byType(SILPinCodeTextField), findsOneWidget);
         await tester.tap(find.byType(SILPinCodeTextField));
-        await tester.enterText(find.byType(SILPinCodeTextField), '123456');
 
         await tester.pumpAndSettle();
 
@@ -346,6 +270,67 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.byKey(cancelResendOtp), findsNothing);
+      });
+    });
+
+    testWidgets('should render resend otp ', (WidgetTester tester) async {
+      await tester.runAsync(() async {
+        final Widget testWidget = MaterialApp(
+          home: Builder(
+            builder: (BuildContext context) {
+              return Scaffold(
+                body: VerifyPhoneOtp(
+                  appWrapperContext: 'AppContext',
+                  client: MockHttpClient,
+                  generateOtpFunc: () {},
+                  loader: const CircularProgressIndicator(),
+                  otp: '123456',
+                  phoneNo: '0712345678',
+                  retrySendOtpEndpoint: (dynamic val) {
+                    return Uri.parse('http://example.com');
+                  },
+                  successCallBack: testCallback,
+                ),
+              );
+            },
+          ),
+        );
+        await tester.pumpWidget(testWidget);
+
+        await tester.pumpAndSettle();
+        expect(find.byType(SILPinCodeTextField), findsOneWidget);
+        await tester.tap(find.byType(SILPinCodeTextField));
+        await tester.pumpAndSettle();
+
+        expect(find.byKey(resendOtp), findsOneWidget);
+        await tester.tap(find.byKey(resendOtp));
+        await tester.pumpAndSettle();
+
+        expect(find.text('Resend code'), findsOneWidget);
+        expect(find.byKey(cancelResendOtp), findsOneWidget);
+        expect(find.byType(SILResendPhoneCode), findsOneWidget);
+        expect(find.byKey(resendViaText), findsOneWidget);
+
+        await tester.tap(find.byKey(resendViaText));
+        await tester.pumpAndSettle();
+
+        // get the state
+        final State<StatefulWidget> testState = tester.allStates.singleWhere(
+            (State<StatefulWidget> element) =>
+                element.toString() == verifyOTPState);
+
+        // check if it is null
+        expect(testState, isNotNull);
+
+        // call the method
+        final VerifyPhoneOtpState verifyPhoneOtpState =
+            testState as VerifyPhoneOtpState;
+        verifyPhoneOtpState.codeUpdated();
+
+        // assert that is was called
+        expect(() => verifyPhoneOtpState.codeUpdated(), returnsNormally);
+
+        // expect(find.text('$codeSent 0712345678'), findsOneWidget);
       });
     });
   });
