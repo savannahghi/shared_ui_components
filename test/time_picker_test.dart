@@ -31,48 +31,6 @@ void main() {
   group('SILTimePicker', () {
     final TextEditingController controller = TextEditingController();
 
-    testWidgets('should render ios time picker', (WidgetTester tester) async {
-      debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
-      final String currentHour = TimeOfDay.now().hourOfPeriod.toString();
-
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Builder(builder: (BuildContext context) {
-            return Material(
-                child: SILTimePicker(
-                    labelText: 'time',
-                    controller: controller,
-                    onChanged: (String? _) {
-                      return controller.text;
-                    },
-                    onSaved: (String? _) {
-                      return controller.text;
-                    }));
-          }),
-        ),
-      );
-
-      expect(find.byType(TextFormField), findsOneWidget);
-      expect(find.text('time'), findsOneWidget);
-      await tester.tap(find.text('time'));
-      await tester.pumpAndSettle();
-
-      expect(find.byType(Container), findsWidgets);
-      expect(find.byType(CupertinoDatePicker), findsOneWidget);
-
-      await tester.drag(
-        find.text(currentHour),
-        const Offset(0.0, 70.0),
-      );
-
-      expect(find.text(currentHour), findsWidgets);
-
-      await tester.tap(find.text(currentHour));
-      await tester.pumpAndSettle();
-
-      debugDefaultTargetPlatformOverride = null;
-    });
-
     testWidgets('should render ios time picker change',
         (WidgetTester tester) async {
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
@@ -200,6 +158,49 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text(currentHour), findsNothing);
+    });
+
+    testWidgets('should render ios time picker', (WidgetTester tester) async {
+      debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+      final TextEditingController controller = TextEditingController();
+      final String currentHour = TimeOfDay.now().hourOfPeriod.toString();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(builder: (BuildContext context) {
+            return Material(
+                child: SILTimePicker(
+                    labelText: 'time',
+                    controller: controller,
+                    onChanged: (String? _) {
+                      return controller.text;
+                    },
+                    onSaved: (String? _) {
+                      return controller.text;
+                    }));
+          }),
+        ),
+      );
+
+      expect(find.byType(TextFormField), findsOneWidget);
+      expect(find.text('time'), findsOneWidget);
+      await tester.tap(find.text('time'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(Container), findsWidgets);
+      expect(find.byType(CupertinoDatePicker), findsOneWidget);
+
+      await tester.drag(
+        find.text(currentHour),
+        const Offset(0.0, 90.0),
+      );
+
+      expect(find.text(currentHour), findsWidgets);
+
+      await tester.tap(find.text(currentHour));
+      await tester.pumpAndSettle();
+
+      debugDefaultTargetPlatformOverride = null;
     });
   });
 }
