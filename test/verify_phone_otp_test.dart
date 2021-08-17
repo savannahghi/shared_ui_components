@@ -19,6 +19,44 @@ void main() {
       return true;
     }
 
+    testWidgets(
+        'should render resend otp and call contact verification endpoint',
+        (WidgetTester tester) async {
+      await tester.runAsync(() async {
+        final Widget testWidget = MaterialApp(
+          home: Builder(
+            builder: (BuildContext context) {
+              return Scaffold(
+                body: VerifyPhoneOtp(
+                  appWrapperContext: 'AppContext',
+                  client: MockHttpClient,
+                  generateOtpFunc: () {},
+                  loader: const CircularProgressIndicator(),
+                  otp: '123456',
+                  phoneNo: '0712345678',
+                  retrySendOtpEndpoint: (dynamic val) {
+                    return Uri.parse('http://example.com');
+                  },
+                  successCallBack: testCallback,
+                  retryContactVerificationOTP: () {},
+                ),
+              );
+            },
+          ),
+        );
+        await tester.pumpWidget(testWidget);
+
+        await tester.pumpAndSettle();
+        expect(find.byType(SILPinCodeTextField), findsOneWidget);
+        await tester.tap(find.byType(SILPinCodeTextField));
+        await tester.pumpAndSettle();
+
+        expect(find.byKey(resendOtp), findsOneWidget);
+        await tester.tap(find.byKey(resendOtp));
+        await tester.pumpAndSettle();
+      });
+    });
+
     testWidgets('should render VerifyPhoneOtp when otp is correct ',
         (WidgetTester tester) async {
       final Widget testWidget = MaterialApp(
@@ -105,6 +143,7 @@ void main() {
             retrySendOtpEndpoint: () {},
             successCallBack: testCallback,
             generateOtpFunc: testFunc,
+            changeNumberCallback: testFunc,
           ),
         ),
       ));
@@ -185,36 +224,6 @@ void main() {
       await tester.tap(find.byType(TextButton));
       await tester.pumpAndSettle();
       expect(find.byType(ScaffoldMessenger), findsOneWidget);
-    });
-
-    testWidgets(
-        'should navigate when change number button is pressed and custom callback is null',
-        (WidgetTester tester) async {
-      final Widget testWidget = MaterialApp(
-        home: Builder(
-          builder: (BuildContext context) {
-            return Scaffold(
-              body: VerifyPhoneOtp(
-                appWrapperContext: 'AppContext',
-                client: MockHttpClient,
-                generateOtpFunc: () {},
-                loader: const CircularProgressIndicator(),
-                otp: '123456',
-                phoneNo: '0712345678',
-                retrySendOtpEndpoint: () {},
-                successCallBack: testCallback,
-              ),
-            );
-          },
-        ),
-      );
-      verifyPhoneBehaviorSubject.loading.add(false);
-
-      await tester.pumpWidget(testWidget);
-      expect(find.byType(TextButton), findsOneWidget);
-      await tester.tap(find.byType(TextButton));
-      await tester.pumpAndSettle();
-      expect(find.byType(TextButton), findsNothing);
     });
 
     testWidgets('should resend OTP successfully', (WidgetTester tester) async {

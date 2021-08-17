@@ -1,3 +1,6 @@
+### 0.1.35-nullsafety
+
+- feat: make change number optional
 ### 0.1.34-nullsafety
 
 - feat: add delay to show loading indicator

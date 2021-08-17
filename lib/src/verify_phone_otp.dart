@@ -28,6 +28,7 @@ class VerifyPhoneOtp extends StatefulWidget {
     required this.appWrapperContext,
     this.changeNumberCallback,
     this.httpClient,
+    this.retryContactVerificationOTP,
   }) : super(key: key);
 
   final dynamic appWrapperContext;
@@ -43,6 +44,8 @@ class VerifyPhoneOtp extends StatefulWidget {
 
   final Function? changeNumberCallback;
   final Function successCallBack;
+
+  final Function? retryContactVerificationOTP;
 
   @override
   VerifyPhoneOtpState createState() => VerifyPhoneOtpState();
@@ -114,7 +117,7 @@ class VerifyPhoneOtpState extends State<VerifyPhoneOtp>
   }
 
   void restartTimer() {
-    // explicitly set it to 90 to allow the user to cancel the bottomsheet then enter th otp
+    // explicitly set it to 90 to allow the user to cancel the bottomsheet then enter the otp
     resendTimeout = 90;
     _controller.value = 0;
     _controller.forward();
@@ -184,6 +187,11 @@ class VerifyPhoneOtpState extends State<VerifyPhoneOtp>
               buttonKey: resendOtp,
               textColor: Theme.of(context).primaryColor,
               onPressed: () async {
+                if (widget.retryContactVerificationOTP != null) {
+                  restartTimer();
+                  widget.retryContactVerificationOTP!();
+                  return;
+                }
                 final String res = await showResendBottomSheet(
                   context: context,
                   phoneNo: widget.phoneNo,
@@ -202,19 +210,16 @@ class VerifyPhoneOtpState extends State<VerifyPhoneOtp>
               text: sendCodeAgain,
             ),
           size15VerticalSizedBox,
-          TextButton(
-            onPressed: () {
-              if (widget.changeNumberCallback != null) {
+          if (widget.changeNumberCallback != null)
+            TextButton(
+              onPressed: () {
                 widget.changeNumberCallback!();
-              } else {
-                Navigator.pop(context);
-              }
-            },
-            child: Text(
-              changeNo,
-              style: TextThemes.normalSize16Text(Colors.blue),
+              },
+              child: Text(
+                changeNo,
+                style: TextThemes.normalSize16Text(Colors.blue),
+              ),
             ),
-          ),
         ],
         largeVerticalSizedBox
       ],
