@@ -38,7 +38,7 @@ void main() {
                     return Uri.parse('http://example.com');
                   },
                   successCallBack: testCallback,
-                  retryContactVerificationOTP: () {},
+                  retryOTPCallback: () {},
                 ),
               );
             },
@@ -72,6 +72,7 @@ void main() {
                 phoneNo: '0712345678',
                 retrySendOtpEndpoint: () {},
                 successCallBack: testCallback,
+                onDoneOTPCallback: testCallback,
               ),
             );
           },
