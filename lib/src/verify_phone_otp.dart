@@ -28,7 +28,8 @@ class VerifyPhoneOtp extends StatefulWidget {
     required this.appWrapperContext,
     this.changeNumberCallback,
     this.httpClient,
-    this.retryContactVerificationOTP,
+    this.retryOTPCallback,
+    this.onDoneOTPCallback,
   }) : super(key: key);
 
   final dynamic appWrapperContext;
@@ -45,7 +46,9 @@ class VerifyPhoneOtp extends StatefulWidget {
   final Function? changeNumberCallback;
   final Function successCallBack;
 
-  final Function? retryContactVerificationOTP;
+  // used to send OTP for contacts that are not verified on EDI
+  final Function? retryOTPCallback;
+  final Function? onDoneOTPCallback;
 
   @override
   VerifyPhoneOtpState createState() => VerifyPhoneOtpState();
@@ -101,7 +104,7 @@ class VerifyPhoneOtpState extends State<VerifyPhoneOtp>
     // listen for otp code sent via sms
     listenForCode();
     _controller =
-        AnimationController(duration: const Duration(seconds: 30), vsync: this);
+        AnimationController(duration: const Duration(seconds: 60), vsync: this);
     animation = Tween<double>(begin: resendTimeout.toDouble(), end: 0)
         .animate(_controller)
           ..addListener(() {
@@ -144,6 +147,12 @@ class VerifyPhoneOtpState extends State<VerifyPhoneOtp>
             pinBoxHeight: 48,
             wrapAlignment: WrapAlignment.spaceAround,
             onDone: (String v) async {
+              if (widget.onDoneOTPCallback != null) {
+                toggleLoading();
+                widget.onDoneOTPCallback!(otp: v, toggleLoading: toggleLoading);
+                toggleLoading();
+                return;
+              }
               if (v == otp) {
                 toggleLoading();
                 widget.successCallBack(otp: otp, toggleLoading: toggleLoading);
@@ -187,9 +196,9 @@ class VerifyPhoneOtpState extends State<VerifyPhoneOtp>
               buttonKey: resendOtp,
               textColor: Theme.of(context).primaryColor,
               onPressed: () async {
-                if (widget.retryContactVerificationOTP != null) {
+                if (widget.retryOTPCallback != null) {
                   restartTimer();
-                  widget.retryContactVerificationOTP!();
+                  widget.retryOTPCallback!();
                   return;
                 }
                 final String res = await showResendBottomSheet(

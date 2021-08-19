@@ -1,3 +1,7 @@
+### 0.1.36-nullsafety
+
+- feat: add function to verify otp widget
+
 ### 0.1.35-nullsafety
 
 - feat: make change number optional
