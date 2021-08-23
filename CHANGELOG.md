@@ -1,3 +1,6 @@
+### 0.1.37-nullsafety
+
+- feat: make success callback nullable
 ### 0.1.36-nullsafety
 
 - feat: add function to verify otp widget

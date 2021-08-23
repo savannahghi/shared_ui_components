@@ -20,12 +20,12 @@ class VerifyPhoneOtp extends StatefulWidget {
     Key? key,
     required this.phoneNo,
     required this.otp,
-    required this.successCallBack,
     required this.loader,
     required this.generateOtpFunc,
     required this.client,
     required this.retrySendOtpEndpoint,
     required this.appWrapperContext,
+    this.successCallBack,
     this.changeNumberCallback,
     this.httpClient,
     this.retryOTPCallback,
@@ -44,7 +44,7 @@ class VerifyPhoneOtp extends StatefulWidget {
   final Function retrySendOtpEndpoint;
 
   final Function? changeNumberCallback;
-  final Function successCallBack;
+  final Function? successCallBack;
 
   // used to send OTP for contacts that are not verified on EDI
   final Function? retryOTPCallback;
@@ -155,7 +155,7 @@ class VerifyPhoneOtpState extends State<VerifyPhoneOtp>
               }
               if (v == otp) {
                 toggleLoading();
-                widget.successCallBack(otp: otp, toggleLoading: toggleLoading);
+                widget.successCallBack!(otp: otp, toggleLoading: toggleLoading);
                 toggleLoading();
                 return;
               }
@@ -172,7 +172,7 @@ class VerifyPhoneOtpState extends State<VerifyPhoneOtp>
                 if (v == otp) {
                   toggleLoading();
                   Future<void>.delayed(const Duration(seconds: 3), () {
-                    widget.successCallBack(
+                    widget.successCallBack!(
                         otp: otp, toggleLoading: toggleLoading);
                     toggleLoading();
                   });
