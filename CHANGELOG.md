@@ -1,4 +1,7 @@
-### 0.1.37-nullsafety
+### 0.1.38-nullsafety
+
+- chore: update misc_utilies dependencies 
+- ### 0.1.37-nullsafety
 
 - feat: make success callback nullable
 ### 0.1.36-nullsafety
