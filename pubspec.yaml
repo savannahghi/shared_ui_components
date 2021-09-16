@@ -7,8 +7,8 @@ issue_tracker: https://github.com/savannahghi/shared_ui_components/issues
 documentation: https://github.com/savannahghi/shared_ui_components/blob/main/doc/readme.md
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.0.0"
+  sdk: '>=2.12.0 <3.0.0'
+  flutter: '>=2.0.0'
 
 dependencies:
   flutter:
@@ -18,7 +18,7 @@ dependencies:
   http: ^0.13.3
   intl: ^0.17.0
   material_design_icons_flutter: ^5.0.5955-rc.1
-  misc_utilities: ^0.1.25-nullsafety # internal (formerly sil_misc)
+  misc_utilities: ^0.1.28-nullsafety
   pin_code_text_field: ^1.8.0
   rxdart: ^0.27.1
   shared_themes: ^0.1.0 # internal (formerly sil_themes)
