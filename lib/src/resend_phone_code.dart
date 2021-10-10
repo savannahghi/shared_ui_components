@@ -116,7 +116,6 @@ class _SILResendPhoneCodeState extends State<SILResendPhoneCode>
   @override
   Widget build(BuildContext context) {
     return AnimatedSize(
-      vsync: this,
       duration: const Duration(milliseconds: 200),
       child: Container(
         constraints: const BoxConstraints(maxWidth: 500),

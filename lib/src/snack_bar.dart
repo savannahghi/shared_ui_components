@@ -51,6 +51,7 @@ class SILSnackBar extends StatefulWidget implements SnackBar {
     this.title,
     required this.type,
     this.duration = snackBarDisplayDuration,
+    this.dismissDirection = DismissDirection.down,
     this.animation,
     this.onVisible,
   })  : assert(elevation == null || elevation >= 0.0),
@@ -180,6 +181,9 @@ class SILSnackBar extends StatefulWidget implements SnackBar {
   /// Called the first time that the snackbar is visible within a [Scaffold].
   @override
   final VoidCallback? onVisible;
+
+  @override
+  final DismissDirection dismissDirection;
 
   // API for Scaffold.showSnackBar():
 

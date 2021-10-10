@@ -45,3 +45,5 @@ flutter:
     - packages/shared_ui_components/assets/error.svg
     - packages/shared_ui_components/assets/info.svg
     - packages/shared_ui_components/assets/success.svg
+    - packages/shared_ui_components/assets/mpesa.png
+    - packages/shared_ui_components/assets/bank.png

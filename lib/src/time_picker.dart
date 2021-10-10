@@ -35,7 +35,6 @@ import 'package:shared_ui_components/src/type_defs.dart';
 ///
 /// - The selected date is an instance of TimeOfDay. For example [TimeOfDay(20:22]
 ///   is formatted to become [8:22 PM]
-// ignore: non_constant_identifier_names
 
 class SILTimePicker extends StatelessWidget {
   final TextEditingController controller;
