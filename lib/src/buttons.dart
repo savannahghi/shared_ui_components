@@ -42,10 +42,12 @@ class SILPrimaryButton extends StatelessWidget {
         onLongPress!();
       },
       padding: customPadding ?? const EdgeInsets.all(10),
+      // ignore: deprecated_member_use
       fillColor: buttonColor ?? Theme.of(context).accentColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(customRadius ?? 25.0),
         side: BorderSide(
+            // ignore: deprecated_member_use
             color: borderColor ?? Theme.of(context).accentColor,
             width: borderColor != null ? 1 : 0),
       ),
@@ -156,6 +158,7 @@ class SILIconButton extends StatelessWidget {
       },
       shape: const CircleBorder(),
       elevation: 0,
+      // ignore: deprecated_member_use
       fillColor: Theme.of(context).accentColor,
       child: SizedBox(
         height: 25,

@@ -46,5 +46,6 @@ class MockHttpClient implements Client {
 
   @override
   Future<StreamedResponse> send(BaseRequest request) =>
+      // ignore: null_argument_to_non_null_type
       Future<StreamedResponse>.value();
 }
