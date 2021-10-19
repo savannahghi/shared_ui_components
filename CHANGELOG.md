@@ -1,3 +1,6 @@
+### 0.1.39-nullsafety
+
+- chore: upgrade sms_autofill package 
 ### 0.1.38-nullsafety
 
 - chore: update misc_utilies dependencies 
