@@ -448,6 +448,7 @@ class SILDatePickerField extends StatelessWidget {
     this.allowCurrentYear = false,
     this.allowFutureYears = false,
     this.allowEligibleDate = false,
+    this.customEligibleYear,
   });
 
   final bool allowCurrentYear;
@@ -465,6 +466,7 @@ class SILDatePickerField extends StatelessWidget {
   final Icon? suffixIcon;
   final Key? textFieldDateKey;
   final FormFieldValidator<String>? validator;
+  final DateTime? customEligibleYear;
 
   DateTime getLastDate() {
     if (allowCurrentYear && !allowFutureYears) {
@@ -474,7 +476,7 @@ class SILDatePickerField extends StatelessWidget {
       return DateTime(eligibleFutureYear);
     }
     if (allowEligibleDate) {
-      return eligibleYear;
+      return customEligibleYear ?? eligibleYear;
     }
     return DateTime(eligibleFutureYear);
   }

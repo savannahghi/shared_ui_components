@@ -1,6 +1,10 @@
+### 0.1.39-nullsafety
+
+- feat: modify date picker to accept custom eligible year
+
 ### 0.1.38-nullsafety
 
-- chore: update misc_utilies dependencies 
+- chore: update misc_utilities dependencies
 - ### 0.1.37-nullsafety
 
 - feat: make success callback nullable
