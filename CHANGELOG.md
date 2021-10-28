@@ -1,3 +1,7 @@
+### 0.1.40-nullsafety
+
+- chore: change date picker format
+
 ### 0.1.39-nullsafety
 
 - feat: modify date picker to accept custom eligible year
