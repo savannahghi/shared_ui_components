@@ -1,3 +1,7 @@
+### 0.1.41-nullsafety
+
+- chore: add nigeria flag asset
+
 ### 0.1.40-nullsafety
 
 - chore: change date picker format
