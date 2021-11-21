@@ -1,3 +1,7 @@
+### 0.1.42-nullsafety
+
+- fix: nigerian flag asset
+
 ### 0.1.41-nullsafety
 
 - chore: add nigeria flag asset

@@ -1,6 +1,6 @@
 name: shared_ui_components
 description: A shared library for `BeWell-Consumer` and `BeWell-Professional` that is responsible for rendering and exposing dumb widgets and ui components
-version: 0.1.41-nullsafety
+version: 0.1.42-nullsafety
 homepage: https://github.com/savannahghi/shared_ui_components
 repository: https://github.com/savannahghi/shared_ui_components
 issue_tracker: https://github.com/savannahghi/shared_ui_components/issues
@@ -41,6 +41,7 @@ flutter:
     - packages/shared_ui_components/assets/us.png
     - packages/shared_ui_components/assets/uk.png
     - packages/shared_ui_components/assets/bel.png
+    - packages/shared_ui_components/assets/ng.png
     - packages/shared_ui_components/assets/close.png
     - packages/shared_ui_components/assets/error.svg
     - packages/shared_ui_components/assets/info.svg
