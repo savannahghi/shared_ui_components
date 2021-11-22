@@ -1,6 +1,6 @@
 name: shared_ui_components
 description: A shared library for `BeWell-Consumer` and `BeWell-Professional` that is responsible for rendering and exposing dumb widgets and ui components
-version: 0.1.42-nullsafety
+version: 0.1.43-nullsafety
 homepage: https://github.com/savannahghi/shared_ui_components
 repository: https://github.com/savannahghi/shared_ui_components
 issue_tracker: https://github.com/savannahghi/shared_ui_components/issues
@@ -33,15 +33,15 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - packages/shared_ui_components/assets/ke.png
+    - packages/shared_ui_components/assets/ken.png
     - packages/shared_ui_components/assets/try_features.jpg
     - packages/shared_ui_components/assets/test-development.png
-    - packages/shared_ui_components/assets/tz.png
-    - packages/shared_ui_components/assets/ug.png
-    - packages/shared_ui_components/assets/us.png
-    - packages/shared_ui_components/assets/uk.png
+    - packages/shared_ui_components/assets/tza.png
+    - packages/shared_ui_components/assets/uga.png
+    - packages/shared_ui_components/assets/usa.png
+    - packages/shared_ui_components/assets/gbr.png
     - packages/shared_ui_components/assets/bel.png
-    - packages/shared_ui_components/assets/ng.png
+    - packages/shared_ui_components/assets/nga.png
     - packages/shared_ui_components/assets/close.png
     - packages/shared_ui_components/assets/error.svg
     - packages/shared_ui_components/assets/info.svg
