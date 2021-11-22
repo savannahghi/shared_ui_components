@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.44-nullsafety
+
+- chore: upgraded package
+
 ## 0.1.43-nullsafety
 
 - chore: change flags
