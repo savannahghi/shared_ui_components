@@ -1,6 +1,6 @@
 name: shared_ui_components
 description: A shared library for `BeWell-Consumer` and `BeWell-Professional` that is responsible for rendering and exposing dumb widgets and ui components
-version: 0.1.45-nullsafety
+version: 0.1.46-nullsafety
 homepage: https://github.com/savannahghi/shared_ui_components
 repository: https://github.com/savannahghi/shared_ui_components
 issue_tracker: https://github.com/savannahghi/shared_ui_components/issues

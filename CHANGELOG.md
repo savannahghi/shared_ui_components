@@ -1,4 +1,8 @@
 # Changelog
+## 0.1.46-nullsafety
+
+- chore: relocate asset
+
 ## 0.1.45-nullsafety
 
 - feat: update bewell logo
