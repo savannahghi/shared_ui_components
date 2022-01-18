@@ -53,8 +53,6 @@ final Map<String, String> requestHeaders = <String, String>{
   'Content-Type': 'application/json',
 };
 
-const String bewellLogoNetworkUrl = 'lib/assets/bewell_logo.png';
-
 enum Country { kenya, uganda, tanzania, us, uk, belgium }
 
 Map<String, Map<String, String>> supportedCountries =
