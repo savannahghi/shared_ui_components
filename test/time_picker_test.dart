@@ -37,7 +37,7 @@ void main() {
     expect(find.byType(CupertinoDatePicker), findsOneWidget);
 
     await tester.drag(
-      find.text(currentHour).last,
+      find.byType(CupertinoDatePicker).first,
       const Offset(0.0, 90.0),
     );
 
@@ -64,9 +64,7 @@ void main() {
         ),
       ),
     ));
-    expect(find.byType(TextFormField), findsOneWidget);
-    expect(find.byType(GestureDetector), findsOneWidget);
-    await tester.tap(find.byType(GestureDetector));
+    await tester.tap(find.byType(GestureDetector).first);
     await tester.pumpAndSettle();
 
     await tester.tap(find.text(''));

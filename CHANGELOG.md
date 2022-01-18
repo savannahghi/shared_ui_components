@@ -1,4 +1,7 @@
 # Changelog
+## 0.1.45-nullsafety
+
+- feat: update bewell logo
 
 ## 0.1.44-nullsafety
 
