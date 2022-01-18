@@ -53,8 +53,7 @@ final Map<String, String> requestHeaders = <String, String>{
   'Content-Type': 'application/json',
 };
 
-const String bewellLogoNetworkUrl =
-    'https://assets.healthcloud.co.ke/bewell_logo.png';
+const String bewellLogoNetworkUrl = 'lib/assets/bewell_logo.png';
 
 enum Country { kenya, uganda, tanzania, us, uk, belgium }
 

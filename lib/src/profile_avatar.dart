@@ -8,11 +8,12 @@ class SILProfileAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return const SizedBox(
       height: 100,
       width: 100,
       child: CircleAvatar(
-          backgroundImage: NetworkImage(photoUrl ?? bewellLogoNetworkUrl)),
+        backgroundImage: AssetImage(bewellLogoNetworkUrl),
+      ),
     );
   }
 }
