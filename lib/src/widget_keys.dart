@@ -28,3 +28,8 @@ const Key resendOtp = Key('resendOtpCode');
 const Key resendViaText = Key('send_via_text_msg');
 const Key errorOccurred = Key('has_error');
 const Key hasErrorResendBtnKey = Key('has_error_resend_btn');
+
+/// marketplace bottom nav bar keys
+const Key nextButtonKey = Key('next_button_key');
+const Key backButtonKey = Key('back_button_key');
+const Key progressIndicatorKey = Key('progress_indicator_key');

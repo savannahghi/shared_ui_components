@@ -22,7 +22,7 @@ dependencies:
    
   pin_code_text_field: ^1.8.0
   rxdart: ^0.27.1
-  shared_themes: ^0.1.0 # internal (formerly sil_themes)
+  shared_themes: ^0.1.1 # internal (formerly sil_themes)
   sms_autofill: ^2.0.0
 
 dev_dependencies:
