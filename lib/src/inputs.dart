@@ -880,7 +880,7 @@ class SILPinCodeTextField extends StatelessWidget {
         focusNode: focusNode,
         highlightColor: Colors.blue,
         defaultBorderColor: Theme.of(context).primaryColor,
-        hasTextBorderColor: Theme.of(context).accentColor,
+        hasTextBorderColor: accentColor,
         maxLength: maxLength ?? 4,
         maskCharacter: '⚫',
         pinBoxWidth: pinBoxWidth!,

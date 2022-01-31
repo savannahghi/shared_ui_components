@@ -114,5 +114,6 @@ enum SnackBarType {
 const Color lightPurpleBackgroundColor = Color(0xffE2E0F6);
 const Color greyTextColor = Color(0xff7D8D9C);
 const Color whiteColor = Color(0xFFFFFFFF);
+const Color accentColor = Color(0xFF739A00);
 const String testDevelopmentIconUrl =
     'packages/shared_ui_components/assets/test-development.png';

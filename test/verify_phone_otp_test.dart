@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+
 import 'package:shared_ui_components/inputs.dart';
 import 'package:shared_ui_components/resend_phone_code.dart';
-import 'package:shared_ui_components/verify_phone_otp.dart';
 import 'package:shared_ui_components/src/app_strings.dart';
 import 'package:shared_ui_components/src/widget_keys.dart';
+import 'package:shared_ui_components/verify_phone_otp.dart';
 
 import 'mocks.dart';
 

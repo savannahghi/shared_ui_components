@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:sms_autofill/sms_autofill.dart';
-
 import 'package:shared_themes/spaces.dart';
 import 'package:shared_themes/text_themes.dart';
 import 'package:shared_ui_components/buttons.dart';
@@ -14,6 +12,7 @@ import 'package:shared_ui_components/src/constants.dart';
 import 'package:shared_ui_components/src/helpers.dart';
 import 'package:shared_ui_components/src/show_info_bottomsheet.dart';
 import 'package:shared_ui_components/src/widget_keys.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 class VerifyPhoneOtp extends StatefulWidget {
   const VerifyPhoneOtp({
@@ -107,14 +106,14 @@ class VerifyPhoneOtpState extends State<VerifyPhoneOtp>
         AnimationController(duration: const Duration(seconds: 60), vsync: this);
     animation = Tween<double>(begin: resendTimeout.toDouble(), end: 0)
         .animate(_controller)
-          ..addListener(() {
-            if (resendTimeout == 0) {
-              canResendOtp.add(true);
-            }
-            setState(() {
-              resendTimeout = int.parse(animation!.value.toStringAsFixed(0));
-            });
-          });
+      ..addListener(() {
+        if (resendTimeout == 0) {
+          canResendOtp.add(true);
+        }
+        setState(() {
+          resendTimeout = int.parse(animation!.value.toStringAsFixed(0));
+        });
+      });
     _controller.forward();
     super.initState();
   }

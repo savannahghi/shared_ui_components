@@ -1,4 +1,4 @@
-[![Release](https://img.shields.io/badge/PreRelease-^0.1.46-red.svg?style=for-the-badge)](https://shields.io/)
+[![Release](https://img.shields.io/badge/PreRelease-^0.1.47-red.svg?style=for-the-badge)](https://shields.io/)
 [![Maintained](https://img.shields.io/badge/Maintained-Actively-informational.svg?style=for-the-badge)](https://shields.io/)
 
 # shared_ui_components
@@ -23,7 +23,7 @@ This will add a line like this to your package's pubspec.yaml (and run an implic
 
 ```dar
 dependencies:
-  shared_ui_components: ^0.1.46-nullsafety
+  shared_ui_components: ^0.1.47-nullsafety
 ```
 
 Alternatively, your editor might support flutter pub get. Check the docs for your editor to learn more.
@@ -42,7 +42,7 @@ Check the [example](https://github.com/savannahghi/misc_utilities/blob/main/exam
 
 ## Dart & Flutter Version
 
-- Dart 2: >= 2.12
+- Dart 2: >= 2.14
 - Flutter: >=2.0.0
 
 ## Developing & Contributing

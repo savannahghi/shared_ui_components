@@ -1,4 +1,9 @@
 # Changelog
+## 0.1.47-nullsafety
+
+- chore: upgrade to flutter 2.5.3
+- chore: update package
+
 ## 0.1.46-nullsafety
 
 - chore: relocate asset

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shared_ui_components/buttons.dart';
 import 'package:shared_themes/spaces.dart';
 import 'package:shared_themes/text_themes.dart';
+import 'package:shared_ui_components/buttons.dart';
 import 'package:shared_ui_components/profile_avator.dart';
 import 'package:shared_ui_components/src/app_strings.dart';
 
