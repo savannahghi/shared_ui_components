@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:shared_themes/colors.dart';
 import 'package:shared_themes/text_themes.dart';
+import 'package:shared_ui_components/src/constants.dart';
 
 typedef OnPressed = Function(String val);
 
@@ -42,11 +44,11 @@ class SILPrimaryButton extends StatelessWidget {
         onLongPress!();
       },
       padding: customPadding ?? const EdgeInsets.all(10),
-      fillColor: buttonColor ?? Theme.of(context).accentColor,
+      fillColor: buttonColor ?? accentColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(customRadius ?? 25.0),
         side: BorderSide(
-            color: borderColor ?? Theme.of(context).accentColor,
+            color: borderColor ?? accentColor,
             width: borderColor != null ? 1 : 0),
       ),
       child: customChild ??
@@ -156,7 +158,7 @@ class SILIconButton extends StatelessWidget {
       },
       shape: const CircleBorder(),
       elevation: 0,
-      fillColor: Theme.of(context).accentColor,
+      fillColor: accentColor,
       child: SizedBox(
         height: 25,
         width: 25,
