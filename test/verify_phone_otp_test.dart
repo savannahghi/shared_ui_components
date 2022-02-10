@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -186,6 +185,7 @@ void main() {
 
       verifyPhoneBehaviorSubject.loading.add(true);
       await tester.pumpWidget(testWidget);
+      await tester.pump();
 
       expect(find.byType(SILPinCodeTextField), findsOneWidget);
       expect(find.byType(CircularProgressIndicator), findsOneWidget);

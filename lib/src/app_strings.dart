@@ -6,6 +6,8 @@ const String errorIconUrl = 'packages/shared_ui_components/assets/error.svg';
 const String infoIconUrl = 'packages/shared_ui_components/assets/info.svg';
 const String successconUrl = 'packages/shared_ui_components/assets/success.svg';
 const String bewellLogoNetworkUrl =
+    'https://assets.healthcloud.co.ke/bewell_logo.png';
+const String bewellLogo =
     'packages/shared_ui_components/assets/bewell_logo.png';
 
 const String verifyOTPState = 'verifyOTPState';

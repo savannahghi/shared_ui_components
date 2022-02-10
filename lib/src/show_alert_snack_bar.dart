@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:shared_themes/constants.dart';
 import 'package:shared_themes/text_themes.dart';
