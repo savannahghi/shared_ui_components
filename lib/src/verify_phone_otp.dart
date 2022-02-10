@@ -181,8 +181,7 @@ class VerifyPhoneOtpState extends State<VerifyPhoneOtp>
             }),
         largeVerticalSizedBox,
         if (isloading == true) ...<Widget>[
-          mediumVerticalSizedBox,
-          widget.loader,
+          Center(child: widget.loader),
         ],
         if (isloading == false) ...<Widget>[
           if (!canResend)

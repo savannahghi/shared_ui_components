@@ -94,6 +94,7 @@ class SILPhoneInput extends FormField<String> {
                 return validPhoneNumberText;
               }
             }
+            return null;
           },
           initialValue: inputController != null
               ? inputController.text
