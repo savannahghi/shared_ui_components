@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.49-nullsafety
+
+- chore: update packages
+
 ## 0.1.48-nullsafety
 
 - chore: upgrade to flutter 2.10.0
