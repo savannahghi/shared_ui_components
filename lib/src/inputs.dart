@@ -116,7 +116,7 @@ class SILPhoneInput extends FormField<String> {
                     children: <Widget>[
                       Container(
                         height: 54,
-                        padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                        padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                         decoration: BoxDecoration(
                           border: Border(
                               right: BorderSide(color: Colors.grey[350]!)),
