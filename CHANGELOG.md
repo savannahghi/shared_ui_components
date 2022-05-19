@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.50-nullsafety
+
+- fix: country picker overflow
+
 ## 0.1.49-nullsafety
 
 - chore: update packages
