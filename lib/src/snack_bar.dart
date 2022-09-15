@@ -223,6 +223,10 @@ class SILSnackBar extends StatefulWidget implements SnackBar {
   State<SILSnackBar> createState() => _SILSnackBarState();
 
   @override
+  // TODO: implement clipBehavior
+  Clip get clipBehavior => throw UnimplementedError();
+
+  @override
   // TODO: implement dismissDirection
   DismissDirection get dismissDirection => throw UnimplementedError();
 }
