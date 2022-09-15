@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0-nullsafety
+
+- chore: upgrade to flutter 3.0.5
+
 ## 0.1.50-nullsafety
 
 - fix: country picker overflow
