@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.2-nullsafety
+
+- chore: upgrade misc_utilities package
+
 ## 0.2.1-nullsafety
 
 - feat: setup automated deployment to pub.dev
