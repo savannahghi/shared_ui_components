@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.3
+
+- chore: update package version tag
+
 ## 0.2.2-nullsafety
 
 - chore: upgrade misc_utilities package
